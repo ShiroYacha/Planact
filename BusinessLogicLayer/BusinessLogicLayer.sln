@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Planact.Data", "..\DataSour
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Planact.Core.Test", "Planact.Core.Test\Planact.Core.Test.csproj", "{2E3DF5C2-8A38-4A03-86D7-8D463C917E47}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{3CFAAD69-11AF-4F30-8534-CE89F2D0438C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{2E3DF5C2-8A38-4A03-86D7-8D463C917E47} = {3CFAAD69-11AF-4F30-8534-CE89F2D0438C}
 	EndGlobalSection
 EndGlobal

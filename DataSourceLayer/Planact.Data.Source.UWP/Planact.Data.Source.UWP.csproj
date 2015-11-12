@@ -107,7 +107,6 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MyContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="Properties\Planact.Data.Source.UWP.rd.xml" />
   </ItemGroup>

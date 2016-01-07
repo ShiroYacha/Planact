@@ -184,6 +184,15 @@
       <Name>BehaviorsXamlSDKManaged</Name>
     </SDKReference>
   </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Planact\Planact.csproj">
+      <Project>{cedf5dc4-b227-403f-9d5c-7cd9b4aae649}</Project>
+      <Name>Planact</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

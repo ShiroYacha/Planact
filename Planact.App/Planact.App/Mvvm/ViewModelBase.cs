@@ -1,11 +1,13 @@
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Planact.App.Mvvm
 {
-    // DOCS: https://github.com/Windows-XAML/Template10/wiki/Docs-%7C-MVVM
-    public abstract class ViewModelBase : Template10.Mvvm.ViewModelBase
+    public abstract class ViewModelBase: GalaSoft.MvvmLight.ViewModelBase
     {
-        // the only thing that matters here is Template10.Services.NavigationService.INavagable
+
     }
 }

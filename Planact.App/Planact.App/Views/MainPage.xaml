@@ -8,11 +8,8 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="using:Planact.App.Views"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      xmlns:vm="using:Planact.App.ViewModels" mc:Ignorable="d">
-
-    <Page.DataContext>
-        <vm:MainPageViewModel />
-    </Page.DataContext>
+      DataContext="{Binding MainPageViewModel, Source={StaticResource Locator}}"
+      mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 

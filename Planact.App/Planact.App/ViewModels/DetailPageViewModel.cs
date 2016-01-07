@@ -9,7 +9,7 @@ using Windows.UI.Xaml.Navigation;
 
 namespace Planact.App.ViewModels
 {
-    public class DetailPageViewModel : Planact.App.Mvvm.ViewModelBase
+    public class DetailPageViewModel : Planact.App.Mvvm.NavigableViewModelBase
     {
         public DetailPageViewModel()
         {

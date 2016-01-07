@@ -3,13 +3,13 @@ using Windows.UI.Xaml;
 
 namespace Planact.App.ViewModels
 {
-    public class SettingsPageViewModel : Planact.App.Mvvm.ViewModelBase
+    public class SettingsPageViewModel : Planact.App.Mvvm.NavigableViewModelBase
     {
         public SettingsPartViewModel SettingsPartViewModel { get; } = new SettingsPartViewModel();
         public AboutPartViewModel AboutPartViewModel { get; } = new AboutPartViewModel();
     }
 
-    public class SettingsPartViewModel : Mvvm.ViewModelBase
+    public class SettingsPartViewModel : Mvvm.NavigableViewModelBase
     {
         Services.SettingsServices.SettingsService _settings;
 
@@ -49,7 +49,7 @@ namespace Planact.App.ViewModels
         }
     }
 
-    public class AboutPartViewModel : Mvvm.ViewModelBase
+    public class AboutPartViewModel : Mvvm.NavigableViewModelBase
     {
         public Uri Logo => Windows.ApplicationModel.Package.Current.Logo;
 

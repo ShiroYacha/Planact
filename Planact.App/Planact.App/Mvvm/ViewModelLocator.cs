@@ -16,6 +16,19 @@ namespace Planact.App.Mvvm
             // setup server locator
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 
+            // register interfaces
+            RegisterServices();
+            RegisterDataServices();
+            RegisterViewModels();
+        }
+
+        static private void RegisterServices()
+        {
+            
+        }
+
+        static private void RegisterDataServices()
+        {
             // set data providers
             if (GalaSoft.MvvmLight.ViewModelBase.IsInDesignModeStatic)
             {
@@ -23,9 +36,13 @@ namespace Planact.App.Mvvm
             }
             else
             {
- 
-            }
 
+            }
+        }
+
+
+        static private void RegisterViewModels()
+        {
             // set view models
             SimpleIoc.Default.Register<MainPageViewModel>();
             SimpleIoc.Default.Register<DetailPageViewModel>();

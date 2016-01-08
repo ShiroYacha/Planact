@@ -44,13 +44,11 @@ namespace Planact.App.Mvvm
         static private void RegisterViewModels()
         {
             // set view models
-            SimpleIoc.Default.Register<DashboardPageViewModel>();
-            SimpleIoc.Default.Register<DetailPageViewModel>();
+            SimpleIoc.Default.Register<HomePageViewModel>();
             SimpleIoc.Default.Register<SettingsPageViewModel>();
         }
 
-        public DashboardPageViewModel DashboardPageViewModel => SimpleIoc.Default.GetInstance<DashboardPageViewModel>();
-        public DetailPageViewModel DetailPageViewModel => SimpleIoc.Default.GetInstance<DetailPageViewModel>();
+        public HomePageViewModel HomePageViewModel => SimpleIoc.Default.GetInstance<HomePageViewModel>();
         public SettingsPageViewModel SettingsPageViewModel => SimpleIoc.Default.GetInstance<SettingsPageViewModel>();
     }
 }

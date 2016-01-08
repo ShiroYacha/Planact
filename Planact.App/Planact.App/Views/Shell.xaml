@@ -14,10 +14,10 @@
             <Controls:HamburgerMenu x:Name="MyHamburgerMenu" IsFullScreen="False">
 
                 <Controls:HamburgerMenu.PrimaryButtons>
-                    <Controls:HamburgerButtonInfo ClearHistory="True" PageType="views:DashboardPage">
+                    <Controls:HamburgerButtonInfo ClearHistory="True" PageType="views:HomePage">
                         <StackPanel Orientation="Horizontal">
-                            <SymbolIcon Width="48" Height="48" Symbol="Home" />
-                            <TextBlock Margin="12,0,0,0" VerticalAlignment="Center" Text="Home" />
+                            <SymbolIcon Width="48" Height="48" Symbol="Home"/>
+                            <TextBlock x:Uid="HomePageTextBlock" Margin="12,0,0,0" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Controls:HamburgerButtonInfo>
                 </Controls:HamburgerMenu.PrimaryButtons>

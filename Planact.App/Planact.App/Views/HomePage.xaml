@@ -1,4 +1,4 @@
-<Page x:Class="Planact.App.Views.DashboardPage"
+<Page x:Class="Planact.App.Views.HomePage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:Behaviors="using:Template10.Behaviors"
@@ -8,7 +8,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="using:Planact.App.Views"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      DataContext="{Binding DashboardPageViewModel, Source={StaticResource Locator}}"
+      DataContext="{Binding HomePageViewModel, Source={StaticResource Locator}}"
       mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -53,7 +53,7 @@
 
         <!--  page header  -->
 
-        <controls:PageHeader BackButtonVisibility="Collapsed" Content="Main Page" Frame="{x:Bind Frame}">
+        <controls:PageHeader x:Uid="HomePageHeader" Content="Home" BackButtonVisibility="Collapsed" Frame="{x:Bind Frame}">
             <Interactivity:Interaction.Behaviors>
                 <Behaviors:EllipsisBehavior Visibility="Auto" />
             </Interactivity:Interaction.Behaviors>

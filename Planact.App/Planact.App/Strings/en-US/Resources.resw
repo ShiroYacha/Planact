@@ -117,10 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="DashboardPivotHeaderText.Text" xml:space="preserve">
+    <value>Dashboard</value>
+  </data>
   <data name="HomePageHeader.Content" xml:space="preserve">
     <value>Home</value>
   </data>
   <data name="HomePageTextBlock.Text" xml:space="preserve">
     <value>Home</value>
+  </data>
+  <data name="ObjectivePivotHeaderText.Text" xml:space="preserve">
+    <value>Objective</value>
+  </data>
+  <data name="TodayPivotHeaderText.Text" xml:space="preserve">
+    <value>Today</value>
   </data>
 </root>

@@ -60,10 +60,36 @@
             <controls:PageHeader.SecondaryCommands>
             </controls:PageHeader.SecondaryCommands>
         </controls:PageHeader>
+        <Pivot Margin="10" Grid.Row="1" d:LayoutOverrides="TopPosition, BottomPosition" SelectedIndex="1">
+            <PivotItem>
+                <PivotItem.Header>
+                    <Border Height="40" Width="90">
+                        <SymbolIcon Symbol="ViewAll" HorizontalAlignment="Center"></SymbolIcon>
+                    </Border>
+                </PivotItem.Header>
+                <Grid/>
+            </PivotItem>
+            <PivotItem>
+                <PivotItem.Header>
+                    <Border Height="40" Width="90">
+                        <SymbolIcon Symbol="OutlineStar" HorizontalAlignment="Center"></SymbolIcon>
+                    </Border>
+                </PivotItem.Header>
+                <Grid/>
+            </PivotItem>
+            <PivotItem>
+                <PivotItem.Header>
+                    <Border Height="40" Width="90">
+                        <SymbolIcon Symbol="Flag"  HorizontalAlignment="Center"></SymbolIcon>
+                    </Border>
+                </PivotItem.Header>
+                <Grid/>
+            </PivotItem>
+        </Pivot>
 
         <!--  page content  -->
 
-        
+
 
     </Grid>
 </Page>

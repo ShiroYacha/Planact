@@ -4,9 +4,9 @@ using Windows.UI.Xaml.Navigation;
 
 namespace Planact.App.ViewModels
 {
-    public class MainPageViewModel : Planact.App.Mvvm.NavigableViewModelBase
+    public class DashboardPageViewModel : Planact.App.Mvvm.NavigableViewModelBase
     {
-        public MainPageViewModel()
+        public DashboardPageViewModel()
         {
         }
 

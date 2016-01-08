@@ -3,15 +3,15 @@ using Windows.UI.Xaml.Controls;
 
 namespace Planact.App.Views
 {
-    public sealed partial class MainPage : Page
+    public sealed partial class DashboardPage : Page
     {
-        public MainPage()
+        public DashboardPage()
         {
             InitializeComponent();
             NavigationCacheMode = Windows.UI.Xaml.Navigation.NavigationCacheMode.Disabled;
         }
 
         // strongly-typed view models enable x:bind
-        public MainPageViewModel ViewModel => this.DataContext as MainPageViewModel;
+        public DashboardPageViewModel ViewModel => this.DataContext as DashboardPageViewModel;
     }
 }

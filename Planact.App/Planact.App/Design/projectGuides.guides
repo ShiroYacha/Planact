@@ -1,21 +1,6 @@
 <?xml version="1.0"?>
 <ProjectGuidesConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <ProjectItemGuides>
-    <ProjectItemGuide TargetFile="Views\HomePage.xaml">
-      <GuideModels>
-        <GuideModel>
-          <Guides>
-            <Guide Alignment="Left" Position="20" />
-            <Guide Alignment="Left" Position="126" />
-            <Guide Alignment="Left" Position="232" />
-            <Guide Alignment="Left" Position="330" />
-            <Guide Alignment="Left" Position="72" />
-            <Guide Alignment="Left" Position="179" />
-            <Guide Alignment="Left" Position="285" />
-          </Guides>
-        </GuideModel>
-      </GuideModels>
-    </ProjectItemGuide>
     <ProjectItemGuide TargetFile="Controls\RadioExpandButton.xaml">
       <GuideModels>
         <GuideModel>
@@ -30,6 +15,21 @@
             <Guide Alignment="Top" Position="-95" />
             <Guide Alignment="Left" Position="56" />
             <Guide Alignment="Left" Position="-2" />
+          </Guides>
+        </GuideModel>
+      </GuideModels>
+    </ProjectItemGuide>
+    <ProjectItemGuide TargetFile="Views\HomePage.xaml">
+      <GuideModels>
+        <GuideModel>
+          <Guides>
+            <Guide Alignment="Left" Position="20" />
+            <Guide Alignment="Left" Position="126" />
+            <Guide Alignment="Left" Position="232" />
+            <Guide Alignment="Left" Position="330" />
+            <Guide Alignment="Left" Position="72" />
+            <Guide Alignment="Left" Position="179" />
+            <Guide Alignment="Left" Position="285" />
           </Guides>
         </GuideModel>
       </GuideModels>

@@ -13,28 +13,32 @@
 
     <Controls:ModalDialog IsModal="{x:Bind IsBusy, Mode=OneWay}">
         <Controls:ModalDialog.Content>
-            <Controls:HamburgerMenu x:Name="MyHamburgerMenu" IsFullScreen="False">
+            <Grid>
+                <Controls:HamburgerMenu x:Name="MyHamburgerMenu" IsFullScreen="False">
 
-                <Controls:HamburgerMenu.PrimaryButtons>
-                    <Controls:HamburgerButtonInfo ClearHistory="True" PageType="views:HomePage">
-                        <StackPanel Orientation="Horizontal">
-                            <SymbolIcon Width="48" Height="48" Symbol="Home"/>
-                            <TextBlock x:Uid="HomePageTextBlock" Margin="12,0,0,0" VerticalAlignment="Center"/>
-                        </StackPanel>
-                    </Controls:HamburgerButtonInfo>
-                </Controls:HamburgerMenu.PrimaryButtons>
+                    <Controls:HamburgerMenu.PrimaryButtons>
+                        <Controls:HamburgerButtonInfo ClearHistory="True" PageType="views:HomePage">
+                            <StackPanel Orientation="Horizontal">
+                                <SymbolIcon Width="48" Height="48" Symbol="Home"/>
+                                <TextBlock x:Uid="HomePageTextBlock" Margin="12,0,0,0" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Controls:HamburgerButtonInfo>
+                    </Controls:HamburgerMenu.PrimaryButtons>
 
-                <Controls:HamburgerMenu.SecondaryButtons>
-                    <Controls:HamburgerButtonInfo PageType="views:SettingsPage">
-                        <StackPanel Orientation="Horizontal">
-                            <SymbolIcon Width="48" Height="48" Symbol="Setting" />
-                            <TextBlock Margin="12,0,0,0" VerticalAlignment="Center" Text="Settings" />
-                        </StackPanel>
-                    </Controls:HamburgerButtonInfo>
-                </Controls:HamburgerMenu.SecondaryButtons>
+                    <Controls:HamburgerMenu.SecondaryButtons>
+                        <Controls:HamburgerButtonInfo PageType="views:SettingsPage">
+                            <StackPanel Orientation="Horizontal">
+                                <SymbolIcon Width="48" Height="48" Symbol="Setting" />
+                                <TextBlock Margin="12,0,0,0" VerticalAlignment="Center" Text="Settings" />
+                            </StackPanel>
+                        </Controls:HamburgerButtonInfo>
+                    </Controls:HamburgerMenu.SecondaryButtons>
 
-            </Controls:HamburgerMenu>
+                </Controls:HamburgerMenu>
 
+                <myctrl:RadioExpandButton Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0" Height="100"/>
+            </Grid>
+   
         </Controls:ModalDialog.Content>
         <Controls:ModalDialog.ModalContent>
 

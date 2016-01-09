@@ -87,9 +87,6 @@
                 <Grid/>
             </PivotItem>
         </Pivot>
-
-        <!--  page content  -->
-        <myctrl:RadioExpandButton Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0" Height="100"/>
     </Grid>
 </Page>
 

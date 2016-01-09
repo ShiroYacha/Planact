@@ -7,7 +7,9 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="using:Planact.App.Views"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      xmlns:views="using:Planact.App.Views" mc:Ignorable="d">
+      xmlns:views="using:Planact.App.Views" 
+      xmlns:myctrl="using:Planact.App.Controls"
+      mc:Ignorable="d">
 
     <Controls:ModalDialog IsModal="{x:Bind IsBusy, Mode=OneWay}">
         <Controls:ModalDialog.Content>

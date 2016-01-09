@@ -8,6 +8,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="using:Planact.App.Views"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:myctrl="using:Planact.App.Controls"
       DataContext="{Binding HomePageViewModel, Source={StaticResource Locator}}"
       mc:Ignorable="d">
 
@@ -88,9 +89,7 @@
         </Pivot>
 
         <!--  page content  -->
-
-
-
+        <myctrl:RadioExpandButton Margin="-2,40,2,0" Grid.Row="1" ></myctrl:RadioExpandButton>
     </Grid>
 </Page>
 

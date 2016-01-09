@@ -8,10 +8,20 @@
             <Guide Alignment="Left" Position="20" />
             <Guide Alignment="Left" Position="126" />
             <Guide Alignment="Left" Position="232" />
-            <Guide Alignment="Left" Position="340" />
+            <Guide Alignment="Left" Position="330" />
             <Guide Alignment="Left" Position="72" />
             <Guide Alignment="Left" Position="179" />
             <Guide Alignment="Left" Position="285" />
+          </Guides>
+        </GuideModel>
+      </GuideModels>
+    </ProjectItemGuide>
+    <ProjectItemGuide TargetFile="Controls\RadioExpandButton.xaml">
+      <GuideModels>
+        <GuideModel>
+          <Guides>
+            <Guide Alignment="Top" Position="264" />
+            <Guide Alignment="Left" Position="365" />
           </Guides>
         </GuideModel>
       </GuideModels>

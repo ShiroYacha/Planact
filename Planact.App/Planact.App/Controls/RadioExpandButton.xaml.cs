@@ -1,18 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
+﻿using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
-using Windows.UI.Xaml.Navigation;
+using Planact.App.Common;
+using System;
+using System.Threading.Tasks;
 
 // The User Control item template is documented at http://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -28,29 +20,58 @@ namespace Planact.App.Controls
         private bool innerRingExpanded = false;
         private bool outerRingExpanded = false;
 
-        public void ToggleRootButtonStatus()
+        public void ToggleRootButtonStatus(object sender, PointerRoutedEventArgs e)
         {
-            // toggle button status
-            innerRingExpanded = !innerRingExpanded;
-
             // run animation
-            if (innerRingExpanded)
+            if (!innerRingExpanded)
             {
-                // expand button
-                Expand.Begin();
+                ExpandRootButton(sender, e);
             }
             else
             {
                 // collapse outer
-                CollapseOuterRing();
+                CollapseOuterRing(sender,e);
 
-                // collapse button
-                Collapse.Begin();
+                // collapse root button
+                CollapseRootButton(sender, e);
             }
         }
 
-        public void CollapseOuterRing()
+        public async void ExpandRootButton(object sender, PointerRoutedEventArgs e)
         {
+            // handle button pressed event
+            await RingButtonPressedHandler(sender, e);
+
+            if (!innerRingExpanded)
+            {
+                // set flag 
+                innerRingExpanded = true;
+
+                // expand button
+                Expand.Begin();
+            }
+        }
+
+        public async void CollapseRootButton(object sender, PointerRoutedEventArgs e)
+        {
+            // handle button pressed event
+            await RingButtonPressedHandler(sender, e);
+
+            if (innerRingExpanded)
+            {
+                // set flag 
+                innerRingExpanded = false;
+
+                // expand button
+                Collapse.Begin();
+            }
+        }
+        
+        public async void CollapseOuterRing(object sender, PointerRoutedEventArgs e)
+        {
+            // handle button pressed event
+            await RingButtonPressedHandler(sender, e);
+
             if (outerRingExpanded)
             {
                 // set flag
@@ -61,8 +82,11 @@ namespace Planact.App.Controls
             }
         }
 
-        public void ExpandOuterRing()
+        public async void ExpandOuterRing(object sender, PointerRoutedEventArgs e)
         {
+            // handle button pressed event
+            await RingButtonPressedHandler(sender, e);
+
             if (!outerRingExpanded)
             {
                 // set flag 
@@ -70,6 +94,26 @@ namespace Planact.App.Controls
 
                 // start animation
                 ExpandOuter.Begin();
+            }
+        }
+
+        private async Task RingButtonPressedHandler(object sender, PointerRoutedEventArgs e)
+        {
+            if (!e.Handled)
+            {
+                // get target name
+                DependencyObject dpobj = sender as DependencyObject;
+                string name = dpobj.GetValue(NameProperty) as string;
+
+                // set target name
+                IconBlink.Stop();
+                Storyboard.SetTargetName(IconBlink, name);
+
+                // animate icon blick effect
+                await IconBlink.BeginAsync();
+
+                // set flag
+                e.Handled = true;
             }
         }
     }

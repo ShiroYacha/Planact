@@ -102,6 +102,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Common\UIExtension.cs" />
     <Compile Include="Controls\RadioExpandButton.xaml.cs">
       <DependentUpon>RadioExpandButton.xaml</DependentUpon>
     </Compile>

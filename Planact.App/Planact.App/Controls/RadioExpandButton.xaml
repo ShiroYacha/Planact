@@ -198,9 +198,42 @@
                 <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="0"/>
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
+        <Storyboard x:Name="IconBlink">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleX)">
+                <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="2"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="1"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleY)">
+                <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="2"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="1"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)">
+                <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="0.5"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="1"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
     </UserControl.Resources>
 
     <Canvas HorizontalAlignment="Right" Height="100" VerticalAlignment="Bottom" Width="100">
+        <Grid x:Name="rootButton" Height="76" Width="75" Canvas.Left="12" Canvas.Top="12">
+            <Grid.RenderTransform>
+                <CompositeTransform TranslateX="0" TranslateY="0"/>
+            </Grid.RenderTransform>
+            <SymbolIcon x:Name="symbolIcon" Symbol="Add" Canvas.ZIndex="1" Height="75" RenderTransformOrigin="0.5,0.5" Margin="1,0,-1,1" 
+                        PointerPressed="ToggleRootButtonStatus">
+                <SymbolIcon.RenderTransform>
+                    <CompositeTransform ScaleX="2" ScaleY="2"/>
+                </SymbolIcon.RenderTransform>
+            </SymbolIcon>
+            <Ellipse x:Name="ellipse" Fill="SteelBlue" RenderTransformOrigin="0.5,0.5" >
+                <Ellipse.RenderTransform>
+                    <CompositeTransform/>
+                </Ellipse.RenderTransform>
+            </Ellipse>
+        </Grid>
         <Canvas x:Name="innerRing" Height="148" Canvas.Left="-49" Canvas.Top="-48" Width="223" RenderTransformOrigin="0.669,1.001">
             <Canvas.RenderTransform>
                 <CompositeTransform/>
@@ -211,35 +244,23 @@
                     <CompositeTransform Rotation="104.608" TranslateX="1.366" TranslateY="3.891"/>
                 </Path.RenderTransform>
             </Path>
-            <SymbolIcon x:Name="button1" Symbol="Accept" HorizontalAlignment="Stretch" Canvas.Left="192.667" Canvas.Top="29.667" VerticalAlignment="Stretch" Height="30" Width="30" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto">
-                <Interactivity:Interaction.Behaviors>
-                    <Core:EventTriggerBehavior EventName="PointerPressed">
-                        <Core:CallMethodAction TargetObject="{Binding}" MethodName="ExpandOuterRing"/>
-                    </Core:EventTriggerBehavior>
-                </Interactivity:Interaction.Behaviors>
+            <SymbolIcon x:Name="button1" Symbol="Accept" HorizontalAlignment="Stretch" Canvas.Left="192.667" Canvas.Top="29.667" VerticalAlignment="Stretch" Height="30" Width="30" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto"
+                        PointerPressed="ExpandOuterRing">
                 <SymbolIcon.RenderTransform>
                     <CompositeTransform Rotation="27.176"/>
                 </SymbolIcon.RenderTransform>
             </SymbolIcon>
-            <SymbolIcon x:Name="button2" Symbol="Contact" HorizontalAlignment="Stretch" Canvas.Left="234.001" Canvas.Top="76.333" VerticalAlignment="Stretch" Height="30" Width="30" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto">
+            <SymbolIcon x:Name="button2" Symbol="Contact" HorizontalAlignment="Stretch" Canvas.Left="234.001" Canvas.Top="76.333" VerticalAlignment="Stretch" Height="30" Width="30" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto"
+                        PointerPressed="ExpandOuterRing">
                 <SymbolIcon.RenderTransform>
                     <CompositeTransform Rotation="57.183"/>
                 </SymbolIcon.RenderTransform>
-                <Interactivity:Interaction.Behaviors>
-                    <Core:EventTriggerBehavior EventName="PointerPressed">
-                        <Core:CallMethodAction TargetObject="{Binding}" MethodName="ExpandOuterRing"/>
-                    </Core:EventTriggerBehavior>
-                </Interactivity:Interaction.Behaviors>
             </SymbolIcon>
-            <SymbolIcon x:Name="button3" Symbol="Clear" HorizontalAlignment="Stretch" Canvas.Left="248.667" Canvas.Top="133.667" VerticalAlignment="Stretch" Height="30" Width="30" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto">
+            <SymbolIcon x:Name="button3" Symbol="Clear" HorizontalAlignment="Stretch" Canvas.Left="248.667" Canvas.Top="133.667" VerticalAlignment="Stretch" Height="30" Width="30" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto"
+                        PointerPressed="ToggleRootButtonStatus">
                 <SymbolIcon.RenderTransform>
                     <CompositeTransform Rotation="89.905"/>
                 </SymbolIcon.RenderTransform>
-                <Interactivity:Interaction.Behaviors>
-                    <Core:EventTriggerBehavior EventName="PointerPressed">
-                        <Core:CallMethodAction TargetObject="{Binding}" MethodName="ToggleRootButtonStatus"/>
-                    </Core:EventTriggerBehavior>
-                </Interactivity:Interaction.Behaviors>
             </SymbolIcon>
 
         </Canvas>
@@ -253,77 +274,36 @@
                     <CompositeTransform Rotation="152.545" TranslateX="-3.728" TranslateY="-3.046"/>
                 </Path.RenderTransform>
             </Path>
-            <SymbolIcon x:Name="button1_1" Symbol="Attach" HorizontalAlignment="Stretch" Canvas.Left="432.989" Canvas.Top="176.366" VerticalAlignment="Stretch" Height="30" Width="30" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto">
+            <SymbolIcon x:Name="button1_1" Symbol="Attach" HorizontalAlignment="Stretch" Canvas.Left="432.989" Canvas.Top="176.366" VerticalAlignment="Stretch" Height="30" Width="30" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto"
+                        PointerPressed="ToggleRootButtonStatus">
                 <SymbolIcon.RenderTransform>
                     <CompositeTransform Rotation="27.176"/>
                 </SymbolIcon.RenderTransform>
-                <Interactivity:Interaction.Behaviors>
-                    <Core:EventTriggerBehavior EventName="PointerPressed">
-                        <Core:CallMethodAction TargetObject="{Binding}" MethodName="ToggleRootButtonStatus"/>
-                    </Core:EventTriggerBehavior>
-                </Interactivity:Interaction.Behaviors>
             </SymbolIcon>
-            <SymbolIcon x:Name="button1_2" Symbol="Audio" HorizontalAlignment="Stretch" Canvas.Left="441.989" Canvas.Top="236.366" VerticalAlignment="Stretch" Height="30" Width="30" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto">
+            <SymbolIcon x:Name="button1_2" Symbol="Audio" HorizontalAlignment="Stretch" Canvas.Left="441.989" Canvas.Top="236.366" VerticalAlignment="Stretch" Height="30" Width="30" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto"
+                        PointerPressed="ToggleRootButtonStatus">
                 <SymbolIcon.RenderTransform>
                     <CompositeTransform Rotation="27.176"/>
                 </SymbolIcon.RenderTransform>
-                <Interactivity:Interaction.Behaviors>
-                    <Core:EventTriggerBehavior EventName="PointerPressed">
-                        <Core:CallMethodAction TargetObject="{Binding}" MethodName="ToggleRootButtonStatus"/>
-                    </Core:EventTriggerBehavior>
-                </Interactivity:Interaction.Behaviors>
             </SymbolIcon>
-            <SymbolIcon x:Name="button1_3" Symbol="Bold" HorizontalAlignment="Stretch" Canvas.Left="431.989" Canvas.Top="289.366" VerticalAlignment="Stretch" Height="30" Width="30" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto">
+            <SymbolIcon x:Name="button1_3" Symbol="Bold" HorizontalAlignment="Stretch" Canvas.Left="431.989" Canvas.Top="289.366" VerticalAlignment="Stretch" Height="30" Width="30" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto"
+                        PointerPressed="ToggleRootButtonStatus">
                 <SymbolIcon.RenderTransform>
                     <CompositeTransform Rotation="27.176"/>
                 </SymbolIcon.RenderTransform>
-                <Interactivity:Interaction.Behaviors>
-                    <Core:EventTriggerBehavior EventName="PointerPressed">
-                        <Core:CallMethodAction TargetObject="{Binding}" MethodName="ToggleRootButtonStatus"/>
-                    </Core:EventTriggerBehavior>
-                </Interactivity:Interaction.Behaviors>
             </SymbolIcon>
-            <SymbolIcon x:Name="button1_4" Symbol="Calendar" HorizontalAlignment="Stretch" Canvas.Left="404.989" Canvas.Top="344.366" VerticalAlignment="Stretch" Height="30" Width="30" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto">
+            <SymbolIcon x:Name="button1_4" Symbol="Calendar" HorizontalAlignment="Stretch" Canvas.Left="404.989" Canvas.Top="344.366" VerticalAlignment="Stretch" Height="30" Width="30" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto"
+                        PointerPressed="ToggleRootButtonStatus">
                 <SymbolIcon.RenderTransform>
                     <CompositeTransform Rotation="27.176"/>
                 </SymbolIcon.RenderTransform>
-                <Interactivity:Interaction.Behaviors>
-                    <Core:EventTriggerBehavior EventName="PointerPressed">
-                        <Core:CallMethodAction TargetObject="{Binding}" MethodName="ToggleRootButtonStatus"/>
-                    </Core:EventTriggerBehavior>
-                </Interactivity:Interaction.Behaviors>
             </SymbolIcon>
-            <SymbolIcon x:Name="button1_5" Symbol="Clock" HorizontalAlignment="Stretch" Canvas.Left="368.989" Canvas.Top="388.366" VerticalAlignment="Stretch" Height="30" Width="30" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto">
+            <SymbolIcon x:Name="button1_5" Symbol="Clock" HorizontalAlignment="Stretch" Canvas.Left="368.989" Canvas.Top="388.366" VerticalAlignment="Stretch" Height="30" Width="30" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto"
+                        PointerPressed="ToggleRootButtonStatus">
                 <SymbolIcon.RenderTransform>
                     <CompositeTransform Rotation="27.176"/>
                 </SymbolIcon.RenderTransform>
-                <Interactivity:Interaction.Behaviors>
-                    <Core:EventTriggerBehavior EventName="PointerPressed">
-                        <Core:CallMethodAction TargetObject="{Binding}" MethodName="ToggleRootButtonStatus"/>
-                    </Core:EventTriggerBehavior>
-                </Interactivity:Interaction.Behaviors>
             </SymbolIcon>
         </Canvas>
-        <Grid x:Name="rootButton" Height="76" Width="75" Canvas.Left="12" Canvas.Top="12">
-            <Grid.RenderTransform>
-                <CompositeTransform TranslateX="0" TranslateY="0"/>
-            </Grid.RenderTransform>
-            <SymbolIcon x:Name="symbolIcon" Symbol="Add" Canvas.ZIndex="1" Height="75" RenderTransformOrigin="0.5,0.5" Margin="1,0,-1,1" IsHitTestVisible="False">
-                <SymbolIcon.RenderTransform>
-                    <CompositeTransform ScaleX="2" ScaleY="2"/>
-                </SymbolIcon.RenderTransform>
-            </SymbolIcon>
-            <Ellipse x:Name="ellipse" Fill="SteelBlue" RenderTransformOrigin="0.5,0.5" >
-                <Ellipse.RenderTransform>
-                    <CompositeTransform/>
-                </Ellipse.RenderTransform>
-                <Interactivity:Interaction.Behaviors>
-                    <Core:EventTriggerBehavior EventName="PointerPressed">
-                        <Core:CallMethodAction TargetObject="{Binding}" MethodName="ToggleRootButtonStatus"/>
-                    </Core:EventTriggerBehavior>
-                </Interactivity:Interaction.Behaviors>
-            </Ellipse>
-        </Grid>
-
     </Canvas>
 </UserControl>

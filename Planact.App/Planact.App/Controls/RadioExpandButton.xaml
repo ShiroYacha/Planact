@@ -14,59 +14,69 @@
     <UserControl.Resources>
         <Storyboard x:Name="Expand">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="ellipse">
-                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="25.041"/>
+                <EasingDoubleKeyFrame KeyTime="0" Value="-0.333"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="31.207"/>
             </DoubleAnimationUsingKeyFrames>
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="ellipse">
-                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="25.958"/>
+                <EasingDoubleKeyFrame KeyTime="0" Value="1.333"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="12.958"/>
             </DoubleAnimationUsingKeyFrames>
             <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="ellipse">
                 <EasingDoubleKeyFrame KeyTime="0" Value="75"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="120"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="120"/>
             </DoubleAnimationUsingKeyFrames>
             <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="ellipse">
                 <EasingDoubleKeyFrame KeyTime="0" Value="75"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="120"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="120"/>
             </DoubleAnimationUsingKeyFrames>
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.Rotation)" Storyboard.TargetName="innerRing">
                 <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="104.608"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="0.058"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0.058"/>
             </DoubleAnimationUsingKeyFrames>
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.Rotation)" Storyboard.TargetName="outerRing">
                 <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="155.321"/>
                 <EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="-0.031"/>
             </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="ellipse1">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0.875"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="-3.292"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="ellipse1">
+                <EasingDoubleKeyFrame KeyTime="0" Value="-0.75"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="15.25"/>
+            </DoubleAnimationUsingKeyFrames>
         </Storyboard>
         <Storyboard x:Name="Collapse">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="ellipse">
-                <EasingDoubleKeyFrame KeyTime="0" Value="24.916"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="25.068"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="11.96"/>
+                <EasingDoubleKeyFrame KeyTime="0" Value="28.111"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="28.125"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0"/>
             </DoubleAnimationUsingKeyFrames>
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="ellipse">
-                <EasingDoubleKeyFrame KeyTime="0" Value="25.833"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="26.001"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="12.998"/>
+                <EasingDoubleKeyFrame KeyTime="0" Value="27.999"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="28.041"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0"/>
             </DoubleAnimationUsingKeyFrames>
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.Rotation)" Storyboard.TargetName="innerRing">
                 <EasingDoubleKeyFrame KeyTime="0" Value="0.013"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="105.429"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="105.429"/>
             </DoubleAnimationUsingKeyFrames>
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.Rotation)" Storyboard.TargetName="outerRing">
                 <EasingDoubleKeyFrame KeyTime="0" Value="0.026"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="152.606"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="152.606"/>
             </DoubleAnimationUsingKeyFrames>
             <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="ellipse">
                 <EasingDoubleKeyFrame KeyTime="0" Value="120"/>
                 <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="120"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="75"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="75"/>
             </DoubleAnimationUsingKeyFrames>
             <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="ellipse">
                 <EasingDoubleKeyFrame KeyTime="0" Value="120"/>
                 <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="120"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="75"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="75"/>
             </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimation Duration="0:0:0.2" To="0.5" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="ellipse1" d:IsOptimized="True"/>
+            <DoubleAnimation Duration="0:0:0.2" To="0.5" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="ellipse1" d:IsOptimized="True"/>
         </Storyboard>
     </UserControl.Resources>
 
@@ -83,16 +93,22 @@
                 <CompositeTransform Rotation="155.321" TranslateX="-3.728" TranslateY="-3.046"/>
             </Path.RenderTransform>
         </Path>
-        <Ellipse x:Name="ellipse" Canvas.Top="12" Canvas.Left="12" Fill="#FFF4F4F5" Stroke="Black" HorizontalAlignment="Right" Height="76" VerticalAlignment="Bottom" Width="75" RenderTransformOrigin="0.5,0.5">
-            <Ellipse.RenderTransform>
-                <CompositeTransform/>
-            </Ellipse.RenderTransform>
-            <Interactivity:Interaction.Behaviors>
-                <Core:EventTriggerBehavior EventName="PointerPressed">
-                    <Core:CallMethodAction TargetObject="{Binding}" MethodName="ToggleButtonStatus"/>
-                </Core:EventTriggerBehavior>
-            </Interactivity:Interaction.Behaviors>
-        </Ellipse>
+        <Grid x:Name="ellipse" Height="76" Width="75" Canvas.Left="12" Canvas.Top="12">
+            <Grid.RenderTransform>
+                <CompositeTransform TranslateX="0" TranslateY="0"/>
+            </Grid.RenderTransform>
+            <Ellipse x:Name="ellipse1" Fill="{ThemeResource SystemControlForegroundAccentBrush}" RenderTransformOrigin="0.5,0.5" >
+                <Ellipse.RenderTransform>
+                    <CompositeTransform/>
+                </Ellipse.RenderTransform>
+                <Interactivity:Interaction.Behaviors>
+                    <Core:EventTriggerBehavior EventName="PointerPressed">
+                        <Core:CallMethodAction TargetObject="{Binding}" MethodName="ToggleButtonStatus"/>
+                    </Core:EventTriggerBehavior>
+                </Interactivity:Interaction.Behaviors>
+            </Ellipse>
+
+        </Grid>
 
     </Canvas>
 </UserControl>

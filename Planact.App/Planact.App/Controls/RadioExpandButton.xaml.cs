@@ -27,7 +27,7 @@ namespace Planact.App.Controls
 
         private bool expanded = false;
 
-        public void ToggleButtonStatus()
+        public void ToggleRootButtonStatus()
         {
             // toggle button status
             expanded = !expanded;

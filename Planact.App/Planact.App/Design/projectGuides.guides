@@ -16,15 +16,5 @@
         </GuideModel>
       </GuideModels>
     </ProjectItemGuide>
-    <ProjectItemGuide TargetFile="Controls\RadioExpandButton.xaml">
-      <GuideModels>
-        <GuideModel>
-          <Guides>
-            <Guide Alignment="Top" Position="264" />
-            <Guide Alignment="Left" Position="365" />
-          </Guides>
-        </GuideModel>
-      </GuideModels>
-    </ProjectItemGuide>
   </ProjectItemGuides>
 </ProjectGuidesConfiguration>

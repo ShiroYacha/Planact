@@ -6,37 +6,30 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:Interactivity="using:Microsoft.Xaml.Interactivity" xmlns:Core="using:Microsoft.Xaml.Interactions.Core" xmlns:Media="using:Microsoft.Xaml.Interactions.Media"
     x:Class="Planact.App.Controls.RadioExpandButton"
+    DataContext="{Binding RelativeSource={RelativeSource Self}}"
     mc:Ignorable="d"
-    d:DesignHeight="300"
-    d:DesignWidth="400">
+    d:DesignHeight="100"
+    d:DesignWidth="100">
 
     <UserControl.Resources>
         <Storyboard x:Name="Expand">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="ellipse">
                 <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="60.166"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="25.041"/>
             </DoubleAnimationUsingKeyFrames>
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="ellipse">
                 <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="59.833"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleX)" Storyboard.TargetName="ellipse">
-                <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1.338"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleY)" Storyboard.TargetName="ellipse">
-                <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1.338"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="25.958"/>
             </DoubleAnimationUsingKeyFrames>
             <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="ellipse">
-                <EasingDoubleKeyFrame KeyTime="0" Value="76"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="100"/>
+                <EasingDoubleKeyFrame KeyTime="0" Value="75"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="120"/>
             </DoubleAnimationUsingKeyFrames>
             <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="ellipse">
                 <EasingDoubleKeyFrame KeyTime="0" Value="75"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="100"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="120"/>
             </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.Rotation)" Storyboard.TargetName="path">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.Rotation)" Storyboard.TargetName="innerRing">
                 <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="104.608"/>
                 <EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="0.058"/>
             </DoubleAnimationUsingKeyFrames>
@@ -44,31 +37,62 @@
                 <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="155.321"/>
                 <EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="-0.031"/>
             </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimation Duration="0:0:0.6" To="-0.234" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.Rotation)" Storyboard.TargetName="innerRing" d:IsOptimized="True"/>
+        </Storyboard>
+        <Storyboard x:Name="Collapse">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="ellipse">
+                <EasingDoubleKeyFrame KeyTime="0" Value="24.916"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="25.068"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="11.96"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="ellipse">
+                <EasingDoubleKeyFrame KeyTime="0" Value="25.833"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="26.001"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="12.998"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.Rotation)" Storyboard.TargetName="innerRing">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0.013"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="105.429"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.Rotation)" Storyboard.TargetName="outerRing">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0.026"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="152.606"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="ellipse">
+                <EasingDoubleKeyFrame KeyTime="0" Value="120"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="120"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="75"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="ellipse">
+                <EasingDoubleKeyFrame KeyTime="0" Value="120"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="120"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="75"/>
+            </DoubleAnimationUsingKeyFrames>
         </Storyboard>
     </UserControl.Resources>
 
-    <Grid>
-        <Path x:Name="innerRing" Data="M147.395,0.5 L147.395,57.0945 L147.118,57.091 C97.8998,57.091 58.001,96.99 58.001,146.208 L58.016,147.395 L0.5,147.395 L0.543071,143.991 C2.52758,65.6612 65.6612,2.52758 143.991,0.543071 z" Fill="#FFF4F4F5" HorizontalAlignment="Right" Height="147.895" Margin="0,0,-1,-1" RenderTransformOrigin="0.993,0.99" Stretch="Fill" Stroke="Black" UseLayoutRounding="False" VerticalAlignment="Bottom" Width="147.895" Canvas.ZIndex="-5">
+    <Canvas HorizontalAlignment="Right" Height="100" VerticalAlignment="Bottom" Width="100">
+        <Path x:Name="innerRing" Canvas.Top="-49" Canvas.Left="-49" Data="M147.395,0.5 L147.395,57.0945 L147.118,57.091 C97.8998,57.091 58.001,96.99 58.001,146.208 L58.016,147.395 L0.5,147.395 L0.543071,143.991 C2.52758,65.6612 65.6612,2.52758 143.991,0.543071 z" 
+              Fill="#FFF4F4F5" HorizontalAlignment="Right" Height="147.895" RenderTransformOrigin="0.993,0.99" Stretch="Fill" Stroke="Black" UseLayoutRounding="False" VerticalAlignment="Bottom" Width="147.895" Canvas.ZIndex="-5">
             <Path.RenderTransform>
                 <CompositeTransform Rotation="104.608" TranslateX="0.003" TranslateY="0.214"/>
             </Path.RenderTransform>
         </Path>
-        <Path x:Name="outerRing" Fill="#FFF4F4F5" Stroke="Black" UseLayoutRounding="False" Canvas.ZIndex="-9" d:LayoutOverrides="LeftPosition, RightPosition, TopPosition, BottomPosition" Data="M228.814,0.5 L229.553,0.509394 L229.553,67.5813 L229.451,67.58 C140.092,67.58 67.653,139.428 67.653,228.057 L67.6712,229.48 L0.553012,229.48 L0.553012,230.945 L0.514027,230.927 L0.5,229.814 C0.500002,103.168 102.72,0.499995 228.814,0.5 z" Margin="170.947,71.02,-1,-2.465" RenderTransformOrigin="0.994617,0.992954" Stretch="Fill">
+        <Path x:Name="outerRing" Canvas.Top="-139.05" Canvas.Left="-139.334"  Data="M228.814,0.5 L229.553,0.509394 L229.553,67.5813 L229.451,67.58 C140.092,67.58 67.653,139.428 67.653,228.057 L67.6712,229.48 L0.553012,229.48 L0.553012,230.945 L0.514027,230.927 L0.5,229.814 C0.500002,103.168 102.72,0.499995 228.814,0.5 z"
+              Fill="#FFF4F4F5" Stroke="Black" UseLayoutRounding="False" RenderTransformOrigin="1.001,1.001" Stretch="Fill" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="239.854" Height="239.855">
             <Path.RenderTransform>
-                <CompositeTransform Rotation="155.321"/>
+                <CompositeTransform Rotation="155.321" TranslateX="-3.728" TranslateY="-3.046"/>
             </Path.RenderTransform>
         </Path>
-        <Ellipse x:Name="ellipse" Fill="#FFF4F4F5" Stroke="Black" Canvas.ZIndex="5" HorizontalAlignment="Right" Height="76" VerticalAlignment="Bottom" Width="75" Margin="0,0,10,10" RenderTransformOrigin="0.5,0.5">
+        <Ellipse x:Name="ellipse" Canvas.Top="12" Canvas.Left="12" Fill="#FFF4F4F5" Stroke="Black" HorizontalAlignment="Right" Height="76" VerticalAlignment="Bottom" Width="75" RenderTransformOrigin="0.5,0.5">
             <Ellipse.RenderTransform>
                 <CompositeTransform/>
             </Ellipse.RenderTransform>
             <Interactivity:Interaction.Behaviors>
                 <Core:EventTriggerBehavior EventName="PointerPressed">
-                    <Media:ControlStoryboardAction ControlStoryboardOption="Play" Storyboard="{Binding Source={StaticResource Expand}}"/>
+                    <Core:CallMethodAction TargetObject="{Binding}" MethodName="ToggleButtonStatus"/>
                 </Core:EventTriggerBehavior>
             </Interactivity:Interaction.Behaviors>
         </Ellipse>
 
-    </Grid>
+    </Canvas>
 </UserControl>

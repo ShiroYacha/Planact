@@ -89,7 +89,7 @@
         </Pivot>
 
         <!--  page content  -->
-        <myctrl:RadioExpandButton Margin="-2,40,2,0" Grid.Row="1" ></myctrl:RadioExpandButton>
+        <myctrl:RadioExpandButton Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0" Height="100"/>
     </Grid>
 </Page>
 

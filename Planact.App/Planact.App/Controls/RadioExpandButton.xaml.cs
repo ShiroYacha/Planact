@@ -25,18 +25,52 @@ namespace Planact.App.Controls
             this.InitializeComponent();
         }
 
-        private bool expanded = false;
+        private bool innerRingExpanded = false;
+        private bool outerRingExpanded = false;
 
         public void ToggleRootButtonStatus()
         {
             // toggle button status
-            expanded = !expanded;
+            innerRingExpanded = !innerRingExpanded;
 
             // run animation
-            if (expanded)
+            if (innerRingExpanded)
+            {
+                // expand button
                 Expand.Begin();
+            }
             else
+            {
+                // collapse outer
+                CollapseOuterRing();
+
+                // collapse button
                 Collapse.Begin();
+            }
+        }
+
+        public void CollapseOuterRing()
+        {
+            if (outerRingExpanded)
+            {
+                // set flag
+                outerRingExpanded = false;
+
+                // start animation
+                CollapseOuter.Begin();
+            }
+        }
+
+        public void ExpandOuterRing()
+        {
+            if (!outerRingExpanded)
+            {
+                // set flag 
+                outerRingExpanded = true;
+
+                // start animation
+                ExpandOuter.Begin();
+            }
         }
     }
 }

@@ -25,10 +25,6 @@
                 <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="104.608"/>
                 <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="-104.334"/>
             </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.Rotation)" Storyboard.TargetName="outerRing">
-                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="155.321"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="-0.031"/>
-            </DoubleAnimationUsingKeyFrames>
             <DoubleAnimation Duration="0:0:0.2" To="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="symbolIcon" d:IsOptimized="True"/>
             <DoubleAnimation Duration="0:0:0.3" To="105" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.Rotation)" Storyboard.TargetName="button1" d:IsOptimized="True"/>
             <DoubleAnimation Duration="0:0:0.3" To="105" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.Rotation)" Storyboard.TargetName="button2" d:IsOptimized="True"/>
@@ -61,10 +57,6 @@
                 <EasingDoubleKeyFrame KeyTime="0" Value="-103.74"/>
                 <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="8.264"/>
                 <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="77.404"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.Rotation)" Storyboard.TargetName="outerRing">
-                <EasingDoubleKeyFrame KeyTime="0" Value="0.026"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="152.606"/>
             </DoubleAnimationUsingKeyFrames>
             <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="rootButton">
                 <EasingDoubleKeyFrame KeyTime="0" Value="120"/>
@@ -112,6 +104,100 @@
                 <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="0"/>
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
+        <Storyboard x:Name="ExpandOuter">
+            <DoubleAnimation Duration="0:0:0.4" To="-152.993" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.Rotation)" Storyboard.TargetName="outerRing" d:IsOptimized="True"/>
+            <DoubleAnimation Duration="0:0:0.4" To="12" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="outerRing" d:IsOptimized="True"/>
+            <DoubleAnimation Duration="0:0:0.4" To="6" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="outerRing" d:IsOptimized="True"/>
+            <DoubleAnimation Duration="0:0:0.4" To="151.881" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.Rotation)" Storyboard.TargetName="button1_1" d:IsOptimized="True"/>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="button1_1">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="1"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimation Duration="0:0:0.4" To="0.772" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="path" d:IsOptimized="True"/>
+            <DoubleAnimation Duration="0:0:0.4" To="-3.046" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="path" d:IsOptimized="True"/>
+            <DoubleAnimation Duration="0:0:0.4" To="-0.578" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="button1_1" d:IsOptimized="True"/>
+            <DoubleAnimation Duration="0:0:0.4" To="-10.554" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="button1_1" d:IsOptimized="True"/>
+            <DoubleAnimation Duration="0:0:0.4" To="154.097" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.Rotation)" Storyboard.TargetName="button1_2" d:IsOptimized="True"/>
+            <DoubleAnimation Duration="0:0:0.4" To="152.266" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.Rotation)" Storyboard.TargetName="button1_3" d:IsOptimized="True"/>
+            <DoubleAnimation Duration="0:0:0.4" To="152.753" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.Rotation)" Storyboard.TargetName="button1_4" d:IsOptimized="True"/>
+            <DoubleAnimation Duration="0:0:0.4" To="152.714" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.Rotation)" Storyboard.TargetName="button1_5" d:IsOptimized="True"/>
+            <DoubleAnimation Duration="0:0:0.4" To="-5.361" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="button1_2" d:IsOptimized="True"/>
+            <DoubleAnimation Duration="0:0:0.4" To="2.704" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="button1_3" d:IsOptimized="True"/>
+            <DoubleAnimation Duration="0:0:0.4" To="3.376" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="button1_4" d:IsOptimized="True"/>
+            <DoubleAnimation Duration="0:0:0.4" To="-5.555" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="button1_5" d:IsOptimized="True"/>
+            <DoubleAnimation Duration="0:0:0.4" To="5.773" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="button1_5" d:IsOptimized="True"/>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="button1_2">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="1"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="button1_3">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="1"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="button1_4">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="1"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="button1_5">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="1"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="button1_2">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="0.949"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="button1_3">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="0.338"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="button1_4">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="-0.37"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Name="CollapseOuter">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.Rotation)" Storyboard.TargetName="outerRing">
+                <EasingDoubleKeyFrame KeyTime="0" Value="-152.689"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="15"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimation Duration="0" To="1.5" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="outerRing" d:IsOptimized="True"/>
+            <DoubleAnimation Duration="0" To="11.5" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="outerRing" d:IsOptimized="True"/>
+            <DoubleAnimation Duration="0" To="152.455" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.Rotation)" Storyboard.TargetName="button1_1" d:IsOptimized="True"/>
+            <DoubleAnimation Duration="0" To="-5.581" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="button1_1" d:IsOptimized="True"/>
+            <DoubleAnimation Duration="0" To="-10.687" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="button1_1" d:IsOptimized="True"/>
+            <DoubleAnimation Duration="0" To="152.858" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.Rotation)" Storyboard.TargetName="button1_2" d:IsOptimized="True"/>
+            <DoubleAnimation Duration="0" To="-5.159" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="button1_2" d:IsOptimized="True"/>
+            <DoubleAnimation Duration="0" To="-3.814" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="button1_2" d:IsOptimized="True"/>
+            <DoubleAnimation Duration="0" To="152.597" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.Rotation)" Storyboard.TargetName="button1_3" d:IsOptimized="True"/>
+            <DoubleAnimation Duration="0" To="-1.629" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="button1_3" d:IsOptimized="True"/>
+            <DoubleAnimation Duration="0" To="0.841" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="button1_3" d:IsOptimized="True"/>
+            <DoubleAnimation Duration="0" To="152.61" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.Rotation)" Storyboard.TargetName="button1_4" d:IsOptimized="True"/>
+            <DoubleAnimation Duration="0" To="-3.726" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="button1_4" d:IsOptimized="True"/>
+            <DoubleAnimation Duration="0" To="3.925" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="button1_4" d:IsOptimized="True"/>
+            <DoubleAnimation Duration="0" To="152.751" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.Rotation)" Storyboard.TargetName="button1_5" d:IsOptimized="True"/>
+            <DoubleAnimation Duration="0" To="-9.162" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="button1_5" d:IsOptimized="True"/>
+            <DoubleAnimation Duration="0" To="6.232" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="button1_5" d:IsOptimized="True"/>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="button1_1">
+                <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="button1_2">
+                <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="button1_3">
+                <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="button1_4">
+                <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="button1_5">
+                <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
     </UserControl.Resources>
 
     <Canvas HorizontalAlignment="Right" Height="100" VerticalAlignment="Bottom" Width="100">
@@ -126,6 +212,11 @@
                 </Path.RenderTransform>
             </Path>
             <SymbolIcon x:Name="button1" Symbol="Accept" HorizontalAlignment="Stretch" Canvas.Left="192.667" Canvas.Top="29.667" VerticalAlignment="Stretch" Height="30" Width="30" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto">
+                <Interactivity:Interaction.Behaviors>
+                    <Core:EventTriggerBehavior EventName="PointerPressed">
+                        <Core:CallMethodAction TargetObject="{Binding}" MethodName="ExpandOuterRing"/>
+                    </Core:EventTriggerBehavior>
+                </Interactivity:Interaction.Behaviors>
                 <SymbolIcon.RenderTransform>
                     <CompositeTransform Rotation="27.176"/>
                 </SymbolIcon.RenderTransform>
@@ -134,20 +225,85 @@
                 <SymbolIcon.RenderTransform>
                     <CompositeTransform Rotation="57.183"/>
                 </SymbolIcon.RenderTransform>
+                <Interactivity:Interaction.Behaviors>
+                    <Core:EventTriggerBehavior EventName="PointerPressed">
+                        <Core:CallMethodAction TargetObject="{Binding}" MethodName="ExpandOuterRing"/>
+                    </Core:EventTriggerBehavior>
+                </Interactivity:Interaction.Behaviors>
             </SymbolIcon>
             <SymbolIcon x:Name="button3" Symbol="Clear" HorizontalAlignment="Stretch" Canvas.Left="248.667" Canvas.Top="133.667" VerticalAlignment="Stretch" Height="30" Width="30" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto">
                 <SymbolIcon.RenderTransform>
                     <CompositeTransform Rotation="89.905"/>
                 </SymbolIcon.RenderTransform>
+                <Interactivity:Interaction.Behaviors>
+                    <Core:EventTriggerBehavior EventName="PointerPressed">
+                        <Core:CallMethodAction TargetObject="{Binding}" MethodName="ToggleRootButtonStatus"/>
+                    </Core:EventTriggerBehavior>
+                </Interactivity:Interaction.Behaviors>
             </SymbolIcon>
 
         </Canvas>
-        <Path x:Name="outerRing" Canvas.Top="-139.199" Canvas.Left="-140.155"  Data="M228.814,0.5 L229.553,0.509394 L229.553,67.5813 L229.451,67.58 C140.092,67.58 67.653,139.428 67.653,228.057 L67.6712,229.48 L0.553012,229.48 L0.553012,230.945 L0.514027,230.927 L0.5,229.814 C0.500002,103.168 102.72,0.499995 228.814,0.5 z"
-              Fill="SteelBlue" UseLayoutRounding="False" RenderTransformOrigin="1.001,1.001" Stretch="Fill" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="245.994" Height="245.995" Opacity="0.5">
-            <Path.RenderTransform>
-                <CompositeTransform Rotation="152.545" TranslateX="-3.728" TranslateY="-3.046"/>
-            </Path.RenderTransform>
-        </Path>
+        <Canvas x:Name="outerRing"  Height="246" Canvas.Left="-140" Canvas.Top="-139" Width="463" RenderTransformOrigin="0.518,0.971">
+            <Canvas.RenderTransform>
+                <CompositeTransform/>
+            </Canvas.RenderTransform>
+            <Path x:Name="path"  Data="M228.814,0.5 L229.553,0.509394 L229.553,67.5813 L229.451,67.58 C140.092,67.58 67.653,139.428 67.653,228.057 L67.6712,229.48 L0.553012,229.48 L0.553012,230.945 L0.514027,230.927 L0.5,229.814 C0.500002,103.168 102.72,0.499995 228.814,0.5 z"
+        		Fill="SteelBlue" UseLayoutRounding="False" RenderTransformOrigin="1.001,1.001" Stretch="Fill" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="245.994" Height="245.995" Opacity="0.5">
+                <Path.RenderTransform>
+                    <CompositeTransform Rotation="152.545" TranslateX="-3.728" TranslateY="-3.046"/>
+                </Path.RenderTransform>
+            </Path>
+            <SymbolIcon x:Name="button1_1" Symbol="Attach" HorizontalAlignment="Stretch" Canvas.Left="432.989" Canvas.Top="176.366" VerticalAlignment="Stretch" Height="30" Width="30" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto">
+                <SymbolIcon.RenderTransform>
+                    <CompositeTransform Rotation="27.176"/>
+                </SymbolIcon.RenderTransform>
+                <Interactivity:Interaction.Behaviors>
+                    <Core:EventTriggerBehavior EventName="PointerPressed">
+                        <Core:CallMethodAction TargetObject="{Binding}" MethodName="ToggleRootButtonStatus"/>
+                    </Core:EventTriggerBehavior>
+                </Interactivity:Interaction.Behaviors>
+            </SymbolIcon>
+            <SymbolIcon x:Name="button1_2" Symbol="Audio" HorizontalAlignment="Stretch" Canvas.Left="441.989" Canvas.Top="236.366" VerticalAlignment="Stretch" Height="30" Width="30" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto">
+                <SymbolIcon.RenderTransform>
+                    <CompositeTransform Rotation="27.176"/>
+                </SymbolIcon.RenderTransform>
+                <Interactivity:Interaction.Behaviors>
+                    <Core:EventTriggerBehavior EventName="PointerPressed">
+                        <Core:CallMethodAction TargetObject="{Binding}" MethodName="ToggleRootButtonStatus"/>
+                    </Core:EventTriggerBehavior>
+                </Interactivity:Interaction.Behaviors>
+            </SymbolIcon>
+            <SymbolIcon x:Name="button1_3" Symbol="Bold" HorizontalAlignment="Stretch" Canvas.Left="431.989" Canvas.Top="289.366" VerticalAlignment="Stretch" Height="30" Width="30" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto">
+                <SymbolIcon.RenderTransform>
+                    <CompositeTransform Rotation="27.176"/>
+                </SymbolIcon.RenderTransform>
+                <Interactivity:Interaction.Behaviors>
+                    <Core:EventTriggerBehavior EventName="PointerPressed">
+                        <Core:CallMethodAction TargetObject="{Binding}" MethodName="ToggleRootButtonStatus"/>
+                    </Core:EventTriggerBehavior>
+                </Interactivity:Interaction.Behaviors>
+            </SymbolIcon>
+            <SymbolIcon x:Name="button1_4" Symbol="Calendar" HorizontalAlignment="Stretch" Canvas.Left="404.989" Canvas.Top="344.366" VerticalAlignment="Stretch" Height="30" Width="30" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto">
+                <SymbolIcon.RenderTransform>
+                    <CompositeTransform Rotation="27.176"/>
+                </SymbolIcon.RenderTransform>
+                <Interactivity:Interaction.Behaviors>
+                    <Core:EventTriggerBehavior EventName="PointerPressed">
+                        <Core:CallMethodAction TargetObject="{Binding}" MethodName="ToggleRootButtonStatus"/>
+                    </Core:EventTriggerBehavior>
+                </Interactivity:Interaction.Behaviors>
+            </SymbolIcon>
+            <SymbolIcon x:Name="button1_5" Symbol="Clock" HorizontalAlignment="Stretch" Canvas.Left="368.989" Canvas.Top="388.366" VerticalAlignment="Stretch" Height="30" Width="30" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto">
+                <SymbolIcon.RenderTransform>
+                    <CompositeTransform Rotation="27.176"/>
+                </SymbolIcon.RenderTransform>
+                <Interactivity:Interaction.Behaviors>
+                    <Core:EventTriggerBehavior EventName="PointerPressed">
+                        <Core:CallMethodAction TargetObject="{Binding}" MethodName="ToggleRootButtonStatus"/>
+                    </Core:EventTriggerBehavior>
+                </Interactivity:Interaction.Behaviors>
+            </SymbolIcon>
+        </Canvas>
         <Grid x:Name="rootButton" Height="76" Width="75" Canvas.Left="12" Canvas.Top="12">
             <Grid.RenderTransform>
                 <CompositeTransform TranslateX="0" TranslateY="0"/>

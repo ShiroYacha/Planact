@@ -7,7 +7,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 
-namespace Planact.App.Common
+namespace UWPToolkit.Extensions
 {
     public static class UIExtension
     {

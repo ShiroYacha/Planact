@@ -8,7 +8,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="using:Planact.App.Views"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      xmlns:myctrl="using:Planact.App.Controls"
+      xmlns:myctrls="using:UWPToolkit.Controls"
       DataContext="{Binding HomePageViewModel, Source={StaticResource Locator}}"
       mc:Ignorable="d">
 

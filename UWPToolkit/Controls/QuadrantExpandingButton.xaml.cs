@@ -2,20 +2,43 @@
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media.Animation;
-using Planact.App.Common;
+using UWPToolkit.Extensions;
 using System;
 using System.Threading.Tasks;
 
 // The User Control item template is documented at http://go.microsoft.com/fwlink/?LinkId=234236
 
-namespace Planact.App.Controls
+namespace UWPToolkit.Controls
 {
-    public sealed partial class RadioExpandButton : UserControl
+    public sealed partial class QuadrantExpandingButton : UserControl
     {
-        public RadioExpandButton()
+        public QuadrantExpandingButton()
         {
             this.InitializeComponent();
         }
+
+        #region Dependency binding
+
+        public static readonly DependencyProperty ParameterProperty =
+            DependencyProperty.Register("Parameter", typeof(object), typeof(QuadrantExpandingButton),
+                new PropertyMetadata((object)null,
+                    (d, e) =>
+                    {
+                        //BindableParameter param = (BindableParameter)d;
+                        ////set the ConverterParameterValue before calling invalidate because the invalidate uses that value to sett the converter paramter
+                        //param.ConverterParameterValue = e.NewValue;
+                        ////update the converter parameter 
+                        //InvalidateBinding(param);
+                    }
+                    ));
+
+        public object Parameter
+        {
+            get { return (object)GetValue(ParameterProperty); }
+            set { SetValue(ParameterProperty, value); }
+        }
+
+        #endregion
 
         #region Animation
 

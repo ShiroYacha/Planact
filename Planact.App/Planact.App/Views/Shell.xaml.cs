@@ -5,8 +5,8 @@ using Template10.Services.NavigationService;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Planact.App.Common;
-using Planact.App.Controls;
+using UWPToolkit.Extensions;
+using UWPToolkit.Controls;
 
 namespace Planact.App.Views
 {
@@ -47,10 +47,10 @@ namespace Planact.App.Views
         private void Grid_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
             var dependencyObject = e.OriginalSource as DependencyObject;
-            var target = dependencyObject.FindParent<RadioExpandButton>();
+            var target = dependencyObject.FindParent<QuadrantExpandingButton>();
             if (target == null)
             {
-                RadioExpandButton.CollapseAll();
+                QuickButton.CollapseAll();
             }
         }
     }

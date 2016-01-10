@@ -102,10 +102,6 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Common\UIExtension.cs" />
-    <Compile Include="Controls\RadioExpandButton.xaml.cs">
-      <DependentUpon>RadioExpandButton.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Mvvm\NavigableViewModelBase.cs" />
     <Compile Include="Mvvm\ViewModelBase.cs" />
     <Compile Include="Mvvm\ViewModelLocator.cs" />
@@ -151,10 +147,6 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Controls\RadioExpandButton.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Styles\Custom.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -178,6 +170,8 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Common\" />
+    <Folder Include="Controls\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
@@ -189,6 +183,10 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\UWPToolkit\UWPToolkit.csproj">
+      <Project>{ee3518d7-1254-48d5-b3bf-42fd1171b130}</Project>
+      <Name>UWPToolkit</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Planact\Planact.csproj">
       <Project>{f11b561f-5f88-46fc-8160-ba5b89e9166e}</Project>
       <Name>Planact</Name>

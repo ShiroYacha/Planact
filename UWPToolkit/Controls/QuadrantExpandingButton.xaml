@@ -8,10 +8,9 @@
     xmlns:Core="using:Microsoft.Xaml.Interactions.Core" 
     xmlns:Media="using:Microsoft.Xaml.Interactions.Media"
     x:Class="UWPToolkit.Controls.QuadrantExpandingButton"
-    DataContext="{Binding RelativeSource={RelativeSource Self}}"
     mc:Ignorable="d"
-    d:DesignHeight="100"
-    d:DesignWidth="100"
+    Height="100"
+    Width="100"
     Loaded="UserControl_Loaded">
 
     <UserControl.Resources>
@@ -30,7 +29,7 @@
                 <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="-0.319"/>
             </DoubleAnimationUsingKeyFrames>
             <DoubleAnimation Duration="0:0:0.2" To="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="rootIcon" d:IsOptimized="True"/>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="button1">
+            <!--<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="button1">
                 <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0"/>
                 <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="1"/>
             </DoubleAnimationUsingKeyFrames>
@@ -41,7 +40,7 @@
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="button3">
                 <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0"/>
                 <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="1"/>
-            </DoubleAnimationUsingKeyFrames>
+            </DoubleAnimationUsingKeyFrames>-->
             <DoubleAnimation Duration="0" To="131.825" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.Rotation)" Storyboard.TargetName="outerRing" d:IsOptimized="True"/>
         </Storyboard>
         <Storyboard x:Name="Collapse">
@@ -78,7 +77,7 @@
                 <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
                 <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="1"/>
             </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="button1">
+            <!--<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="button1">
                 <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
                 <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="0"/>
             </DoubleAnimationUsingKeyFrames>
@@ -89,7 +88,7 @@
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="button3">
                 <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
                 <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>
+            </DoubleAnimationUsingKeyFrames>-->
             <DoubleAnimation Duration="0" To="132.125" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.Rotation)" Storyboard.TargetName="outerRing" d:IsOptimized="True"/>
         </Storyboard>
         <Storyboard x:Name="ExpandOuter">
@@ -180,21 +179,18 @@
                 </Ellipse.RenderTransform>
             </Ellipse>
         </Grid>
-        <Canvas x:Name="innerRing" Height="148" Canvas.Left="-160" Canvas.Top="-147" Width="149" RenderTransformOrigin="1,1">
+        <Canvas x:Name="innerRing" Height="148" Canvas.Left="-48" Canvas.Top="-48" Width="148" RenderTransformOrigin="1,1">
             <Canvas.RenderTransform>
-                <CompositeTransform TranslateX="111.201" TranslateY="98.857"/>
+                <CompositeTransform/>
             </Canvas.RenderTransform>
             <Path Data="M147.395,0.5 L147.395,57.0945 L147.118,57.091 C97.8998,57.091 58.001,96.99 58.001,146.208 L58.016,147.395 L0.5,147.395 L0.543071,143.991 C2.52758,65.6612 65.6612,2.52758 143.991,0.543071 z" 
     			Fill="SteelBlue" HorizontalAlignment="Right" Height="147.895" RenderTransformOrigin="0.5,0.5" Stretch="Fill" UseLayoutRounding="False" VerticalAlignment="Bottom" Width="147.895" Canvas.ZIndex="-5" Opacity="0.75" Canvas.Left="-160.194" Canvas.Top="-19.781" Stroke="#FF3B688E">
                 <Path.RenderTransform>
-                    <CompositeTransform TranslateX="160.895" TranslateY="19.886"/>
+                    <CompositeTransform TranslateX="160.895" TranslateY="20"/>
                 </Path.RenderTransform>
             </Path>
-            <SymbolIcon x:Name="button1" Symbol="Accept" HorizontalAlignment="Stretch" Canvas.Left="32" Canvas.Top="10" VerticalAlignment="Stretch" Height="30" Width="30" RenderTransformOrigin="0.5,0.5"
-                        PointerPressed="ExpandOuterRing">
-                <SymbolIcon.RenderTransform>
-                    <CompositeTransform TranslateX="-14.99" TranslateY="91.75"/>
-                </SymbolIcon.RenderTransform>
+            <!--<SymbolIcon x:Name="button1" Symbol="Accept" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="30" Width="30" RenderTransformOrigin="0.5,0.5"
+                        PointerPressed="ExpandOuterRing" Canvas.Top="87" Canvas.Left="22">
             </SymbolIcon>
             <SymbolIcon x:Name="button2" Symbol="Contact" HorizontalAlignment="Stretch" Canvas.Left="74" Canvas.Top="57" VerticalAlignment="Stretch" Height="30" Width="30" RenderTransformOrigin="0.5,0.5"
                         PointerPressed="ExpandOuterRing">
@@ -207,12 +203,12 @@
                 <SymbolIcon.RenderTransform>
                     <CompositeTransform TranslateX="16.108" TranslateY="-92.034"/>
                 </SymbolIcon.RenderTransform>
-            </SymbolIcon>
+            </SymbolIcon>-->
 
         </Canvas>
-        <Canvas x:Name="outerRing"  Height="244" Canvas.Left="-369" Canvas.Top="-694" Width="246" RenderTransformOrigin="0.998,0.998">
+        <Canvas x:Name="outerRing"  Height="244" Canvas.Left="-145" Canvas.Top="-143" Width="246" RenderTransformOrigin="0.998,0.998">
             <Canvas.RenderTransform>
-                <CompositeTransform TranslateX="223.591" TranslateY="550.569"/>
+                <CompositeTransform/>
             </Canvas.RenderTransform>
             <Path x:Name="path"  Data="M228.814,0.5 L229.553,0.509394 L229.553,67.5813 L229.451,67.58 C140.092,67.58 67.653,139.428 67.653,228.057 L67.6712,229.48 L0.553012,229.48 L0.553012,230.945 L0.514027,230.927 L0.5,229.814 C0.500002,103.168 102.72,0.499995 228.814,0.5 z"
         		Fill="SteelBlue" UseLayoutRounding="False" RenderTransformOrigin="1,0.994" Stretch="Fill" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="245.994" Height="245.995" Opacity="0.5" Canvas.Left="-289.131" Canvas.Top="-177.489" Stroke="#FF314F68">

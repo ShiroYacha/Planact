@@ -5,6 +5,10 @@ using Windows.UI.Xaml.Media.Animation;
 using UWPToolkit.Extensions;
 using System;
 using System.Threading.Tasks;
+using System.Collections;
+using System.Linq;
+using System.Collections.Generic;
+using Windows.Foundation;
 
 // The User Control item template is documented at http://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -19,9 +23,9 @@ namespace UWPToolkit.Controls
 
         #region Dependency binding
 
-        public static readonly DependencyProperty ParameterProperty =
-            DependencyProperty.Register("Parameter", typeof(object), typeof(QuadrantExpandingButton),
-                new PropertyMetadata((object)null,
+        public static readonly DependencyProperty ItemsProperty =
+            DependencyProperty.Register("Items", typeof(QuadrantExpandingButton), typeof(IEnumerable<QuadrantExpandingButtonItem>),
+                new PropertyMetadata(new List<QuadrantExpandingButtonItem>(),
                     (d, e) =>
                     {
                         //BindableParameter param = (BindableParameter)d;
@@ -29,14 +33,42 @@ namespace UWPToolkit.Controls
                         //param.ConverterParameterValue = e.NewValue;
                         ////update the converter parameter 
                         //InvalidateBinding(param);
+                        (d as QuadrantExpandingButton).SetupItems();
                     }
                     ));
 
-        public object Parameter
+        public IEnumerable<QuadrantExpandingButtonItem> Items
         {
-            get { return (object)GetValue(ParameterProperty); }
-            set { SetValue(ParameterProperty, value); }
+            get { return (IEnumerable<QuadrantExpandingButtonItem>)GetValue(ItemsProperty); }
+            set { SetValue(ItemsProperty, value); }
         }
+
+        #endregion
+
+        #region Positioning
+
+        public void SetupItems()
+        {
+            // get canvas configuration
+            double innerRingHeight = innerRing.Height;
+            double innerRingWidth = innerRing.Width;
+            const double radius = 120; // depend on the Path
+
+            // setup each items
+            var count = Items.Count();
+            Items.Each((item, index) => 
+            {
+                var innerRingItem = item.Item;
+                double theta = Math.PI * (index + 1) / (2*(count+1));
+                double x = innerRingWidth - radius * Math.Cos(theta);
+                double y = innerRingHeight - radius * Math.Sin(theta);
+
+                Canvas.SetLeft(innerRingItem, x - innerRingItem.ActualWidth/2);
+                Canvas.SetTop(innerRingItem, y - innerRingItem.ActualHeight/2);
+
+                innerRing.Children.Add(innerRingItem);
+            });
+        }  
 
         #endregion
 

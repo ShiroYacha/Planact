@@ -104,12 +104,15 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <None Include="Design\projectGuides.guides" />
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controls\QuadrantExpandingButton.xaml.cs">
       <DependentUpon>QuadrantExpandingButton.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\QuadrantExpandingButtonItem.cs" />
+    <Compile Include="Extensions\CommonExtensions.cs" />
     <Compile Include="Extensions\UIExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\UWPToolkit.rd.xml" />
@@ -119,6 +122,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <SDKReference Include="BehaviorsXamlSDKManaged, Version=12.0">
+      <Name>Behaviors SDK %28XAML%29</Name>
+    </SDKReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

@@ -7,6 +7,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using UWPToolkit.Extensions;
 using UWPToolkit.Controls;
+using System.Collections.Generic;
 
 namespace Planact.App.Views
 {
@@ -53,6 +54,29 @@ namespace Planact.App.Views
                 QuickButton.CollapseAll();
             }
         }
+
+        public IEnumerable<QuadrantExpandingButtonItem> QuickButtonItems
+        {
+            get
+            {
+                return new List<QuadrantExpandingButtonItem>
+                        {
+                            new QuadrantExpandingButtonItem()
+                            {
+                                Item = new SymbolIcon {Symbol=Symbol.Home},
+                                SubItems = new List<SymbolIcon>
+                                {
+                                    new SymbolIcon {Symbol=Symbol.Help },
+                                    new SymbolIcon {Symbol=Symbol.GoToStart }
+                                }
+                            },
+                            new QuadrantExpandingButtonItem()
+                            {
+                                Item = new SymbolIcon {Symbol=Symbol.Account},
+                            }
+                        };
+            }
+        } 
     }
 }
 

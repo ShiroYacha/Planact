@@ -72,16 +72,27 @@ namespace Planact.App.Views
                             },
                             new QuadrantExpandingButtonItem()
                             {
-                                Item = CreateDesignTimeSymbolIcon(Symbol.Globe)
+                                Item = CreateDesignTimeSymbolIcon(Symbol.Globe),
+                                SubItems = new List<SymbolIcon>
+                                {
+                                    CreateDesignTimeSymbolIcon(Symbol.AllApps),
+                                    CreateDesignTimeSymbolIcon(Symbol.Admin),
+                                    CreateDesignTimeSymbolIcon(Symbol.Calculator),
+                                }
                             },
                             new QuadrantExpandingButtonItem()
                             {
-                                Item = CreateDesignTimeSymbolIcon(Symbol.FontSize)
+                                Item = CreateDesignTimeSymbolIcon(Symbol.FontSize),
+                                SubItems = new List<SymbolIcon>
+                                {
+                                    CreateDesignTimeSymbolIcon(Symbol.CalendarReply),
+                                    CreateDesignTimeSymbolIcon(Symbol.CalendarWeek),
+                                    CreateDesignTimeSymbolIcon(Symbol.Keyboard),
+                                    CreateDesignTimeSymbolIcon(Symbol.Import),
+                                    CreateDesignTimeSymbolIcon(Symbol.ImportAll),
+                                    CreateDesignTimeSymbolIcon(Symbol.WebCam),
+                                }
                             },
-                            new QuadrantExpandingButtonItem()
-                            {
-                                Item = CreateDesignTimeSymbolIcon(Symbol.Accept)
-                            }
                         };
             }
         } 

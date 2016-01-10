@@ -139,5 +139,11 @@ namespace Planact.App.Controls
                 e.Handled = true;
             }
         }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            // run initialize storyboard
+            Initialize.Begin();
+        }
     }
 }

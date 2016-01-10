@@ -20,16 +20,8 @@
       <GuideModels>
         <GuideModel>
           <Guides>
-            <Guide Alignment="Left" Position="-109" />
-            <Guide Alignment="Top" Position="77" />
-            <Guide Alignment="Top" Position="14" />
-            <Guide Alignment="Top" Position="-35" />
-            <Guide Alignment="Top" Position="-73" />
-            <Guide Alignment="Left" Position="-89" />
-            <Guide Alignment="Left" Position="-55" />
-            <Guide Alignment="Top" Position="-95" />
-            <Guide Alignment="Left" Position="56" />
-            <Guide Alignment="Left" Position="-2" />
+            <Guide Alignment="Left" Position="100" />
+            <Guide Alignment="Top" Position="100" />
           </Guides>
         </GuideModel>
       </GuideModels>

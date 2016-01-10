@@ -63,20 +63,35 @@ namespace Planact.App.Views
                         {
                             new QuadrantExpandingButtonItem()
                             {
-                                Item = new SymbolIcon {Symbol=Symbol.Home},
+                                Item = CreateDesignTimeSymbolIcon(Symbol.Home),
                                 SubItems = new List<SymbolIcon>
                                 {
-                                    new SymbolIcon {Symbol=Symbol.Help },
-                                    new SymbolIcon {Symbol=Symbol.GoToStart }
+                                    CreateDesignTimeSymbolIcon(Symbol.Help),
+                                    CreateDesignTimeSymbolIcon(Symbol.HangUp)
                                 }
                             },
                             new QuadrantExpandingButtonItem()
                             {
-                                Item = new SymbolIcon {Symbol=Symbol.Account},
+                                Item = CreateDesignTimeSymbolIcon(Symbol.Globe)
+                            },
+                            new QuadrantExpandingButtonItem()
+                            {
+                                Item = CreateDesignTimeSymbolIcon(Symbol.FontSize)
+                            },
+                            new QuadrantExpandingButtonItem()
+                            {
+                                Item = CreateDesignTimeSymbolIcon(Symbol.Accept)
                             }
                         };
             }
         } 
+
+        private SymbolIcon CreateDesignTimeSymbolIcon(Symbol symbol)
+        {
+            return new SymbolIcon { Name = symbol.ToString(), Symbol = symbol, Width = 20, Height = 20,
+                RenderTransform =new Windows.UI.Xaml.Media.CompositeTransform(),
+                RenderTransformOrigin = new Windows.Foundation.Point(0.5,0.5)}; 
+        }
     }
 }
 

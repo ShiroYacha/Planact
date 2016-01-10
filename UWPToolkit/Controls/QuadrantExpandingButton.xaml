@@ -77,22 +77,10 @@
                 <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
                 <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="1"/>
             </DoubleAnimationUsingKeyFrames>
-            <!--<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="button1">
-                <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="button2">
-                <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="button3">
-                <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>-->
             <DoubleAnimation Duration="0" To="132.125" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.Rotation)" Storyboard.TargetName="outerRing" d:IsOptimized="True"/>
         </Storyboard>
         <Storyboard x:Name="ExpandOuter">
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="button1_1">
+            <!--<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="button1_1">
                 <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0"/>
                 <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="1"/>
             </DoubleAnimationUsingKeyFrames>
@@ -111,18 +99,22 @@
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="button1_5">
                 <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0"/>
                 <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="1"/>
-            </DoubleAnimationUsingKeyFrames>
+            </DoubleAnimationUsingKeyFrames>-->
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.Rotation)" Storyboard.TargetName="outerRing">
                 <EasingDoubleKeyFrame KeyTime="0" Value="131.998"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0"/>
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
         <Storyboard x:Name="CollapseOuter">
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="button1_1">
+            <!--<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="button1_1">
                 <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
                 <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="0"/>
             </DoubleAnimationUsingKeyFrames>
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="button1_2">
+                <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="button1_3">
                 <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
                 <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="0"/>
             </DoubleAnimationUsingKeyFrames>
@@ -133,12 +125,8 @@
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="button1_5">
                 <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
                 <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimation Duration="0:0:0.3" To="131.844" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.Rotation)" Storyboard.TargetName="outerRing" d:IsOptimized="True"/>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="button1_3">
-                <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>
+            </DoubleAnimationUsingKeyFrames>-->
+            <DoubleAnimation Duration="0:0:0.2" To="131.844" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.Rotation)" Storyboard.TargetName="outerRing" d:IsOptimized="True"/>
         </Storyboard>
         <Storyboard x:Name="IconBlink">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleX)">
@@ -189,22 +177,6 @@
                     <CompositeTransform TranslateX="160.895" TranslateY="20"/>
                 </Path.RenderTransform>
             </Path>
-            <!--<SymbolIcon x:Name="button1" Symbol="Accept" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="30" Width="30" RenderTransformOrigin="0.5,0.5"
-                        PointerPressed="ExpandOuterRing" Canvas.Top="87" Canvas.Left="22">
-            </SymbolIcon>
-            <SymbolIcon x:Name="button2" Symbol="Contact" HorizontalAlignment="Stretch" Canvas.Left="74" Canvas.Top="57" VerticalAlignment="Stretch" Height="30" Width="30" RenderTransformOrigin="0.5,0.5"
-                        PointerPressed="ExpandOuterRing">
-                <SymbolIcon.RenderTransform>
-                    <CompositeTransform TranslateX="-21.215" TranslateY="-6.427"/>
-                </SymbolIcon.RenderTransform>
-            </SymbolIcon>
-            <SymbolIcon x:Name="button3" Symbol="Clear" HorizontalAlignment="Stretch" Canvas.Left="88" Canvas.Top="114" VerticalAlignment="Stretch" Height="30" Width="30" RenderTransformOrigin="0.5,0.5"
-                        PointerPressed="ToggleRootButtonStatus">
-                <SymbolIcon.RenderTransform>
-                    <CompositeTransform TranslateX="16.108" TranslateY="-92.034"/>
-                </SymbolIcon.RenderTransform>
-            </SymbolIcon>-->
-
         </Canvas>
         <Canvas x:Name="outerRing"  Height="244" Canvas.Left="-145" Canvas.Top="-143" Width="246" RenderTransformOrigin="0.998,0.998">
             <Canvas.RenderTransform>
@@ -216,7 +188,7 @@
                     <CompositeTransform TranslateX="288.54" TranslateY="176.49"/>
                 </Path.RenderTransform>
             </Path>
-            <SymbolIcon x:Name="button1_1" Symbol="Attach" HorizontalAlignment="Stretch" Canvas.Left="143" Canvas.Top="-3" VerticalAlignment="Stretch" Height="30" Width="30" RenderTransformOrigin="0.5,0.5"
+            <!--<SymbolIcon x:Name="button1_1" Symbol="Attach" HorizontalAlignment="Stretch" Canvas.Left="143" Canvas.Top="-3" VerticalAlignment="Stretch" Height="30" Width="30" RenderTransformOrigin="0.5,0.5"
                         PointerPressed="ToggleRootButtonStatus">
                 <SymbolIcon.RenderTransform>
                     <CompositeTransform TranslateX="-117.004" TranslateY="190.197"/>
@@ -245,7 +217,7 @@
                 <SymbolIcon.RenderTransform>
                     <CompositeTransform TranslateX="87.186" TranslateY="-193.23"/>
                 </SymbolIcon.RenderTransform>
-            </SymbolIcon>
+            </SymbolIcon>-->
         </Canvas>
     </Canvas>
 </UserControl>

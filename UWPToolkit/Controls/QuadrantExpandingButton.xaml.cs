@@ -52,21 +52,74 @@ namespace UWPToolkit.Controls
             // get canvas configuration
             double innerRingHeight = innerRing.Height;
             double innerRingWidth = innerRing.Width;
-            const double radius = 120; // depend on the Path
+            const double innerRingRadius = 120; // depend on the Path
+            double outerRingHeight = outerRing.Height;
+            double outerRingWidth = outerRing.Width;
+            const double outerRingRadius = 210; // depend on the Path
 
             // setup each items
             var count = Items.Count();
             Items.Each((item, index) => 
             {
+                // compute coordinates
                 var innerRingItem = item.Item;
-                double theta = Math.PI * (index + 1) / (2*(count+1));
-                double x = innerRingWidth - radius * Math.Cos(theta);
-                double y = innerRingHeight - radius * Math.Sin(theta);
+                double innerRingTheta = Math.PI * (index + 1) / (2*(count+1));
+                double innerRingX = innerRingWidth - innerRingRadius * Math.Cos(innerRingTheta);
+                double innerRingY = innerRingHeight - innerRingRadius * Math.Sin(innerRingTheta);
 
-                Canvas.SetLeft(innerRingItem, x - innerRingItem.ActualWidth/2);
-                Canvas.SetTop(innerRingItem, y - innerRingItem.ActualHeight/2);
-
+                // add to inner ring canvas
+                Canvas.SetLeft(innerRingItem, innerRingX - innerRingItem.Width/2);
+                Canvas.SetTop(innerRingItem, innerRingY - innerRingItem.Height/2);
                 innerRing.Children.Add(innerRingItem);
+
+                // setup outer ring
+                PointerEventHandler blinkAndCollapse = async (s, e) =>
+                {
+                    // play blink animation
+                    await RingButtonPressedHandler(s, e);
+
+                    // collapse
+                    CollapseAll();
+                };
+
+                var subCount = item.SubItems.Count();
+                if (subCount > 0)
+                {
+                    // create link on inner ring item
+                    innerRingItem.PointerPressed += async (s, e) =>
+                    {
+                        // play blink animation
+                        await RingButtonPressedHandler(s, e);
+
+                        // clear outer ring items except the path
+                        outerRing.Children.RemoveExceptTypes(typeof(Windows.UI.Xaml.Shapes.Path));
+
+                        // setup outer ring items
+                        item.SubItems.Each((subItem, subIndex) =>
+                        {
+                            // compute coordinates
+                            var outerRingItem = subItem;
+                            double outerRingTheta = Math.PI * (subIndex + 1) / (2 * (subCount + 1));
+                            double outerRingX = outerRingWidth - outerRingRadius * Math.Cos(outerRingTheta);
+                            double outerRingY = outerRingHeight - outerRingRadius * Math.Sin(outerRingTheta);
+
+                            // add to inner ring canvas
+                            Canvas.SetLeft(outerRingItem, outerRingX - outerRingItem.Width / 2);
+                            Canvas.SetTop(outerRingItem, outerRingY - outerRingItem.Height / 2);
+                            outerRing.Children.Add(outerRingItem);
+
+                            // play blink animation
+                            subItem.PointerPressed += blinkAndCollapse;
+                        });
+
+                        // play animation
+                        ExpandOuterRing();
+                    };
+                }
+                else
+                {
+                    innerRingItem.PointerPressed += blinkAndCollapse;
+                }
             });
         }  
 
@@ -82,23 +135,20 @@ namespace UWPToolkit.Controls
             // run animation
             if (!innerRingExpanded)
             {
-                ExpandRootButton(sender, e);
+                ExpandRootButton();
             }
             else
             {
                 // collapse outer
-                CollapseOuterRing(sender, e);
+                CollapseOuterRing();
 
                 // collapse root button
-                CollapseRootButton(sender, e);
+                CollapseRootButton();
             }
         }
 
-        public async void ExpandRootButton(object sender, PointerRoutedEventArgs e)
+        public void ExpandRootButton()
         {
-            // handle button pressed event
-            await RingButtonPressedHandler(sender, e);
-
             if (!innerRingExpanded)
             {
                 // set flag 
@@ -109,11 +159,8 @@ namespace UWPToolkit.Controls
             }
         }
 
-        public async void CollapseRootButton(object sender, PointerRoutedEventArgs e)
+        public void CollapseRootButton()
         {
-            // handle button pressed event
-            await RingButtonPressedHandler(sender, e);
-
             if (innerRingExpanded)
             {
                 // set flag 
@@ -124,11 +171,8 @@ namespace UWPToolkit.Controls
             }
         }
 
-        public async void CollapseOuterRing(object sender, PointerRoutedEventArgs e)
+        public void CollapseOuterRing()
         {
-            // handle button pressed event
-            await RingButtonPressedHandler(sender, e);
-
             if (outerRingExpanded)
             {
                 // set flag
@@ -139,11 +183,8 @@ namespace UWPToolkit.Controls
             }
         }
 
-        public async void ExpandOuterRing(object sender, PointerRoutedEventArgs e)
+        public void ExpandOuterRing()
         {
-            // handle button pressed event
-            await RingButtonPressedHandler(sender, e);
-
             if (!outerRingExpanded)
             {
                 // set flag 

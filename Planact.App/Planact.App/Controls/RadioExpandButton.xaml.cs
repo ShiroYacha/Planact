@@ -17,6 +17,8 @@ namespace Planact.App.Controls
             this.InitializeComponent();
         }
 
+        #region Animation
+
         private bool innerRingExpanded = false;
         private bool outerRingExpanded = false;
 
@@ -30,7 +32,7 @@ namespace Planact.App.Controls
             else
             {
                 // collapse outer
-                CollapseOuterRing(sender,e);
+                CollapseOuterRing(sender, e);
 
                 // collapse root button
                 CollapseRootButton(sender, e);
@@ -66,7 +68,7 @@ namespace Planact.App.Controls
                 Collapse.Begin();
             }
         }
-        
+
         public async void CollapseOuterRing(object sender, PointerRoutedEventArgs e)
         {
             // handle button pressed event
@@ -100,7 +102,7 @@ namespace Planact.App.Controls
         public void CollapseAll()
         {
             // collapse outer ring
-            if(outerRingExpanded)
+            if (outerRingExpanded)
             {
                 // set flag 
                 outerRingExpanded = false;
@@ -122,18 +124,23 @@ namespace Planact.App.Controls
 
         private async Task RingButtonPressedHandler(object sender, PointerRoutedEventArgs e)
         {
-            if (!e.Handled && sender!=null && e!=null)
+            if (!e.Handled && sender != null && e != null)
             {
                 // get target name
                 DependencyObject dpobj = sender as DependencyObject;
                 string name = dpobj.GetValue(NameProperty) as string;
 
-                // set target name
-                IconBlink.Stop();
-                Storyboard.SetTargetName(IconBlink, name);
+                // skip root icon blink
+                if (name != nameof(rootIcon))
+                {
+                    // set target name
+                    IconBlink.Stop();
+                    Storyboard.SetTargetName(IconBlink, name);
 
-                // animate icon blick effect
-                await IconBlink.BeginAsync();
+                    // animate icon blick effect
+                    await IconBlink.BeginAsync();
+                }
+
 
                 // set flag
                 e.Handled = true;
@@ -145,5 +152,7 @@ namespace Planact.App.Controls
             // run initialize storyboard
             Initialize.Begin();
         }
+
+        #endregion
     }
 }

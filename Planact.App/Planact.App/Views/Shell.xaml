@@ -8,7 +8,7 @@
       xmlns:local="using:Planact.App.Views"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:views="using:Planact.App.Views" 
-      xmlns:myctrls="using:UWPToolkit.Controls"
+      xmlns:uwpctrls="using:UWPToolkit.Controls"
       mc:Ignorable="d">
 
     <Controls:ModalDialog IsModal="{x:Bind IsBusy, Mode=OneWay}">
@@ -36,7 +36,7 @@
 
                 </Controls:HamburgerMenu>
 
-                <myctrls:QuadrantExpandingButton x:Name="QuickButton" Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0" Height="100"
+                <uwpctrls:QuadrantExpandingButton x:Name="QuickButton" Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0" Height="100"
                 Items="{x:Bind QuickButtonItems, Mode=OneTime}"/>
 
             </Grid>

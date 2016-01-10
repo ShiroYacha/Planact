@@ -13,14 +13,39 @@ namespace Planact.App.Common
     {
         public static T FindParent<T>(this DependencyObject child) where T : DependencyObject
         {
+            // return null if nothing
+            if (child == null)
+                return null;
+
             // get parent of target
-            T parent = VisualTreeHelper.GetParent(child) as T;
+            var parent = VisualTreeHelper.GetParent(child);
 
             // recursive search
-            if (parent != null)
-                return parent;
+            if (parent is T)
+                return parent as T;
             else
-                return child.FindParent<T>();
+                return parent.FindParent<T>();
+        }
+
+        public static T FindChild<T>(this DependencyObject parent) where T : DependencyObject
+        {
+            // return null if nothing
+            if (parent == null)
+                return null;
+
+            // get child count of parent
+            var childCount = VisualTreeHelper.GetChildrenCount(parent);
+
+            // go through each child and search recursively
+            for (var i = 0; i < childCount; i++)
+            {
+                var elt = VisualTreeHelper.GetChild(parent, i);
+                if (elt is T) return (T)elt;
+                var result = FindChild<T>(elt);
+                if (result != null) return result;
+            }
+
+            return null;
         }
 
         public static Task BeginAsync(this Storyboard storyboard)

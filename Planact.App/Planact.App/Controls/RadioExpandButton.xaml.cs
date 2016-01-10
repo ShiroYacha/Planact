@@ -97,9 +97,32 @@ namespace Planact.App.Controls
             }
         }
 
+        public void CollapseAll()
+        {
+            // collapse outer ring
+            if(outerRingExpanded)
+            {
+                // set flag 
+                outerRingExpanded = false;
+
+                // start animation
+                CollapseOuter.Begin();
+            }
+
+            // collapse root button
+            if (innerRingExpanded)
+            {
+                // set flag 
+                innerRingExpanded = false;
+
+                // start animation
+                Collapse.Begin();
+            }
+        }
+
         private async Task RingButtonPressedHandler(object sender, PointerRoutedEventArgs e)
         {
-            if (!e.Handled)
+            if (!e.Handled && sender!=null && e!=null)
             {
                 // get target name
                 DependencyObject dpobj = sender as DependencyObject;

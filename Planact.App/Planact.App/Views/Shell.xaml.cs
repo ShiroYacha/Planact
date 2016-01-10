@@ -3,7 +3,10 @@ using Template10.Common;
 using Template10.Controls;
 using Template10.Services.NavigationService;
 using Windows.UI.Core;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Planact.App.Common;
+using Planact.App.Controls;
 
 namespace Planact.App.Views
 {
@@ -39,6 +42,16 @@ namespace Planact.App.Views
                 Instance.PropertyChanged?.Invoke(Instance, new PropertyChangedEventArgs(nameof(IsBusy)));
                 Instance.PropertyChanged?.Invoke(Instance, new PropertyChangedEventArgs(nameof(BusyText)));
             });
+        }
+
+        private void Grid_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        {
+            var dependencyObject = e.OriginalSource as DependencyObject;
+            var target = dependencyObject.FindParent<RadioExpandButton>();
+            if (target == null)
+            {
+                RadioExpandButton.CollapseAll();
+            }
         }
     }
 }

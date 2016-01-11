@@ -12,8 +12,11 @@
     <Color x:Key="CustomColor">SteelBlue</Color>
     <SolidColorBrush x:Key="CustomColorBrush" Color="{StaticResource CustomColor}" />
 
+    <Color x:Key="BackgroundColor">Black</Color>
+    
     <Color x:Key="ContrastColor">White</Color>
     <SolidColorBrush x:Key="ContrastColorBrush" Color="{StaticResource ContrastColor}" />
+    <SolidColorBrush x:Key="BackgroundColorBrush" Color="{StaticResource BackgroundColor}"/>
 
     <ResourceDictionary.ThemeDictionaries>
 

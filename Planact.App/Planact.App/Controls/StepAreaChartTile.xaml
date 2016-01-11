@@ -1,0 +1,68 @@
+﻿<UserControl
+    x:Class="Planact.App.Controls.StepAreaChartTile"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Planact.App.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:chart="using:Syncfusion.UI.Xaml.Charts"
+    mc:Ignorable="d"
+    d:DesignHeight="100"
+    d:DesignWidth="300"
+    DataContext="{Binding RelativeSource={RelativeSource Self}}"
+    MaxHeight="100"
+    MaxWidth="300">
+
+    <Grid>
+        <Grid.Background>
+            <SolidColorBrush Color="#1F1F1F" Opacity="0.1"/>
+        </Grid.Background>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="AUTO"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="AUTO"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="AUTO"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Orientation="Horizontal">
+                <Grid>
+                    <ContentControl Content="{StaticResource Exercise - 01}"/>
+                </Grid>
+                <StackPanel>
+                    <TextBlock FontFamily="Segoe UI" FontWeight="ExtraLight" FontSize="18"> Be more healthy</TextBlock>
+                    <TextBlock FontFamily="Segoe UI" FontWeight="ExtraLight" FontSize="12">15 days strack!</TextBlock>
+                </StackPanel>
+            </StackPanel>
+            
+            <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                <TextBlock FontFamily="Segoe UI" FontWeight="ExtraLight" FontSize="30">25</TextBlock>
+                <SymbolIcon Symbol="Play" RenderTransformOrigin="0.5,0.5">
+                    <SymbolIcon.RenderTransform>
+                        <CompositeTransform Rotation="270" ScaleX="0.5" ScaleY="0.5"/>
+                    </SymbolIcon.RenderTransform>
+                </SymbolIcon>
+            </StackPanel>
+        </Grid>
+
+        <chart:SfChart x:Name="StepAreaChart" Margin="1" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Height="50" AreaBorderThickness="0">
+
+            <chart:SfChart.PrimaryAxis >
+                <chart:DateTimeAxis Header="Date" Visibility="Collapsed" IntervalType="Days" Interval="1" ShowGridLines="false"/>
+            </chart:SfChart.PrimaryAxis>
+
+            <chart:SfChart.SecondaryAxis >
+                <chart:NumericalAxis Header="Count" Maximum="15" Minimum="0" Interval="1" Visibility="Collapsed" ShowGridLines="false"/>
+            </chart:SfChart.SecondaryAxis>
+
+            <chart:StepAreaSeries ItemsSource="{Binding Data}" XBindingPath="Date" YBindingPath="Count" Interior="LightGreen" Opacity="0.2"/>
+
+
+
+        </chart:SfChart>
+
+    </Grid>
+</UserControl>

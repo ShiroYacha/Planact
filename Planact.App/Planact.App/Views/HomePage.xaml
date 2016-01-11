@@ -1,4 +1,4 @@
-<Page x:Class="Planact.App.Views.HomePage"
+<Page
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:Behaviors="using:Template10.Behaviors"
@@ -9,10 +9,12 @@
       xmlns:local="using:Planact.App.Views"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:myctrls="using:UWPToolkit.Controls"
+      xmlns:Controls="using:Planact.App.Controls" x:Class="Planact.App.Views.HomePage"
       DataContext="{Binding HomePageViewModel, Source={StaticResource Locator}}"
-      mc:Ignorable="d">
+      mc:Ignorable="d"
+      Background="Black">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid>
 
         <!--  #region default visual states  -->
 
@@ -22,25 +24,16 @@
                     <VisualState.StateTriggers>
                         <AdaptiveTrigger MinWindowWidth="{StaticResource NarrowMinWidth}" />
                     </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <!--  TODO  -->
-                    </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="VisualStateNormal">
                     <VisualState.StateTriggers>
                         <AdaptiveTrigger MinWindowWidth="{StaticResource NormalMinWidth}" />
                     </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <!--  TODO  -->
-                    </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="VisualStateWide">
                     <VisualState.StateTriggers>
                         <AdaptiveTrigger MinWindowWidth="{StaticResource WideMinWidth}" />
                     </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <!--  TODO  -->
-                    </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
@@ -58,14 +51,12 @@
             <Interactivity:Interaction.Behaviors>
                 <Behaviors:EllipsisBehavior Visibility="Auto" />
             </Interactivity:Interaction.Behaviors>
-            <controls:PageHeader.SecondaryCommands>
-            </controls:PageHeader.SecondaryCommands>
         </controls:PageHeader>
         <Pivot Margin="10" Grid.Row="1" d:LayoutOverrides="TopPosition, BottomPosition" SelectedIndex="1">
             <PivotItem>
                 <PivotItem.Header>
                     <Border Height="40" Width="90">
-                        <SymbolIcon Symbol="ViewAll" HorizontalAlignment="Center"></SymbolIcon>
+                        <SymbolIcon Symbol="ViewAll" HorizontalAlignment="Center"/>
                     </Border>
                 </PivotItem.Header>
                 <Grid/>
@@ -73,15 +64,17 @@
             <PivotItem>
                 <PivotItem.Header>
                     <Border Height="40" Width="90">
-                        <SymbolIcon Symbol="OutlineStar" HorizontalAlignment="Center"></SymbolIcon>
+                        <SymbolIcon Symbol="OutlineStar" HorizontalAlignment="Center"/>
                     </Border>
                 </PivotItem.Header>
-                <Grid/>
+                <Grid>
+                    <Controls:StepAreaChartTile Height="98.6" Margin="10,10,10,0" VerticalAlignment="Top" d:LayoutOverrides="LeftPosition, RightPosition"/>
+                </Grid>
             </PivotItem>
             <PivotItem>
                 <PivotItem.Header>
                     <Border Height="40" Width="90">
-                        <SymbolIcon Symbol="Flag"  HorizontalAlignment="Center"></SymbolIcon>
+                        <SymbolIcon Symbol="Flag"  HorizontalAlignment="Center"/>
                     </Border>
                 </PivotItem.Header>
                 <Grid/>

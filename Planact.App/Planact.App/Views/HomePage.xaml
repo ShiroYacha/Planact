@@ -9,10 +9,9 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="using:Planact.App.Views"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      xmlns:myctrls="using:UWPToolkit.Controls"
-      xmlns:controls="using:Planact.App.Controls"
-      xmlns:model ="using:Planact.Models"
-      xmlns:converter ="using:Planact.App.Converters"
+      xmlns:uwpctrls="using:UWPToolkit.Controls"
+      xmlns:ctrls="using:Planact.App.Controls"
+      xmlns:models ="using:Planact.Models"
       DataContext="{Binding HomePageViewModel, Source={StaticResource Locator}}"
       mc:Ignorable="d"
       Background="Black">
@@ -70,15 +69,14 @@
                         <SymbolIcon Symbol="OutlineStar" HorizontalAlignment="Center"/>
                     </Border>
                 </PivotItem.Header>
-                <ListView ItemsSource="{Binding DesignTimeObjectives,Mode=OneWay}" Width="300" HorizontalAlignment="Center">
-                    <ListView.ItemTemplate>
+                <uwpctrls:TiledGridView ItemsSource="{Binding DesignTimeObjectives,Mode=OneWay}" Width="300" HorizontalAlignment="Center">
+                    <uwpctrls:TiledGridView.ItemTemplate>
                         <DataTemplate>
-                            <controls:ObjectiveTile Height="98.6" Margin="10,10,10,0" VerticalAlignment="Top" 
-                                                    ObjectiveName="{Binding Name}" ObjectiveContributions="{Binding Contributions}" IconName="{Binding IconName}" ColorString="{Binding ColorString}"/>
+                            <ctrls:ObjectiveTile Height="98.6" Margin="2" ObjectiveName="{Binding Name}" ObjectiveContributions="{Binding Contributions}" IconName="{Binding IconName}" ColorString="{Binding ColorString}"/>
                         </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-                </PivotItem>
+                    </uwpctrls:TiledGridView.ItemTemplate>
+                </uwpctrls:TiledGridView>
+            </PivotItem>
             <PivotItem>
                 <PivotItem.Header>
                     <Border Height="40" Width="90">

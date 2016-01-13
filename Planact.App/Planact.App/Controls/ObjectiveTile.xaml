@@ -9,9 +9,9 @@
     xmlns:chart="using:Syncfusion.UI.Xaml.Charts"
     mc:Ignorable="d"
     d:DesignHeight="80"
-    d:DesignWidth="300"
-    MaxHeight="80"
-    MaxWidth="300">
+    d:DesignWidth="300">
+    <!--MaxHeight="80"
+    MaxWidth="300">-->
     <UserControl.Resources>
 
         <Storyboard x:Name="Rising">

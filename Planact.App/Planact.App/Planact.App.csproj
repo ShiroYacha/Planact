@@ -212,6 +212,9 @@
     <SDKReference Include="Syncfusion 8.1 controls for Universal XAML, Version=13.3.0.7">
       <Name>Syncfusion 8.1 controls for Universal XAML</Name>
     </SDKReference>
+    <SDKReference Include="WindowsMobile, Version=10.0.10586.0">
+      <Name>Windows Mobile Extensions for the UWP</Name>
+    </SDKReference>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
@@ -225,6 +228,12 @@
       <Project>{f11b561f-5f88-46fc-8160-ba5b89e9166e}</Project>
       <Name>Planact</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="GridViewEx, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Resources\Lib\GridViewEx.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

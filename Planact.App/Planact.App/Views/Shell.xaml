@@ -44,12 +44,12 @@
         </Controls:ModalDialog.Content>
         <Controls:ModalDialog.ModalContent>
 
-            <Viewbox Height="32">
+            <Viewbox>
                 <StackPanel Orientation="Horizontal">
-                    <ProgressRing Width="16" Height="16"
+                    <!--<ProgressRing Width="16" Height="16"
                                   Margin="12,0" Foreground="White"
                                   IsActive="{x:Bind IsBusy, Mode=OneWay}" />
-                    <TextBlock VerticalAlignment="Center" Foreground="White" Text="{x:Bind BusyText, Mode=OneWay}" />
+                    <TextBlock VerticalAlignment="Center" Foreground="White" Text="{x:Bind BusyText, Mode=OneWay}" />-->
                 </StackPanel>
             </Viewbox>
 

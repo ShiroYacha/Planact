@@ -1,15 +1,18 @@
 <Page
+      x:Class="Planact.App.Views.HomePage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:Behaviors="using:Template10.Behaviors"
       xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
       xmlns:Interactivity="using:Microsoft.Xaml.Interactivity"
-      xmlns:controls="using:Template10.Controls"
+      xmlns:t10ctrls="using:Template10.Controls"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="using:Planact.App.Views"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:myctrls="using:UWPToolkit.Controls"
-      xmlns:Controls="using:Planact.App.Controls" x:Class="Planact.App.Views.HomePage"
+      xmlns:controls="using:Planact.App.Controls"
+      xmlns:model ="using:Planact.Models"
+      xmlns:converter ="using:Planact.App.Converters"
       DataContext="{Binding HomePageViewModel, Source={StaticResource Locator}}"
       mc:Ignorable="d"
       Background="Black">
@@ -47,11 +50,11 @@
 
         <!--  page header  -->
 
-        <controls:PageHeader x:Uid="HomePageHeader" Content="Home" BackButtonVisibility="Collapsed" Frame="{x:Bind Frame}">
+        <t10ctrls:PageHeader x:Uid="HomePageHeader" Content="Home" BackButtonVisibility="Collapsed" Frame="{x:Bind Frame}">
             <Interactivity:Interaction.Behaviors>
                 <Behaviors:EllipsisBehavior Visibility="Auto" />
             </Interactivity:Interaction.Behaviors>
-        </controls:PageHeader>
+        </t10ctrls:PageHeader>
         <Pivot Margin="10" Grid.Row="1" d:LayoutOverrides="TopPosition, BottomPosition" SelectedIndex="1">
             <PivotItem>
                 <PivotItem.Header>
@@ -67,10 +70,15 @@
                         <SymbolIcon Symbol="OutlineStar" HorizontalAlignment="Center"/>
                     </Border>
                 </PivotItem.Header>
-                <Grid>
-                    <Controls:StepAreaChartTile Height="98.6" Margin="10,10,10,0" VerticalAlignment="Top" d:LayoutOverrides="LeftPosition, RightPosition"/>
-                </Grid>
-            </PivotItem>
+                <ListView ItemsSource="{Binding DesignTimeObjectives,Mode=OneWay}" Width="300" HorizontalAlignment="Center">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <controls:ObjectiveTile Height="98.6" Margin="10,10,10,0" VerticalAlignment="Top" 
+                                                    ObjectiveName="{Binding Name}" ObjectiveContributions="{Binding Contributions}" IconName="{Binding IconName}" ColorString="{Binding ColorString}"/>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                </PivotItem>
             <PivotItem>
                 <PivotItem.Header>
                     <Border Height="40" Width="90">

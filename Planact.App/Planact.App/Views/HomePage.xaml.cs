@@ -1,5 +1,10 @@
 using Planact.App.ViewModels;
+using System;
+using System.Collections.ObjectModel;
 using Windows.UI.Xaml.Controls;
+using Planact.Common;
+using Planact.Models;
+using Planact.Models.DesignTime;
 
 namespace Planact.App.Views
 {

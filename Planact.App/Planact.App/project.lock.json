@@ -11,6 +11,17 @@
           "lib/portable-net4+sl5+netcore45+wpa81+wp8/Microsoft.Practices.ServiceLocation.dll": {}
         }
       },
+      "MathNet.Numerics/3.10.0": {
+        "frameworkAssemblies": [
+          "System.Numerics"
+        ],
+        "compile": {
+          "lib/portable-net45+netcore45+MonoAndroid1+MonoTouch1/MathNet.Numerics.dll": {}
+        },
+        "runtime": {
+          "lib/portable-net45+netcore45+MonoAndroid1+MonoTouch1/MathNet.Numerics.dll": {}
+        }
+      },
       "Microsoft.ApplicationInsights/1.0.0": {
         "compile": {
           "lib/portable-win81+wpa81/Microsoft.ApplicationInsights.dll": {}
@@ -1626,6 +1637,17 @@
         },
         "runtime": {
           "lib/portable-net4+sl5+netcore45+wpa81+wp8/Microsoft.Practices.ServiceLocation.dll": {}
+        }
+      },
+      "MathNet.Numerics/3.10.0": {
+        "frameworkAssemblies": [
+          "System.Numerics"
+        ],
+        "compile": {
+          "lib/portable-net45+netcore45+MonoAndroid1+MonoTouch1/MathNet.Numerics.dll": {}
+        },
+        "runtime": {
+          "lib/portable-net45+netcore45+MonoAndroid1+MonoTouch1/MathNet.Numerics.dll": {}
         }
       },
       "Microsoft.ApplicationInsights/1.0.0": {
@@ -3335,6 +3357,17 @@
           "lib/portable-net4+sl5+netcore45+wpa81+wp8/Microsoft.Practices.ServiceLocation.dll": {}
         }
       },
+      "MathNet.Numerics/3.10.0": {
+        "frameworkAssemblies": [
+          "System.Numerics"
+        ],
+        "compile": {
+          "lib/portable-net45+netcore45+MonoAndroid1+MonoTouch1/MathNet.Numerics.dll": {}
+        },
+        "runtime": {
+          "lib/portable-net45+netcore45+MonoAndroid1+MonoTouch1/MathNet.Numerics.dll": {}
+        }
+      },
       "Microsoft.ApplicationInsights/1.0.0": {
         "compile": {
           "lib/portable-win81+wpa81/Microsoft.ApplicationInsights.dll": {}
@@ -5012,6 +5045,17 @@
         },
         "runtime": {
           "lib/portable-net4+sl5+netcore45+wpa81+wp8/Microsoft.Practices.ServiceLocation.dll": {}
+        }
+      },
+      "MathNet.Numerics/3.10.0": {
+        "frameworkAssemblies": [
+          "System.Numerics"
+        ],
+        "compile": {
+          "lib/portable-net45+netcore45+MonoAndroid1+MonoTouch1/MathNet.Numerics.dll": {}
+        },
+        "runtime": {
+          "lib/portable-net45+netcore45+MonoAndroid1+MonoTouch1/MathNet.Numerics.dll": {}
         }
       },
       "Microsoft.ApplicationInsights/1.0.0": {
@@ -6726,6 +6770,17 @@
           "lib/portable-net4+sl5+netcore45+wpa81+wp8/Microsoft.Practices.ServiceLocation.dll": {}
         }
       },
+      "MathNet.Numerics/3.10.0": {
+        "frameworkAssemblies": [
+          "System.Numerics"
+        ],
+        "compile": {
+          "lib/portable-net45+netcore45+MonoAndroid1+MonoTouch1/MathNet.Numerics.dll": {}
+        },
+        "runtime": {
+          "lib/portable-net45+netcore45+MonoAndroid1+MonoTouch1/MathNet.Numerics.dll": {}
+        }
+      },
       "Microsoft.ApplicationInsights/1.0.0": {
         "compile": {
           "lib/portable-win81+wpa81/Microsoft.ApplicationInsights.dll": {}
@@ -8403,6 +8458,17 @@
         },
         "runtime": {
           "lib/portable-net4+sl5+netcore45+wpa81+wp8/Microsoft.Practices.ServiceLocation.dll": {}
+        }
+      },
+      "MathNet.Numerics/3.10.0": {
+        "frameworkAssemblies": [
+          "System.Numerics"
+        ],
+        "compile": {
+          "lib/portable-net45+netcore45+MonoAndroid1+MonoTouch1/MathNet.Numerics.dll": {}
+        },
+        "runtime": {
+          "lib/portable-net45+netcore45+MonoAndroid1+MonoTouch1/MathNet.Numerics.dll": {}
         }
       },
       "Microsoft.ApplicationInsights/1.0.0": {
@@ -10117,6 +10183,17 @@
           "lib/portable-net4+sl5+netcore45+wpa81+wp8/Microsoft.Practices.ServiceLocation.dll": {}
         }
       },
+      "MathNet.Numerics/3.10.0": {
+        "frameworkAssemblies": [
+          "System.Numerics"
+        ],
+        "compile": {
+          "lib/portable-net45+netcore45+MonoAndroid1+MonoTouch1/MathNet.Numerics.dll": {}
+        },
+        "runtime": {
+          "lib/portable-net45+netcore45+MonoAndroid1+MonoTouch1/MathNet.Numerics.dll": {}
+        }
+      },
       "Microsoft.ApplicationInsights/1.0.0": {
         "compile": {
           "lib/portable-win81+wpa81/Microsoft.ApplicationInsights.dll": {}
@@ -11802,6 +11879,32 @@
         "lib/portable-net4+sl5+netcore45+wpa81+wp8/Microsoft.Practices.ServiceLocation.XML",
         "package/services/metadata/core-properties/8a82b9e5a63a439481bfa8d4ec335002.psmdcp",
         "package/services/metadata/core-properties/99be0c88b2fd41c8b07c42071005ee47.psmdcp"
+      ]
+    },
+    "MathNet.Numerics/3.10.0": {
+      "sha512": "PTptF9PoSuwJOEPofaPbVSMj+EIgSllW/P3dQp+dNaJ6vsuaASOOjRAZpiGs3hEtYo9hXvlVL4ZXiMm2uCYBlw==",
+      "type": "Package",
+      "files": [
+        "[Content_Types].xml",
+        "_rels/.rels",
+        "lib/net35/MathNet.Numerics.dll",
+        "lib/net35/MathNet.Numerics.xml",
+        "lib/net40/MathNet.Numerics.dll",
+        "lib/net40/MathNet.Numerics.xml",
+        "lib/portable-net4+sl5+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1/MathNet.Numerics.dll",
+        "lib/portable-net4+sl5+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1/MathNet.Numerics.XML",
+        "lib/portable-net45+netcore45+MonoAndroid1+MonoTouch1/MathNet.Numerics.dll",
+        "lib/portable-net45+netcore45+MonoAndroid1+MonoTouch1/MathNet.Numerics.XML",
+        "lib/portable-net45+netcore45+wp8+MonoAndroid1+MonoTouch1/MathNet.Numerics.dll",
+        "lib/portable-net45+netcore45+wp8+MonoAndroid1+MonoTouch1/MathNet.Numerics.XML",
+        "lib/portable-net45+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1/MathNet.Numerics.dll",
+        "lib/portable-net45+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1/MathNet.Numerics.XML",
+        "lib/portable-net45+sl5+netcore45+MonoAndroid1+MonoTouch1/MathNet.Numerics.dll",
+        "lib/portable-net45+sl5+netcore45+MonoAndroid1+MonoTouch1/MathNet.Numerics.XML",
+        "license.txt",
+        "MathNet.Numerics.nuspec",
+        "package/services/metadata/core-properties/4fb281a02b1243cc9e0e0f50f49e982c.psmdcp",
+        "readme.txt"
       ]
     },
     "Microsoft.ApplicationInsights/1.0.0": {
@@ -15396,6 +15499,7 @@
   },
   "projectFileDependencyGroups": {
     "": [
+      "MathNet.Numerics >= 3.10.0",
       "Microsoft.ApplicationInsights >= 1.0.0",
       "Microsoft.ApplicationInsights.PersistenceChannel >= 1.0.0",
       "Microsoft.ApplicationInsights.WindowsApps >= 1.0.0",

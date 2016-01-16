@@ -26,20 +26,76 @@ namespace UWPToolkit.Controls
             this.InitializeComponent();
         }
 
+        #region Dependency binding
+
+        public static readonly DependencyProperty EnterConfigurationModeProperty =
+            DependencyProperty.Register("EnterConfigurationMode", typeof(Action<FrameworkElement>), typeof(TiledGridView),
+                new PropertyMetadata(null,
+                    (d, e) =>
+                    {
+
+                    }
+                    ));
+
+        public Action<FrameworkElement> EnterConfigurationMode
+        {
+            get { return (Action<FrameworkElement>)GetValue(EnterConfigurationModeProperty); }
+            set { SetValue(EnterConfigurationModeProperty, value); }
+        }
+
+        public static readonly DependencyProperty ExitConfigurationModeProperty =
+    DependencyProperty.Register("ExitConfigurationMode", typeof(Action), typeof(TiledGridView),
+        new PropertyMetadata(null,
+            (d, e) =>
+            {
+
+            }
+            ));
+
+        public Action ExitConfigurationMode
+        {
+            get { return (Action)GetValue(ExitConfigurationModeProperty); }
+            set { SetValue(ExitConfigurationModeProperty, value); }
+        }
+
+        #endregion
+
         ///// <summary>
         ///// Set column spans depending on group id.
         ///// </summary>
         ///// <param name="sender"></param>
         ///// <param name="e"></param>
-        //private void gve_PreparingContainerForItem(object sender, GridViewEx.PreparingContainerForItemEventArgs e)
-        //{
-        //    var random = new Random();
-        //    e.Element.SetValue(Windows.UI.Xaml.Controls.VariableSizedWrapGrid.ColumnSpanProperty, random.Next(2,4));
-        //}
+        private void gve_PreparingContainerForItem(object sender, GridViewEx.PreparingContainerForItemEventArgs e)
+        {
+            var random = new Random();
+            e.Element.SetValue(Windows.UI.Xaml.Controls.VariableSizedWrapGrid.ColumnSpanProperty, random.Next(2, 4));
+        }
 
-        private bool settingsMode = false;
+        #region Drag & drop and configuration mode
 
-        private void ChangeItemHighlightingStatus(object target = null)
+        private bool configurationMode = false;
+
+        private void ChangeConfigurationModeStatus(FrameworkElement configurationTarget = null)
+        {
+            var newMode = configurationTarget != null;
+            if (configurationMode != newMode)
+            {
+                // set flag
+                configurationMode = newMode;
+
+                // trigger callback if needed
+                if (configurationMode)
+                {
+                    EnterConfigurationMode?.Invoke(configurationTarget);
+                }
+                else
+                {
+                    ExitConfigurationMode?.Invoke();
+                }
+            }
+        }
+
+        private void ChangeItemHighlightingStatus(object highlightTarget = null)
         {
             // (un)highlight holding item
             foreach (var item in Items)
@@ -48,7 +104,7 @@ namespace UWPToolkit.Controls
                 var container = ItemContainerGenerator.ContainerFromItem(item) as UIElement;
 
                 // if target exist, highlight the target
-                if (target != null && item != target)
+                if (highlightTarget != null && item != highlightTarget)
                 {
                     container.Opacity = 0.5;
                 }
@@ -63,7 +119,7 @@ namespace UWPToolkit.Controls
         private void WrapGrid_Tapped(object sender, TappedRoutedEventArgs e)
         {
             // make sure is dragging
-            if(settingsMode)
+            if (configurationMode)
             {
                 // highlight new item
                 ChangeItemHighlightingStatus((e.OriginalSource as FrameworkElement).DataContext);
@@ -75,23 +131,25 @@ namespace UWPToolkit.Controls
 
         private void WrapGrid_Holding(object sender, HoldingRoutedEventArgs e)
         {
-            if (!settingsMode)
+            if (!configurationMode)
             {
+                var target = e.OriginalSource as FrameworkElement;
+
                 // set flag
-                settingsMode = true;
+                ChangeConfigurationModeStatus(target);
 
                 // highlight dragging item
-                ChangeItemHighlightingStatus((e.OriginalSource as FrameworkElement).DataContext);
+                ChangeItemHighlightingStatus(target.DataContext);
             }
         }
 
         private void GridViewEx_Tapped(object sender, TappedRoutedEventArgs e)
         {
             // make sure is dragging amd the tapped control is on blank space
-            if (settingsMode && sender is TiledGridView)
+            if (configurationMode && sender is TiledGridView)
             {
                 // cancel drag model
-                settingsMode = false;
+                ChangeConfigurationModeStatus();
 
                 // unhighlight
                 ChangeItemHighlightingStatus();
@@ -100,16 +158,39 @@ namespace UWPToolkit.Controls
 
         private void GridViewEx_DragItemsStarting(object sender, DragItemsStartingEventArgs e)
         {
-            if (!settingsMode)
+            // highlight dragging item
+            ChangeItemHighlightingStatus(e.Items[0]);
+        }
+
+        private void GridViewEx_DragItemsCompleted(ListViewBase sender, DragItemsCompletedEventArgs args)
+        {
+            if (!configurationMode)
             {
                 // set flag
-                settingsMode = true;
-
-                // highlight dragging item
-                ChangeItemHighlightingStatus(e.Items[0]); 
+                ChangeConfigurationModeStatus(args.Items[0] as FrameworkElement);
             }
         }
 
+        #endregion
 
+        #region Resize component
+
+        public void ResizeComponent(FrameworkElement target, int columnSpan, int rowSpan)
+        {
+            // make sure in configuration mode
+            if (configurationMode)
+            {
+                // get container
+                var container = ContainerFromItem(target) as VariableSizedWrapGrid;
+
+                if (container != null)
+                {
+                    VariableSizedWrapGrid.SetColumnSpan(container, columnSpan);
+                    VariableSizedWrapGrid.SetRowSpan(container, rowSpan);
+                }
+            }
+        }
+
+        #endregion
     }
 }

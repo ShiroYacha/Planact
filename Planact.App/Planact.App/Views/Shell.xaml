@@ -11,7 +11,7 @@
       xmlns:uwpctrls="using:UWPToolkit.Controls"
       mc:Ignorable="d">
 
-    <Controls:ModalDialog IsModal="{x:Bind IsBusy, Mode=OneWay}">
+    <Controls:ModalDialog>
         <Controls:ModalDialog.Content>
             <Grid Tapped="Grid_Tapped">
                 <Controls:HamburgerMenu x:Name="MyHamburgerMenu" IsFullScreen="False">
@@ -37,7 +37,7 @@
                 </Controls:HamburgerMenu>
 
                 <uwpctrls:QuadrantExpandingButton x:Name="QuickButton" Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0" Height="100"
-                Items="{x:Bind QuickButtonItems, Mode=OneTime}"/>
+                Items="{x:Bind QuickButtonItems, Mode=OneWay}"/>
 
             </Grid>
    

@@ -11,7 +11,7 @@
     d:DesignHeight="300"
     d:DesignWidth="400"
     AllowDrop="True" CanReorderItems="True" CanDragItems="True" SelectionMode="None"
-    DragItemsStarting="GridViewEx_DragItemsStarting" Tapped="GridViewEx_Tapped">
+    DragItemsStarting="GridViewEx_DragItemsStarting" DragItemsCompleted="GridViewEx_DragItemsCompleted" Tapped="GridViewEx_Tapped">
     <GridView.ItemsPanel>
         <ItemsPanelTemplate>
             <VariableSizedWrapGrid Orientation="Horizontal" MaximumRowsOrColumns="4" ItemHeight="100" ItemWidth="100"

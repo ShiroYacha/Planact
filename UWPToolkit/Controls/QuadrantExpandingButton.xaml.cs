@@ -59,6 +59,7 @@ namespace UWPToolkit.Controls
 
             // setup each items
             var count = Items.Count();
+            innerRing.Children.RemoveExceptTypes(typeof(Windows.UI.Xaml.Shapes.Path));
             Items.Each((item, index) => 
             {
                 // compute coordinates

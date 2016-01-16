@@ -8,6 +8,7 @@ using Windows.UI.Xaml.Controls;
 using UWPToolkit.Extensions;
 using UWPToolkit.Controls;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 namespace Planact.App.Views
 {
@@ -24,26 +25,14 @@ namespace Planact.App.Views
             MyHamburgerMenu.NavigationService = navigationService;
         }
 
-        public bool IsBusy { get; set; } = false;
-        public string BusyText { get; set; } = "Please wait...";
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public static void SetBusy(bool busy, string text = null)
+        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            WindowWrapper.Current().Dispatcher.Dispatch(() =>
-            {
-                if (busy)
-                    SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Collapsed;
-                else
-                    BootStrapper.Current.UpdateShellBackButton();
-
-                Instance.IsBusy = busy;
-                Instance.BusyText = text;
-
-                Instance.PropertyChanged?.Invoke(Instance, new PropertyChangedEventArgs(nameof(IsBusy)));
-                Instance.PropertyChanged?.Invoke(Instance, new PropertyChangedEventArgs(nameof(BusyText)));
-            });
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        #region Quick buttons
 
         private void Grid_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
@@ -55,54 +44,34 @@ namespace Planact.App.Views
             }
         }
 
+        private Dictionary<string, IEnumerable<QuadrantExpandingButtonItem>> quickButtonConfigurations = new Dictionary<string, IEnumerable<QuadrantExpandingButtonItem>>();
+        private IEnumerable<QuadrantExpandingButtonItem> activeQuickButtonItems = new List<QuadrantExpandingButtonItem>();
         public IEnumerable<QuadrantExpandingButtonItem> QuickButtonItems
         {
             get
             {
-                return new List<QuadrantExpandingButtonItem>
-                        {
-                            new QuadrantExpandingButtonItem()
-                            {
-                                Item = CreateDesignTimeSymbolIcon(Symbol.Home),
-                                SubItems = new List<SymbolIcon>
-                                {
-                                    CreateDesignTimeSymbolIcon(Symbol.Help),
-                                    CreateDesignTimeSymbolIcon(Symbol.HangUp)
-                                }
-                            },
-                            new QuadrantExpandingButtonItem()
-                            {
-                                Item = CreateDesignTimeSymbolIcon(Symbol.Globe),
-                                SubItems = new List<SymbolIcon>
-                                {
-                                    CreateDesignTimeSymbolIcon(Symbol.AllApps),
-                                    CreateDesignTimeSymbolIcon(Symbol.Admin),
-                                    CreateDesignTimeSymbolIcon(Symbol.Calculator),
-                                }
-                            },
-                            new QuadrantExpandingButtonItem()
-                            {
-                                Item = CreateDesignTimeSymbolIcon(Symbol.FontSize),
-                                SubItems = new List<SymbolIcon>
-                                {
-                                    CreateDesignTimeSymbolIcon(Symbol.CalendarReply),
-                                    CreateDesignTimeSymbolIcon(Symbol.CalendarWeek),
-                                    CreateDesignTimeSymbolIcon(Symbol.Keyboard),
-                                    CreateDesignTimeSymbolIcon(Symbol.Import),
-                                    CreateDesignTimeSymbolIcon(Symbol.ImportAll),
-                                    CreateDesignTimeSymbolIcon(Symbol.WebCam),
-                                }
-                            },
-                        };
+                return activeQuickButtonItems;
             }
         } 
 
-        private SymbolIcon CreateDesignTimeSymbolIcon(Symbol symbol)
+        public void RegisterQuickButtonConfiguration(string key, IEnumerable<QuadrantExpandingButtonItem> buttons)
         {
-            return new SymbolIcon { Name = symbol.ToString(), Symbol = symbol, Width = 20, Height = 20,
-                RenderTransform =new Windows.UI.Xaml.Media.CompositeTransform(),
-                RenderTransformOrigin = new Windows.Foundation.Point(0.5,0.5)}; 
+            quickButtonConfigurations.Add(key, buttons);
         }
+
+        public void SwitchToQuickButtonConfiguration(string key)
+        {
+            if(quickButtonConfigurations.ContainsKey(key))
+            {
+                // set active configuration
+                activeQuickButtonItems = quickButtonConfigurations[key];
+
+                // invalidate binding
+                OnPropertyChanged("QuickButtonItems");
+            }
+        }
+
+        #endregion
     }
 }
 

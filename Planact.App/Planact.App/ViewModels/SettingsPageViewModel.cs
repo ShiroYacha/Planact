@@ -30,23 +30,6 @@ namespace Planact.App.ViewModels
             get { return _settings.AppTheme.Equals(ApplicationTheme.Light); }
             set { _settings.AppTheme = value ? ApplicationTheme.Light : ApplicationTheme.Dark; base.RaisePropertyChanged(); }
         }
-
-        private string _BusyText = "Please wait...";
-        public string BusyText
-        {
-            get { return _BusyText; }
-            set { Set(ref _BusyText, value); }
-        }
-
-        public void ShowBusy()
-        {
-            Views.Shell.SetBusy(true, _BusyText);
-        }
-
-        public void HideBusy()
-        {
-            Views.Shell.SetBusy(false);
-        }
     }
 
     public class AboutPartViewModel : Mvvm.NavigableViewModelBase

@@ -17,6 +17,11 @@
       Background="Black">
 
     <Grid>
+        <Interactivity:Interaction.Behaviors>
+            <Core:EventTriggerBehavior EventName="Loaded">
+                <Core:InvokeCommandAction Command="{Binding LoadedCommand}"/>
+            </Core:EventTriggerBehavior>
+        </Interactivity:Interaction.Behaviors>
 
         <!--  #region default visual states  -->
 
@@ -49,6 +54,8 @@
 
         <!--  page header  -->
 
+        
+        
         <t10ctrls:PageHeader x:Uid="HomePageHeader" Content="Home" BackButtonVisibility="Collapsed" Frame="{x:Bind Frame}">
             <Interactivity:Interaction.Behaviors>
                 <Behaviors:EllipsisBehavior Visibility="Auto" />
@@ -69,7 +76,8 @@
                         <SymbolIcon Symbol="OutlineStar" HorizontalAlignment="Center"/>
                     </Border>
                 </PivotItem.Header>
-                <uwpctrls:TiledGridView ItemsSource="{Binding DesignTimeObjectives,Mode=OneWay}" Width="300" HorizontalAlignment="Center">
+                <uwpctrls:TiledGridView Width="300" HorizontalAlignment="Center"  ItemsSource="{Binding DesignTimeObjectives,Mode=OneWay}" 
+                                        EnterConfigurationMode="{Binding EnterConfigurationModeAction}" ExitConfigurationMode="{Binding ExitConfigurationModeAction}">
                     <uwpctrls:TiledGridView.ItemTemplate>
                         <DataTemplate>
                             <ctrls:ObjectiveTile Height="98.6" Margin="2" ObjectiveName="{Binding Name}" ObjectiveContributions="{Binding Contributions}" IconName="{Binding IconName}" ColorString="{Binding ColorString}"/>

@@ -111,7 +111,6 @@ namespace Planact.App.ViewModels
                         CreateSymbolIcon(Symbol.Keyboard),
                         CreateSymbolIcon(Symbol.Import),
                         CreateSymbolIcon(Symbol.ImportAll),
-                        CreateSymbolIcon(Symbol.WebCam),
                     }
                 },
             };
@@ -133,7 +132,6 @@ namespace Planact.App.ViewModels
                         CreateSymbolIcon(Symbol.Keyboard),
                         CreateSymbolIcon(Symbol.Import),
                         CreateSymbolIcon(Symbol.ImportAll),
-                        CreateSymbolIcon(Symbol.WebCam),
                     }
                 },
             };
@@ -145,12 +143,10 @@ namespace Planact.App.ViewModels
         {
             return new SymbolIcon
             {
-                Name = symbol.ToString(),
+                Tag = symbol.ToString(),
                 Symbol = symbol,
                 Width = 20,
                 Height = 20,
-                RenderTransform = new Windows.UI.Xaml.Media.CompositeTransform(),
-                RenderTransformOrigin = new Windows.Foundation.Point(0.5, 0.5)
             };
         }
     }

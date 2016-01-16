@@ -9,6 +9,9 @@ using System.Collections;
 using System.Linq;
 using System.Collections.Generic;
 using Windows.Foundation;
+using Windows.UI.Xaml.Shapes;
+using Windows.UI.Xaml.Media;
+using Windows.UI;
 
 // The User Control item template is documented at http://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -24,15 +27,10 @@ namespace UWPToolkit.Controls
         #region Dependency binding
 
         public static readonly DependencyProperty ItemsProperty =
-            DependencyProperty.Register("Items", typeof(QuadrantExpandingButton), typeof(IEnumerable<QuadrantExpandingButtonItem>),
+            DependencyProperty.Register("Items", typeof(IEnumerable<QuadrantExpandingButtonItem>), typeof(QuadrantExpandingButton),
                 new PropertyMetadata(new List<QuadrantExpandingButtonItem>(),
                     (d, e) =>
                     {
-                        //BindableParameter param = (BindableParameter)d;
-                        ////set the ConverterParameterValue before calling invalidate because the invalidate uses that value to sett the converter paramter
-                        //param.ConverterParameterValue = e.NewValue;
-                        ////update the converter parameter 
-                        //InvalidateBinding(param);
                         (d as QuadrantExpandingButton).SetupItems();
                     }
                     ));
@@ -47,70 +45,79 @@ namespace UWPToolkit.Controls
 
         #region Positioning
 
+        const double innerRingRadius = 120; // depend on the Path
+        const double innerRingRibbonRadius = 23;
+        const double outerRingRadius = 210; // depend on the Path
+        const double outerRingRibbonRadius = 35;
+
         public void SetupItems()
         {
+            // prepare handler resource
+            PointerEventHandler blinkAndCollapse = async (s, e) =>
+            {
+                // play blink animation
+                await RingButtonPressedHandler(s, e);
+
+                // collapse
+                CollapseAll();
+            };
+
             // get canvas configuration
             double innerRingHeight = innerRing.Height;
             double innerRingWidth = innerRing.Width;
-            const double innerRingRadius = 120; // depend on the Path
             double outerRingHeight = outerRing.Height;
             double outerRingWidth = outerRing.Width;
-            const double outerRingRadius = 210; // depend on the Path
 
             // setup each items
             var count = Items.Count();
-            innerRing.Children.RemoveExceptTypes(typeof(Windows.UI.Xaml.Shapes.Path));
-            Items.Each((item, index) => 
+            innerRing.Children.RemoveExceptTypes(typeof(Path));
+            Items.Each((item, index) =>
             {
                 // compute coordinates
                 var innerRingItem = item.Item;
-                double innerRingTheta = Math.PI * (index + 1) / (2*(count+1));
+                double innerRingTheta = ComputeThetaOfQuadrantPart(index, count);
                 double innerRingX = innerRingWidth - innerRingRadius * Math.Cos(innerRingTheta);
                 double innerRingY = innerRingHeight - innerRingRadius * Math.Sin(innerRingTheta);
 
+                // wrap with container to expand hitbox
+                var innerRingItemContainer = WrapItemWithContainer(innerRingItem, innerRingRibbonRadius);
+
                 // add to inner ring canvas
-                Canvas.SetLeft(innerRingItem, innerRingX - innerRingItem.Width/2);
-                Canvas.SetTop(innerRingItem, innerRingY - innerRingItem.Height/2);
-                innerRing.Children.Add(innerRingItem);
+                Canvas.SetLeft(innerRingItemContainer, innerRingX - innerRingRibbonRadius);
+                Canvas.SetTop(innerRingItemContainer, innerRingY - innerRingRibbonRadius);
+                innerRing.Children.Add(innerRingItemContainer);
 
                 // setup outer ring
-                PointerEventHandler blinkAndCollapse = async (s, e) =>
-                {
-                    // play blink animation
-                    await RingButtonPressedHandler(s, e);
-
-                    // collapse
-                    CollapseAll();
-                };
-
                 var subCount = item.SubItems.Count();
                 if (subCount > 0)
                 {
+                    // wrap sub items
+                    var wrapedSubItems = (from subItem in item.SubItems select WrapItemWithContainer(subItem, outerRingRibbonRadius)).ToList();
+
                     // create link on inner ring item
-                    innerRingItem.PointerPressed += async (s, e) =>
+                    innerRingItemContainer.PointerPressed += async (s, e) =>
                     {
                         // play blink animation
                         await RingButtonPressedHandler(s, e);
 
                         // clear outer ring items except the path
-                        outerRing.Children.RemoveExceptTypes(typeof(Windows.UI.Xaml.Shapes.Path));
+                        outerRing.Children.RemoveExceptTypes(typeof(Path));
 
                         // setup outer ring items
-                        item.SubItems.Each((subItem, subIndex) =>
+                        wrapedSubItems.Each((wrapedSubItem, subIndex) =>
                         {
                             // compute coordinates
-                            var outerRingItem = subItem;
-                            double outerRingTheta = Math.PI * (subIndex + 1) / (2 * (subCount + 1));
+                            double outerRingTheta = ComputeThetaOfQuadrantPart(subIndex, subCount);
                             double outerRingX = outerRingWidth - outerRingRadius * Math.Cos(outerRingTheta);
                             double outerRingY = outerRingHeight - outerRingRadius * Math.Sin(outerRingTheta);
 
                             // add to inner ring canvas
-                            Canvas.SetLeft(outerRingItem, outerRingX - outerRingItem.Width / 2);
-                            Canvas.SetTop(outerRingItem, outerRingY - outerRingItem.Height / 2);
-                            outerRing.Children.Add(outerRingItem);
+                            Canvas.SetLeft(wrapedSubItem, outerRingX - outerRingRibbonRadius);
+                            Canvas.SetTop(wrapedSubItem, outerRingY - outerRingRibbonRadius);
+                            outerRing.Children.Add(wrapedSubItem);
 
                             // play blink animation
-                            subItem.PointerPressed += blinkAndCollapse;
+                            wrapedSubItem.PointerPressed += blinkAndCollapse;
                         });
 
                         // play animation
@@ -122,7 +129,31 @@ namespace UWPToolkit.Controls
                     innerRingItem.PointerPressed += blinkAndCollapse;
                 }
             });
-        }  
+        }
+
+        private static double ComputeThetaOfQuadrantPart(int index, int count)
+        {
+            return Math.PI * 0.6 * (index + 1) / (count + 1) - Math.PI * 0.05;
+        }
+
+        private Grid WrapItemWithContainer(FrameworkElement item, double radius)
+        {
+            var container = new Grid()
+            {
+                Name = item.Tag as string,
+                RenderTransform = new CompositeTransform(),
+                RenderTransformOrigin = new Point(0.5, 0.5)
+            };
+            var hitbox = new Ellipse()
+            {
+                Width = radius * 2,
+                Height = radius * 2,
+                Fill = new SolidColorBrush(Colors.Tomato),
+            };
+            container.Children.Add(item);
+            container.Children.Add(hitbox);
+            return container;
+        }
 
         #endregion
 
@@ -157,6 +188,12 @@ namespace UWPToolkit.Controls
 
                 // expand button
                 Expand.Begin();
+
+                // if there is only one button in the inner ring, expand the outer ring automatically if any items are in there
+                if(Items?.Count()==1 && Items.ElementAtOrDefault(0)?.SubItems?.Count()>0)
+                {
+
+                }
             }
         }
 

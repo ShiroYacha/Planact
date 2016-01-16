@@ -3,6 +3,8 @@ using Windows.UI.Xaml;
 using System.Threading.Tasks;
 using Planact.App.Services.SettingsServices;
 using Windows.ApplicationModel.Activation;
+using UWPToolkit.Controls;
+using System.Reflection;
 
 namespace Planact.App
 {

@@ -59,7 +59,7 @@ namespace Planact.App.Views
             quickButtonConfigurations.Add(key, buttons);
         }
 
-        public void SwitchToQuickButtonConfiguration(string key)
+        public void SwitchToQuickButtonConfiguration(string key, bool expand = false)
         {
             if(quickButtonConfigurations.ContainsKey(key))
             {
@@ -68,6 +68,12 @@ namespace Planact.App.Views
 
                 // invalidate binding
                 OnPropertyChanged("QuickButtonItems");
+
+                // expand if needed
+                if(expand)
+                {
+                    QuickButton.ExpandRootButton();
+                }
             }
         }
 

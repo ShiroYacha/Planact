@@ -62,7 +62,7 @@ namespace Planact.App.ViewModels
 
         public void EnterConfigurationMode(FrameworkElement element)
         {
-            Shell.Instance.SwitchToQuickButtonConfiguration("Resize");
+            Shell.Instance.SwitchToQuickButtonConfiguration("Resize",true);
         }
 
         public Action ExitConfigurationModeAction

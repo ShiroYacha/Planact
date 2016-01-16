@@ -21,7 +21,14 @@ namespace UWPToolkit.Controls
     {
         public QuadrantExpandingButton()
         {
+            // initialize
             this.InitializeComponent();
+
+            // setup fields
+            innerRingHeight = innerRing.Height;
+            innerRingWidth = innerRing.Width;
+            outerRingHeight = outerRing.Height;
+            outerRingWidth = outerRing.Width;
         }
 
         #region Dependency binding
@@ -50,23 +57,18 @@ namespace UWPToolkit.Controls
         const double outerRingRadius = 210; // depend on the Path
         const double outerRingRibbonRadius = 35;
 
+        // get canvas configuration
+        double innerRingHeight;
+        double innerRingWidth; 
+        double outerRingHeight;
+        double outerRingWidth;
+
+        Dictionary<FrameworkElement, Grid> itemContainerDict = new Dictionary<FrameworkElement, Grid>();
+
         public void SetupItems()
         {
-            // prepare handler resource
-            PointerEventHandler blinkAndCollapse = async (s, e) =>
-            {
-                // play blink animation
-                await RingButtonPressedHandler(s, e);
-
-                // collapse
-                CollapseAll();
-            };
-
-            // get canvas configuration
-            double innerRingHeight = innerRing.Height;
-            double innerRingWidth = innerRing.Width;
-            double outerRingHeight = outerRing.Height;
-            double outerRingWidth = outerRing.Width;
+            // initialize 
+            ClearPreviousContainers();
 
             // setup each items
             var count = Items.Count();
@@ -88,8 +90,7 @@ namespace UWPToolkit.Controls
                 innerRing.Children.Add(innerRingItemContainer);
 
                 // setup outer ring
-                var subCount = item.SubItems.Count();
-                if (subCount > 0)
+                if (item.SubItems.Any())
                 {
                     // wrap sub items
                     var wrapedSubItems = (from subItem in item.SubItems select WrapItemWithContainer(subItem, outerRingRibbonRadius)).ToList();
@@ -100,35 +101,53 @@ namespace UWPToolkit.Controls
                         // play blink animation
                         await RingButtonPressedHandler(s, e);
 
-                        // clear outer ring items except the path
-                        outerRing.Children.RemoveExceptTypes(typeof(Path));
-
-                        // setup outer ring items
-                        wrapedSubItems.Each((wrapedSubItem, subIndex) =>
-                        {
-                            // compute coordinates
-                            double outerRingTheta = ComputeThetaOfQuadrantPart(subIndex, subCount);
-                            double outerRingX = outerRingWidth - outerRingRadius * Math.Cos(outerRingTheta);
-                            double outerRingY = outerRingHeight - outerRingRadius * Math.Sin(outerRingTheta);
-
-                            // add to inner ring canvas
-                            Canvas.SetLeft(wrapedSubItem, outerRingX - outerRingRibbonRadius);
-                            Canvas.SetTop(wrapedSubItem, outerRingY - outerRingRibbonRadius);
-                            outerRing.Children.Add(wrapedSubItem);
-
-                            // play blink animation
-                            wrapedSubItem.PointerPressed += blinkAndCollapse;
-                        });
-
-                        // play animation
-                        ExpandOuterRing();
+                        // setup sub items
+                        SetupSubItems(wrapedSubItems);
                     };
                 }
                 else
                 {
-                    innerRingItem.PointerPressed += blinkAndCollapse;
+                    innerRingItem.PointerPressed += BlinkAndCollapse;
                 }
             });
+        }
+
+        private void ClearPreviousContainers()
+        {
+            // clear childs
+            foreach(var key in itemContainerDict.Keys)
+            {
+                itemContainerDict[key].Children.Clear();
+            }
+
+            // clear container dictionary
+            itemContainerDict.Clear();
+        }
+
+        private void SetupSubItems(IEnumerable<Grid> wrapedSubItems)
+        {
+            // clear outer ring items except the path
+            outerRing.Children.RemoveExceptTypes(typeof(Path));
+
+            // setup outer ring items
+            wrapedSubItems.Each((wrapedSubItem, subIndex) =>
+            {
+                // compute coordinates
+                double outerRingTheta = ComputeThetaOfQuadrantPart(subIndex, wrapedSubItems.Count());
+                double outerRingX = outerRingWidth - outerRingRadius * Math.Cos(outerRingTheta);
+                double outerRingY = outerRingHeight - outerRingRadius * Math.Sin(outerRingTheta);
+
+                // add to inner ring canvas
+                Canvas.SetLeft(wrapedSubItem, outerRingX - outerRingRibbonRadius);
+                Canvas.SetTop(wrapedSubItem, outerRingY - outerRingRibbonRadius);
+                outerRing.Children.Add(wrapedSubItem);
+
+                // play blink animation
+                wrapedSubItem.PointerPressed += BlinkAndCollapse;
+            });
+
+            // play animation
+            ExpandOuterRing();
         }
 
         private static double ComputeThetaOfQuadrantPart(int index, int count)
@@ -138,20 +157,30 @@ namespace UWPToolkit.Controls
 
         private Grid WrapItemWithContainer(FrameworkElement item, double radius)
         {
+            // create container
             var container = new Grid()
             {
                 Name = item.Tag as string,
                 RenderTransform = new CompositeTransform(),
                 RenderTransformOrigin = new Point(0.5, 0.5)
             };
+
+            // create hitbox
             var hitbox = new Ellipse()
             {
                 Width = radius * 2,
                 Height = radius * 2,
-                Fill = new SolidColorBrush(Colors.Tomato),
+                Fill = new SolidColorBrush(Colors.Transparent),
             };
+
+            // add to container
             container.Children.Add(item);
             container.Children.Add(hitbox);
+
+            // add to dictionary
+            itemContainerDict.Add(item, container);
+
+            // return container
             return container;
         }
 
@@ -192,7 +221,8 @@ namespace UWPToolkit.Controls
                 // if there is only one button in the inner ring, expand the outer ring automatically if any items are in there
                 if(Items?.Count()==1 && Items.ElementAtOrDefault(0)?.SubItems?.Count()>0)
                 {
-
+                    // setup sub items
+                    SetupSubItems(Items.ElementAtOrDefault(0).SubItems.Select(subItem => itemContainerDict[subItem]));
                 }
             }
         }
@@ -285,6 +315,15 @@ namespace UWPToolkit.Controls
         {
             // run initialize storyboard
             Initialize.Begin();
+        }
+
+        private async void BlinkAndCollapse(object sender, PointerRoutedEventArgs e)
+        {
+            // play blink animation
+            await RingButtonPressedHandler(sender, e);
+
+            // collapse
+            CollapseAll();
         }
 
         #endregion

@@ -15,7 +15,7 @@
     <GridView.ItemsPanel>
         <ItemsPanelTemplate>
             <VariableSizedWrapGrid Orientation="Horizontal" MaximumRowsOrColumns="4" ItemHeight="100" ItemWidth="100"
-                Tapped="WrapGrid_Tapped"/>
+                Tapped="WrapGrid_Tapped" Holding="WrapGrid_Holding"/>
         </ItemsPanelTemplate>
     </GridView.ItemsPanel>
 </gve:GridViewEx>

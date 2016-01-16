@@ -20,7 +20,6 @@ namespace UWPToolkit.Controls
 {
     public sealed partial class TiledGridView : GridViewEx.GridViewEx
     {
-        private bool dragMode = false;
 
         public TiledGridView()
         {
@@ -37,6 +36,8 @@ namespace UWPToolkit.Controls
         //    var random = new Random();
         //    e.Element.SetValue(Windows.UI.Xaml.Controls.VariableSizedWrapGrid.ColumnSpanProperty, random.Next(2,4));
         //}
+
+        private bool settingsMode = false;
 
         private void ChangeItemHighlightingStatus(object target = null)
         {
@@ -62,7 +63,7 @@ namespace UWPToolkit.Controls
         private void WrapGrid_Tapped(object sender, TappedRoutedEventArgs e)
         {
             // make sure is dragging
-            if(dragMode)
+            if(settingsMode)
             {
                 // highlight new item
                 ChangeItemHighlightingStatus((e.OriginalSource as FrameworkElement).DataContext);
@@ -72,13 +73,25 @@ namespace UWPToolkit.Controls
             }
         }
 
+        private void WrapGrid_Holding(object sender, HoldingRoutedEventArgs e)
+        {
+            if (!settingsMode)
+            {
+                // set flag
+                settingsMode = true;
+
+                // highlight dragging item
+                ChangeItemHighlightingStatus((e.OriginalSource as FrameworkElement).DataContext);
+            }
+        }
+
         private void GridViewEx_Tapped(object sender, TappedRoutedEventArgs e)
         {
             // make sure is dragging amd the tapped control is on blank space
-            if (dragMode && sender is TiledGridView)
+            if (settingsMode && sender is TiledGridView)
             {
                 // cancel drag model
-                dragMode = false;
+                settingsMode = false;
 
                 // unhighlight
                 ChangeItemHighlightingStatus();
@@ -87,11 +100,16 @@ namespace UWPToolkit.Controls
 
         private void GridViewEx_DragItemsStarting(object sender, DragItemsStartingEventArgs e)
         {
-            // set flag
-            dragMode = true;
+            if (!settingsMode)
+            {
+                // set flag
+                settingsMode = true;
 
-            // highlight dragging item
-            ChangeItemHighlightingStatus(e.Items[0]);
+                // highlight dragging item
+                ChangeItemHighlightingStatus(e.Items[0]); 
+            }
         }
+
+
     }
 }

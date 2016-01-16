@@ -74,7 +74,7 @@ namespace Planact.Models.DesignTime
             // generate color string
             var colorString = string.Format("#{0:X6}", random.Next(0x1000000));
 
-            return new Objective {Name = name, Contributions = contributions, IconName = iconName, ColorString = colorString };
+            return new Objective {Name = name, Contributions = contributions, IconName = iconName, ColorString = colorString};
         }
     }
 }

@@ -1,4 +1,8 @@
-﻿using System;
+﻿// ----------------------------------------------------
+// Modified from FrayxRulez/SwipeListView (MIT License)
+// ----------------------------------------------------
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

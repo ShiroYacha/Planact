@@ -42,7 +42,7 @@ namespace Planact.Models.DesignTime
             // create objectives
             for(int i=0; i< count; i++)
             {
-                objectives.Add(CreateRandomObjective(i+1));
+                objectives.Add(CreateRandomObjective(i));
             }
 
             return objectives;
@@ -51,7 +51,7 @@ namespace Planact.Models.DesignTime
         public static Objective CreateRandomObjective(int index)
         {
             // generate name
-            var name = $"Objective {index}";
+            var name = $"Objective {index+1}";
 
             // generate contribution
             var random = new Random(index);
@@ -75,9 +75,10 @@ namespace Planact.Models.DesignTime
             var colorString = string.Format("#{0:X6}", random.Next(0x1000000));
 
             // generate default span
-            var defaultSpan = 1; 
+            var defaultRowSpan = 1;
+            var defaultColumnSpan = (new int[] { 1, 2, 5 }).Contains(index)? 2:1;
 
-            return new Objective {Name = name, Contributions = contributions, IconName = iconName, ColorString = colorString, RowSpan = defaultSpan , ColumnSpan = defaultSpan };
+            return new Objective {Name = name, Contributions = contributions, IconName = iconName, ColorString = colorString, RowSpan = defaultRowSpan , ColumnSpan = defaultColumnSpan };
         }
     }
 }

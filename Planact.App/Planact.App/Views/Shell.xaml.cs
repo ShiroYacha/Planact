@@ -67,9 +67,16 @@ namespace Planact.App.Views
             }
         } 
 
-        public void RegisterQuickButtonConfiguration(string key, HierarchicalButtonConfiguration buttons)
+        public void RegisterQuickButtonConfiguration(string key, HierarchicalButtonConfiguration configuration)
         {
-            quickButtonConfigurations.Add(key, buttons);
+            if(quickButtonConfigurations.ContainsKey(key))
+            {
+                quickButtonConfigurations[key] = configuration;
+            }
+            else
+            {
+                quickButtonConfigurations.Add(key, configuration);
+            }
         }
 
         public void SwitchToQuickButtonConfiguration(string key, bool expand = false)

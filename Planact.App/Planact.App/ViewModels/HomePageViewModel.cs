@@ -33,7 +33,7 @@ namespace Planact.App.ViewModels
         {
             get
             {
-                return new ObservableCollection<Objective>(DesignTimeObjectiveFactory.CreateRandomObjectives(5));
+                return new ObservableCollection<Objective>(DesignTimeObjectiveFactory.CreateRandomObjectives(6));
             }
         }
 

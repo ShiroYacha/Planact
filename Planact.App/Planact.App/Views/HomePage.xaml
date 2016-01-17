@@ -54,8 +54,6 @@
 
         <!--  page header  -->
 
-        
-        
         <t10ctrls:PageHeader x:Uid="HomePageHeader" Content="Home" BackButtonVisibility="Collapsed" Frame="{x:Bind Frame}">
             <Interactivity:Interaction.Behaviors>
                 <Behaviors:EllipsisBehavior Visibility="Auto" />
@@ -76,6 +74,7 @@
                         <SymbolIcon Symbol="OutlineStar" HorizontalAlignment="Center"/>
                     </Border>
                 </PivotItem.Header>
+                <uwpctrls:SwipeableItem Background="AliceBlue" HorizontalAlignment="Stretch" Height="80"/>
             </PivotItem>
             <PivotItem>
                 <PivotItem.Header>

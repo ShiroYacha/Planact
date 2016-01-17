@@ -112,6 +112,7 @@
       <DependentUpon>QuadrantExpandingButton.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\HierarchicalButtonConfiguration.cs" />
+    <Compile Include="Controls\SwipeableItem.cs" />
     <Compile Include="Controls\TiledGridView.xaml.cs">
       <DependentUpon>TiledGridView.xaml</DependentUpon>
     </Compile>
@@ -129,6 +130,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Themes\Generic.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <SDKReference Include="BehaviorsXamlSDKManaged, Version=12.0">
@@ -144,6 +150,7 @@
       <HintPath>..\Resources\Lib\GridViewEx.dll</HintPath>
     </Reference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

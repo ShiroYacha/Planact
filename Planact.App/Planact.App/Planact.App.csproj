@@ -107,6 +107,9 @@
     <Compile Include="Controls\ObjectiveTile.xaml.cs">
       <DependentUpon>ObjectiveTile.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\TimelineHub.xaml.cs">
+      <DependentUpon>TimelineHub.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Converters\HexStringToColorConverter.cs" />
     <Compile Include="Mvvm\NavigableViewModelBase.cs" />
     <Compile Include="Mvvm\ViewModelBase.cs" />
@@ -176,6 +179,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="Controls\ObjectiveTile.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\TimelineHub.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

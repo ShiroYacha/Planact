@@ -65,5 +65,17 @@ namespace UWPToolkit.Extensions
             return tcs.Task;
         }
 
+        public static string GenerateRandomName(this FrameworkElement target)
+        {
+            // create random name with guid
+            var name = "_" + Guid.NewGuid().ToString("N");
+
+            // set target name
+            target.Name = name;
+
+            // return name
+            return name;
+        }
+
     }
 }

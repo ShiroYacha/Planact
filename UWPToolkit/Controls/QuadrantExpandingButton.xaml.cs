@@ -33,19 +33,19 @@ namespace UWPToolkit.Controls
 
         #region Dependency binding
 
-        public static readonly DependencyProperty ItemsProperty =
-            DependencyProperty.Register("Items", typeof(IEnumerable<QuadrantExpandingButtonItem>), typeof(QuadrantExpandingButton),
-                new PropertyMetadata(new List<QuadrantExpandingButtonItem>(),
+        public static readonly DependencyProperty ConfigurationProperty =
+            DependencyProperty.Register(nameof(Configuration), typeof(HierarchicalButtonConfiguration), typeof(QuadrantExpandingButton),
+                new PropertyMetadata(null,
                     (d, e) =>
                     {
                         (d as QuadrantExpandingButton).SetupItems();
                     }
                     ));
 
-        public IEnumerable<QuadrantExpandingButtonItem> Items
+        public HierarchicalButtonConfiguration Configuration
         {
-            get { return (IEnumerable<QuadrantExpandingButtonItem>)GetValue(ItemsProperty); }
-            set { SetValue(ItemsProperty, value); }
+            get { return (HierarchicalButtonConfiguration)GetValue(ConfigurationProperty); }
+            set { SetValue(ConfigurationProperty, value); }
         }
 
         #endregion
@@ -63,26 +63,42 @@ namespace UWPToolkit.Controls
         double outerRingHeight;
         double outerRingWidth;
 
-        Dictionary<FrameworkElement, Grid> itemContainerDict = new Dictionary<FrameworkElement, Grid>();
+        Dictionary<HierarchicalButtonConfiguration, Grid> itemContainerDict = new Dictionary<HierarchicalButtonConfiguration, Grid>();
+        PointerEventHandler rootButtonCommand;
 
         public void SetupItems()
         {
             // initialize 
-            ClearPreviousContainers();
+            ClearPreviousRecords();
+
+            // setup root button 
+            rootButtonVisualContainer.Children.Clear();
+            rootButtonVisualContainer.Children.Add(Configuration.ButtonVisual);
+
+            // setup command 
+            if (Configuration.Command != null)
+            {
+                rootButtonCommand = (s, e) => Configuration.Command.Execute(null);
+                rootButton.PointerPressed += rootButtonCommand;
+            }
+            else
+            {
+                rootButton.PointerPressed += ToggleRootButtonStatus;
+            }
 
             // setup each items
-            var count = Items.Count();
+            var count = Configuration.SubButtonConfigurations.Count();
             innerRing.Children.RemoveExceptTypes(typeof(Path));
-            Items.Each((item, index) =>
+            Configuration.SubButtonConfigurations.Each((item, index) =>
             {
                 // compute coordinates
-                var innerRingItem = item.Item;
+                var innerRingItem = item.ButtonVisual;
                 double innerRingTheta = ComputeThetaOfQuadrantPart(index, count);
                 double innerRingX = innerRingWidth - innerRingRadius * Math.Cos(innerRingTheta);
                 double innerRingY = innerRingHeight - innerRingRadius * Math.Sin(innerRingTheta);
 
                 // wrap with container to expand hitbox
-                var innerRingItemContainer = WrapItemWithContainer(innerRingItem, innerRingRibbonRadius);
+                var innerRingItemContainer = WrapItemWithContainer(item, innerRingRibbonRadius);
 
                 // add to inner ring canvas
                 Canvas.SetLeft(innerRingItemContainer, innerRingX - innerRingRibbonRadius);
@@ -90,10 +106,10 @@ namespace UWPToolkit.Controls
                 innerRing.Children.Add(innerRingItemContainer);
 
                 // setup outer ring
-                if (item.SubItems.Any())
+                if (item.SubButtonConfigurations.Any())
                 {
                     // wrap sub items
-                    var wrapedSubItems = (from subItem in item.SubItems select WrapItemWithContainer(subItem, outerRingRibbonRadius)).ToList();
+                    var wrapedSubItems = (from subItem in item.SubButtonConfigurations select WrapItemWithContainer(subItem, outerRingRibbonRadius)).ToList();
 
                     // create link on inner ring item
                     innerRingItemContainer.PointerPressed += async (s, e) =>
@@ -107,18 +123,30 @@ namespace UWPToolkit.Controls
                 }
                 else
                 {
-                    innerRingItem.PointerPressed += BlinkAndCollapse;
+                    // setup animation
+                    innerRingItemContainer.PointerPressed += BlinkAndCollapse;
+
+                    // setup command 
+                    if(item.Command!=null)
+                    {
+                        innerRingItemContainer.PointerPressed += (s,e)=> item.Command.Execute(null);
+                    }
                 }
             });
         }
 
-        private void ClearPreviousContainers()
+        private void ClearPreviousRecords()
         {
-            // clear childs
+            // clear previous results
             foreach(var key in itemContainerDict.Keys)
             {
+                // clear children
                 itemContainerDict[key].Children.Clear();
             }
+
+            // clear root button 
+            rootButton.PointerPressed -= ToggleRootButtonStatus;
+            rootButton.PointerPressed -= rootButtonCommand;
 
             // clear container dictionary
             itemContainerDict.Clear();
@@ -144,6 +172,13 @@ namespace UWPToolkit.Controls
 
                 // play blink animation
                 wrapedSubItem.PointerPressed += BlinkAndCollapse;
+
+                // setup command 
+                var subItem = itemContainerDict.Single(kvp => kvp.Value == wrapedSubItem).Key;
+                if (subItem.Command != null)
+                {
+                    wrapedSubItem.PointerPressed += (s, e) => subItem.Command.Execute(null);
+                }
             });
 
             // play animation
@@ -155,15 +190,17 @@ namespace UWPToolkit.Controls
             return Math.PI * 0.6 * (index + 1) / (count + 1) - Math.PI * 0.05;
         }
 
-        private Grid WrapItemWithContainer(FrameworkElement item, double radius)
+        private Grid WrapItemWithContainer(HierarchicalButtonConfiguration item, double radius)
         {
             // create container
             var container = new Grid()
             {
-                Name = item.Tag as string,
                 RenderTransform = new CompositeTransform(),
                 RenderTransformOrigin = new Point(0.5, 0.5)
             };
+
+            // setup name
+            container.GenerateRandomName();
 
             // create hitbox
             var hitbox = new Ellipse()
@@ -174,7 +211,7 @@ namespace UWPToolkit.Controls
             };
 
             // add to container
-            container.Children.Add(item);
+            container.Children.Add(item.ButtonVisual);
             container.Children.Add(hitbox);
 
             // add to dictionary
@@ -219,10 +256,10 @@ namespace UWPToolkit.Controls
                 Expand.Begin();
 
                 // if there is only one button in the inner ring, expand the outer ring automatically if any items are in there
-                if(Items?.Count()==1 && Items.ElementAtOrDefault(0)?.SubItems?.Count()>0)
+                if(Configuration?.SubButtonConfigurations?.Count()==1 && Configuration.SubButtonConfigurations.ElementAtOrDefault(0)?.SubButtonConfigurations?.Count()>0)
                 {
                     // setup sub items
-                    SetupSubItems(Items.ElementAtOrDefault(0).SubItems.Select(subItem => itemContainerDict[subItem]));
+                    SetupSubItems(Configuration.SubButtonConfigurations.ElementAtOrDefault(0).SubButtonConfigurations.Select(subItem => itemContainerDict[subItem]));
                 }
             }
         }
@@ -295,7 +332,7 @@ namespace UWPToolkit.Controls
                 string name = dpobj.GetValue(NameProperty) as string;
 
                 // skip root icon blink
-                if (name != nameof(rootIcon))
+                if (name != nameof(rootButton))
                 {
                     // set target name
                     IconBlink.Stop();

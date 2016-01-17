@@ -57,9 +57,9 @@ namespace Planact.App.Views
             }
         }
 
-        private Dictionary<string, IEnumerable<QuadrantExpandingButtonItem>> quickButtonConfigurations = new Dictionary<string, IEnumerable<QuadrantExpandingButtonItem>>();
-        private IEnumerable<QuadrantExpandingButtonItem> activeQuickButtonItems = new List<QuadrantExpandingButtonItem>();
-        public IEnumerable<QuadrantExpandingButtonItem> QuickButtonItems
+        private Dictionary<string, HierarchicalButtonConfiguration> quickButtonConfigurations = new Dictionary<string, HierarchicalButtonConfiguration>();
+        private HierarchicalButtonConfiguration activeQuickButtonItems;
+        public HierarchicalButtonConfiguration QuickButtonConfiguration
         {
             get
             {
@@ -67,7 +67,7 @@ namespace Planact.App.Views
             }
         } 
 
-        public void RegisterQuickButtonConfiguration(string key, IEnumerable<QuadrantExpandingButtonItem> buttons)
+        public void RegisterQuickButtonConfiguration(string key, HierarchicalButtonConfiguration buttons)
         {
             quickButtonConfigurations.Add(key, buttons);
         }
@@ -80,7 +80,7 @@ namespace Planact.App.Views
                 activeQuickButtonItems = quickButtonConfigurations[key];
 
                 // invalidate binding
-                OnPropertyChanged("QuickButtonItems");
+                OnPropertyChanged("QuickButtonConfiguration");
 
                 // expand if needed
                 if(expand)

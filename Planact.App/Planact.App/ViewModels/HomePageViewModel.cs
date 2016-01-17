@@ -10,6 +10,7 @@ using System.Windows.Input;
 using UWPToolkit.Controls;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 namespace Planact.App.ViewModels
@@ -80,39 +81,24 @@ namespace Planact.App.ViewModels
 
         private void SetupDefaultConfiguration()
         {
-            var configuration = new List<QuadrantExpandingButtonItem>
+            var configuration = new HierarchicalButtonConfiguration
             {
-                new QuadrantExpandingButtonItem()
+                ButtonVisual = CreateSymbolIcon(Symbol.Add, true),
+                SubButtonConfigurations = new List<HierarchicalButtonConfiguration>
                 {
-                    Item = CreateSymbolIcon(Symbol.Home),
-                    SubItems = new List<SymbolIcon>
+                    new HierarchicalButtonConfiguration
                     {
-                        CreateSymbolIcon(Symbol.Help),
-                        CreateSymbolIcon(Symbol.HangUp)
-                    }
-                },
-                new QuadrantExpandingButtonItem()
-                {
-                    Item = CreateSymbolIcon(Symbol.Globe),
-                    SubItems = new List<SymbolIcon>
+                        ButtonVisual = CreateSymbolIcon(Symbol.Bookmarks)
+                    },
+                    new HierarchicalButtonConfiguration
                     {
-                        CreateSymbolIcon(Symbol.AllApps),
-                        CreateSymbolIcon(Symbol.Admin),
-                        CreateSymbolIcon(Symbol.Calculator),
-                    }
-                },
-                new QuadrantExpandingButtonItem()
-                {
-                    Item = CreateSymbolIcon(Symbol.FontSize),
-                    SubItems = new List<SymbolIcon>
+                        ButtonVisual = CreateSymbolIcon(Symbol.Flag)
+                    },
+                    new HierarchicalButtonConfiguration
                     {
-                        CreateSymbolIcon(Symbol.CalendarReply),
-                        CreateSymbolIcon(Symbol.CalendarWeek),
-                        CreateSymbolIcon(Symbol.Keyboard),
-                        CreateSymbolIcon(Symbol.Import),
-                        CreateSymbolIcon(Symbol.ImportAll),
+                        ButtonVisual = CreateSymbolIcon(Symbol.Edit)
                     }
-                },
+                }
             };
 
             Shell.Instance.RegisterQuickButtonConfiguration("Default", configuration);
@@ -120,34 +106,41 @@ namespace Planact.App.ViewModels
 
         private void SetupResizeConfiguration()
         {
-            var configuration = new List<QuadrantExpandingButtonItem>
-            {              
-                new QuadrantExpandingButtonItem()
+            var configuration = new HierarchicalButtonConfiguration
+            {
+                ButtonVisual = CreateSymbolIcon(Symbol.Setting, true),
+                SubButtonConfigurations = new List<HierarchicalButtonConfiguration>
                 {
-                    Item = CreateSymbolIcon(Symbol.FontSize),
-                    SubItems = new List<SymbolIcon>
+                    new HierarchicalButtonConfiguration
                     {
-                        CreateSymbolIcon(Symbol.CalendarReply),
-                        CreateSymbolIcon(Symbol.CalendarWeek),
-                        CreateSymbolIcon(Symbol.Keyboard),
-                        CreateSymbolIcon(Symbol.Import),
-                        CreateSymbolIcon(Symbol.ImportAll),
+                        ButtonVisual = CreateSymbolIcon(Symbol.FullScreen)
+                    },
+                    new HierarchicalButtonConfiguration
+                    {
+                        ButtonVisual = CreateSymbolIcon(Symbol.BackToWindow)
                     }
-                },
+                }
             };
 
             Shell.Instance.RegisterQuickButtonConfiguration("Resize", configuration);
         }
 
-        private SymbolIcon CreateSymbolIcon(Symbol symbol)
+        private SymbolIcon CreateSymbolIcon(Symbol symbol, bool isRoot = false)
         {
-            return new SymbolIcon
+            var icon = new SymbolIcon
             {
-                Tag = symbol.ToString(),
                 Symbol = symbol,
                 Width = 20,
                 Height = 20,
             };
+
+            if(isRoot)
+            {
+                icon.RenderTransformOrigin = new Windows.Foundation.Point(0.5, 0.5);
+                icon.RenderTransform = new CompositeTransform { ScaleX = 2, ScaleY =2 };
+            }
+
+            return icon;
         }
     }
 }

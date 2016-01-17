@@ -37,7 +37,7 @@
                 </Controls:HamburgerMenu>
 
                 <uwpctrls:QuadrantExpandingButton x:Name="QuickButton" Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0" Height="100"
-                Items="{x:Bind QuickButtonItems, Mode=OneWay}"/>
+                Configuration="{x:Bind QuickButtonConfiguration, Mode=OneWay}"/>
 
             </Grid>
    

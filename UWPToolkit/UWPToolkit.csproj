@@ -111,7 +111,7 @@
     <Compile Include="Controls\QuadrantExpandingButton.xaml.cs">
       <DependentUpon>QuadrantExpandingButton.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\QuadrantExpandingButtonItem.cs" />
+    <Compile Include="Controls\HierarchicalButtonConfiguration.cs" />
     <Compile Include="Controls\TiledGridView.xaml.cs">
       <DependentUpon>TiledGridView.xaml</DependentUpon>
     </Compile>

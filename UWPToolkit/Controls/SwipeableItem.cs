@@ -1,5 +1,6 @@
 ﻿// ----------------------------------------------------
 // Modified from FrayxRulez/SwipeListView (MIT License)
+// see https://github.com/FrayxRulez/SwipeListView
 // ----------------------------------------------------
 
 using System;

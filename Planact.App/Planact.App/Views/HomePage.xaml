@@ -64,7 +64,7 @@
         <Pivot Margin="10" Grid.Row="1" d:LayoutOverrides="TopPosition, BottomPosition" SelectedIndex="1">
             <PivotItem>
                 <PivotItem.Header>
-                    <Border Height="40" Width="90">
+                    <Border Height="40" Width="75">
                         <SymbolIcon Symbol="ViewAll" HorizontalAlignment="Center"/>
                     </Border>
                 </PivotItem.Header>
@@ -72,12 +72,12 @@
             </PivotItem>
             <PivotItem>
                 <PivotItem.Header>
-                    <Border Height="40" Width="90">
+                    <Border Height="40" Width="75">
                         <SymbolIcon Symbol="OutlineStar" HorizontalAlignment="Center"/>
                     </Border>
                 </PivotItem.Header>
                 <uwpctrls:TiledGridView Width="300" HorizontalAlignment="Center"  ItemsSource="{Binding DesignTimeObjectives,Mode=OneWay}" 
-                                        EnterConfigurationMode="{Binding EnterConfigurationModeAction}" ExitConfigurationMode="{Binding ExitConfigurationModeAction}">
+                                        ActivateConfigurationMode="{Binding EnterConfigurationModeAction}" ExitConfigurationMode="{Binding ExitConfigurationModeAction}">
                     <uwpctrls:TiledGridView.ItemTemplate>
                         <DataTemplate>
                             <ctrls:ObjectiveTile Height="98.6" Margin="2" ObjectiveName="{Binding Name}" ObjectiveContributions="{Binding Contributions}" IconName="{Binding IconName}" ColorString="{Binding ColorString}"/>
@@ -87,7 +87,7 @@
             </PivotItem>
             <PivotItem>
                 <PivotItem.Header>
-                    <Border Height="40" Width="90">
+                    <Border Height="40" Width="75">
                         <SymbolIcon Symbol="Flag"  HorizontalAlignment="Center"/>
                     </Border>
                 </PivotItem.Header>

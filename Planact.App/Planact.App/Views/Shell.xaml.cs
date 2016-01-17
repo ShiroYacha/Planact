@@ -9,6 +9,8 @@ using UWPToolkit.Extensions;
 using UWPToolkit.Controls;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using Windows.UI.ViewManagement;
+using Windows.Foundation;
 
 namespace Planact.App.Views
 {
@@ -23,6 +25,17 @@ namespace Planact.App.Views
             Instance = this;
             InitializeComponent();
             MyHamburgerMenu.NavigationService = navigationService;
+
+            SetupAppLayout();
+        }
+
+        private static void SetupAppLayout()
+        {
+            var desiredSize = new Size { Height = 640, Width = 320 };
+            ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size(320, 320));
+            ApplicationView.PreferredLaunchViewSize = desiredSize;
+            ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
+            ApplicationView.GetForCurrentView().TryResizeView(desiredSize);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

@@ -28,8 +28,8 @@ namespace UWPToolkit.Controls
 
         #region Dependency binding
 
-        public static readonly DependencyProperty EnterConfigurationModeProperty =
-            DependencyProperty.Register("EnterConfigurationMode", typeof(Action<FrameworkElement>), typeof(TiledGridView),
+        public static readonly DependencyProperty ActivateConfigurationModeProperty =
+            DependencyProperty.Register(nameof(ActivateConfigurationMode), typeof(Action<FrameworkElement>), typeof(TiledGridView),
                 new PropertyMetadata(null,
                     (d, e) =>
                     {
@@ -37,10 +37,10 @@ namespace UWPToolkit.Controls
                     }
                     ));
 
-        public Action<FrameworkElement> EnterConfigurationMode
+        public Action<FrameworkElement> ActivateConfigurationMode
         {
-            get { return (Action<FrameworkElement>)GetValue(EnterConfigurationModeProperty); }
-            set { SetValue(EnterConfigurationModeProperty, value); }
+            get { return (Action<FrameworkElement>)GetValue(ActivateConfigurationModeProperty); }
+            set { SetValue(ActivateConfigurationModeProperty, value); }
         }
 
         public static readonly DependencyProperty ExitConfigurationModeProperty =
@@ -86,7 +86,7 @@ namespace UWPToolkit.Controls
                 // trigger callback if needed
                 if (configurationMode)
                 {
-                    EnterConfigurationMode?.Invoke(configurationTarget);
+                    ActivateConfigurationMode?.Invoke(configurationTarget);
                 }
                 else
                 {
@@ -121,11 +121,16 @@ namespace UWPToolkit.Controls
             // make sure is dragging
             if (configurationMode)
             {
+                var configurationTarget = e.OriginalSource as FrameworkElement;
+
                 // highlight new item
-                ChangeItemHighlightingStatus((e.OriginalSource as FrameworkElement).DataContext);
+                ChangeItemHighlightingStatus(configurationTarget.DataContext);
 
                 // stop propagation in drag mode
                 e.Handled = true;
+
+                // activate
+                ActivateConfigurationMode?.Invoke(configurationTarget);
             }
         }
 

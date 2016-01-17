@@ -10,7 +10,7 @@
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400"
-    AllowDrop="True" CanReorderItems="True" CanDragItems="True" SelectionMode="None"
+    AllowDrop="True" CanReorderItems="True" CanDragItems="True" SelectionMode="None" PreparingContainerForItem="GridViewEx_PreparingContainerForItem"
     DragItemsStarting="GridViewEx_DragItemsStarting" DragItemsCompleted="GridViewEx_DragItemsCompleted" Tapped="GridViewEx_Tapped">
     <GridView.ItemsPanel>
         <ItemsPanelTemplate>

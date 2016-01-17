@@ -170,6 +170,19 @@ namespace UWPToolkit.Controls
 
         #region Resize component
 
+        private void GridViewEx_PreparingContainerForItem(object sender, GridViewEx.PreparingContainerForItemEventArgs e)
+        {
+            try
+            {
+                dynamic data = e.Item;
+                e.Element.SetValue(Windows.UI.Xaml.Controls.VariableSizedWrapGrid.ColumnSpanProperty, data.ColumnSpan);
+            }
+            catch
+            {
+                e.Element.SetValue(Windows.UI.Xaml.Controls.VariableSizedWrapGrid.ColumnSpanProperty, 1);
+            }
+        }
+
         public void ResizeComponent(object target, int columnSpan, int rowSpan)
         {
             // make sure in configuration mode
@@ -181,13 +194,29 @@ namespace UWPToolkit.Controls
 
                 if (container != null)
                 {
-                    VariableSizedWrapGrid.SetColumnSpan(item, columnSpan);
-                    VariableSizedWrapGrid.SetRowSpan(item, rowSpan);
-                    container.InvalidateMeasure();
+                    try
+                    {
+                        // update data context
+                        dynamic data = item.DataContext;
+                        data.RowSpan = rowSpan;
+                        data.ColumnSpan = columnSpan;
+
+                        // update visual 
+                        VariableSizedWrapGrid.SetColumnSpan(item, columnSpan);
+                        VariableSizedWrapGrid.SetRowSpan(item, rowSpan);
+                        container.InvalidateMeasure();
+                    }
+                    catch (Exception)
+                    {
+                        // do nothing
+                    }
+
                 }
             }
         }
 
         #endregion
+
+
     }
 }

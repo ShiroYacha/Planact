@@ -31,5 +31,17 @@ namespace Planact.Models
             get;
             set;
         }
+
+        public int RowSpan
+        {
+            get;
+            set;
+        }
+
+        public int ColumnSpan
+        {
+            get;
+            set;
+        }
     }
 }

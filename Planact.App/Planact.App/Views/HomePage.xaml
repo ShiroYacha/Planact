@@ -76,6 +76,13 @@
                         <SymbolIcon Symbol="OutlineStar" HorizontalAlignment="Center"/>
                     </Border>
                 </PivotItem.Header>
+            </PivotItem>
+            <PivotItem>
+                <PivotItem.Header>
+                    <Border Height="40" Width="75">
+                        <SymbolIcon Symbol="Flag"  HorizontalAlignment="Center"/>
+                    </Border>
+                </PivotItem.Header>
                 <uwpctrls:TiledGridView x:Name="ObjectiveGridView" Width="300" HorizontalAlignment="Center"  ItemsSource="{Binding DesignTimeObjectives,Mode=OneWay}" 
                                         ActivateConfigurationMode="{Binding EnterConfigurationModeAction}" ExitConfigurationMode="{Binding ExitConfigurationModeAction}">
                     <uwpctrls:TiledGridView.ItemTemplate>
@@ -84,14 +91,6 @@
                         </DataTemplate>
                     </uwpctrls:TiledGridView.ItemTemplate>
                 </uwpctrls:TiledGridView>
-            </PivotItem>
-            <PivotItem>
-                <PivotItem.Header>
-                    <Border Height="40" Width="75">
-                        <SymbolIcon Symbol="Flag"  HorizontalAlignment="Center"/>
-                    </Border>
-                </PivotItem.Header>
-                <Grid/>
             </PivotItem>
         </Pivot>
     </Grid>

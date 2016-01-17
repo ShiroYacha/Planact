@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
+using UWPToolkit.Extensions;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -29,7 +30,7 @@ namespace UWPToolkit.Controls
         #region Dependency binding
 
         public static readonly DependencyProperty ActivateConfigurationModeProperty =
-            DependencyProperty.Register(nameof(ActivateConfigurationMode), typeof(Action<FrameworkElement>), typeof(TiledGridView),
+            DependencyProperty.Register(nameof(ActivateConfigurationMode), typeof(Action<object>), typeof(TiledGridView),
                 new PropertyMetadata(null,
                     (d, e) =>
                     {
@@ -37,9 +38,9 @@ namespace UWPToolkit.Controls
                     }
                     ));
 
-        public Action<FrameworkElement> ActivateConfigurationMode
+        public Action<object> ActivateConfigurationMode
         {
-            get { return (Action<FrameworkElement>)GetValue(ActivateConfigurationModeProperty); }
+            get { return (Action<object>)GetValue(ActivateConfigurationModeProperty); }
             set { SetValue(ActivateConfigurationModeProperty, value); }
         }
 
@@ -60,22 +61,11 @@ namespace UWPToolkit.Controls
 
         #endregion
 
-        ///// <summary>
-        ///// Set column spans depending on group id.
-        ///// </summary>
-        ///// <param name="sender"></param>
-        ///// <param name="e"></param>
-        private void gve_PreparingContainerForItem(object sender, GridViewEx.PreparingContainerForItemEventArgs e)
-        {
-            var random = new Random();
-            e.Element.SetValue(Windows.UI.Xaml.Controls.VariableSizedWrapGrid.ColumnSpanProperty, random.Next(2, 4));
-        }
-
         #region Drag & drop and configuration mode
 
         private bool configurationMode = false;
 
-        private void ChangeConfigurationModeStatus(FrameworkElement configurationTarget = null)
+        private void ChangeConfigurationModeStatus(object configurationTarget = null)
         {
             var newMode = configurationTarget != null;
             if (configurationMode != newMode)
@@ -130,7 +120,7 @@ namespace UWPToolkit.Controls
                 e.Handled = true;
 
                 // activate
-                ActivateConfigurationMode?.Invoke(configurationTarget);
+                ActivateConfigurationMode?.Invoke(configurationTarget.DataContext);
             }
         }
 
@@ -141,7 +131,7 @@ namespace UWPToolkit.Controls
                 var target = e.OriginalSource as FrameworkElement;
 
                 // set flag
-                ChangeConfigurationModeStatus(target);
+                ChangeConfigurationModeStatus(target.DataContext);
 
                 // highlight dragging item
                 ChangeItemHighlightingStatus(target.DataContext);
@@ -180,18 +170,20 @@ namespace UWPToolkit.Controls
 
         #region Resize component
 
-        public void ResizeComponent(FrameworkElement target, int columnSpan, int rowSpan)
+        public void ResizeComponent(object target, int columnSpan, int rowSpan)
         {
             // make sure in configuration mode
             if (configurationMode)
             {
                 // get container
-                var container = ContainerFromItem(target) as VariableSizedWrapGrid;
+                var item = ContainerFromItem(target) as FrameworkElement;
+                var container = item.FindParent<VariableSizedWrapGrid>();
 
                 if (container != null)
                 {
-                    VariableSizedWrapGrid.SetColumnSpan(container, columnSpan);
-                    VariableSizedWrapGrid.SetRowSpan(container, rowSpan);
+                    VariableSizedWrapGrid.SetColumnSpan(item, columnSpan);
+                    VariableSizedWrapGrid.SetRowSpan(item, rowSpan);
+                    container.InvalidateMeasure();
                 }
             }
         }

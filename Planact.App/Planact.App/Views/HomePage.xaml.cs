@@ -15,9 +15,12 @@ namespace Planact.App.Views
         {
             InitializeComponent();
             NavigationCacheMode = Windows.UI.Xaml.Navigation.NavigationCacheMode.Disabled;
+            ViewModel.ResizeAction = ObjectiveGridView.ResizeComponent;
         }
 
         // strongly-typed view models enable x:bind
         public HomePageViewModel ViewModel => this.DataContext as HomePageViewModel;
+
+
     }
 }

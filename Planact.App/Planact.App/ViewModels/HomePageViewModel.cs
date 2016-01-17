@@ -21,19 +21,19 @@ namespace Planact.App.ViewModels
         {
         }
 
+        public Action<object, int,int> ResizeAction
+        {
+            get;
+            set;
+        }
+        private object selectedConfigurationTarget;
+
+
         public ObservableCollection<Objective> DesignTimeObjectives
         {
             get
             {
                 return new ObservableCollection<Objective>(DesignTimeObjectiveFactory.CreateRandomObjectives(5));
-            }
-        }
-
-        public Shell Shell
-        {
-            get
-            {
-                return Shell.Instance;
             }
         }
 
@@ -53,16 +53,17 @@ namespace Planact.App.ViewModels
             Shell.Instance.SwitchToQuickButtonConfiguration("Default");
         }
 
-        public Action<FrameworkElement> EnterConfigurationModeAction
+        public Action<object> EnterConfigurationModeAction
         {
             get
             {
-                return new Action<FrameworkElement>(EnterConfigurationMode);
+                return new Action<object>(EnterConfigurationMode);
             }
         }
 
-        public void EnterConfigurationMode(FrameworkElement element)
+        public void EnterConfigurationMode(object element)
         {
+            selectedConfigurationTarget = element;
             Shell.Instance.SwitchToQuickButtonConfiguration("Resize",true);
         }
 
@@ -76,6 +77,7 @@ namespace Planact.App.ViewModels
 
         public void ExitConfigurationMode()
         {
+            selectedConfigurationTarget = null;
             Shell.Instance.SwitchToQuickButtonConfiguration("Default");
         }
 
@@ -113,11 +115,14 @@ namespace Planact.App.ViewModels
                 {
                     new HierarchicalButtonConfiguration
                     {
-                        ButtonVisual = CreateSymbolIcon(Symbol.FullScreen)
+                        ButtonVisual = CreateSymbolIcon(Symbol.FullScreen),
+                        Command = new RelayCommand(()=>ResizeAction(selectedConfigurationTarget,2,1))
+                        
                     },
                     new HierarchicalButtonConfiguration
                     {
-                        ButtonVisual = CreateSymbolIcon(Symbol.BackToWindow)
+                        ButtonVisual = CreateSymbolIcon(Symbol.BackToWindow),
+                        Command = new RelayCommand(()=>ResizeAction(selectedConfigurationTarget,1,1))
                     }
                 }
             };

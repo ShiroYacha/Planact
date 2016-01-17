@@ -76,11 +76,11 @@
                         <SymbolIcon Symbol="OutlineStar" HorizontalAlignment="Center"/>
                     </Border>
                 </PivotItem.Header>
-                <uwpctrls:TiledGridView Width="300" HorizontalAlignment="Center"  ItemsSource="{Binding DesignTimeObjectives,Mode=OneWay}" 
+                <uwpctrls:TiledGridView x:Name="ObjectiveGridView" Width="300" HorizontalAlignment="Center"  ItemsSource="{Binding DesignTimeObjectives,Mode=OneWay}" 
                                         ActivateConfigurationMode="{Binding EnterConfigurationModeAction}" ExitConfigurationMode="{Binding ExitConfigurationModeAction}">
                     <uwpctrls:TiledGridView.ItemTemplate>
                         <DataTemplate>
-                            <ctrls:ObjectiveTile Height="98.6" Margin="2" ObjectiveName="{Binding Name}" ObjectiveContributions="{Binding Contributions}" IconName="{Binding IconName}" ColorString="{Binding ColorString}"/>
+                            <ctrls:ObjectiveTile Margin="2" ObjectiveName="{Binding Name}" ObjectiveContributions="{Binding Contributions}" IconName="{Binding IconName}" ColorString="{Binding ColorString}"/>
                         </DataTemplate>
                     </uwpctrls:TiledGridView.ItemTemplate>
                 </uwpctrls:TiledGridView>

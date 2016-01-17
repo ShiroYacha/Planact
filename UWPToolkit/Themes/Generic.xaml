@@ -15,8 +15,8 @@
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="MinWidth" Value="{ThemeResource ListViewItemMinWidth}"/>
         <Setter Property="MinHeight" Value="{ThemeResource ListViewItemMinHeight}"/>
-        <Setter Property="LeftBackground" Value="#007aff"/>
-        <Setter Property="RightBackground" Value="#ff3b30"/>
+        <Setter Property="LeftOrTopBackground" Value="#007aff"/>
+        <Setter Property="RightOrButtomBackground" Value="#ff3b30"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:SwipeableItem">
@@ -285,18 +285,18 @@
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
 
-                            <Border x:Name="LeftContainer">
-                                <ContentControl Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding LeftContentTemplate}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" RenderTransformOrigin="0.5,0.5">
+                            <Border x:Name="LeftOrTopContainer">
+                                <ContentControl Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding LeftOrTopContentTemplate}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" RenderTransformOrigin="0.5,0.5">
                                     <ContentControl.RenderTransform>
-                                        <TranslateTransform x:Name="LeftTransform"/>
+                                        <TranslateTransform x:Name="LeftOrTopTransform"/>
                                     </ContentControl.RenderTransform>
                                 </ContentControl>
                             </Border>
 
-                            <Border x:Name="RightContainer" Grid.Column="2">
-                                <ContentControl Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding RightContentTemplate}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" RenderTransformOrigin="0.5,0.5">
+                            <Border x:Name="RightOrButtomContainer" Grid.Column="2">
+                                <ContentControl Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding RightOrButtomContentTemplate}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" RenderTransformOrigin="0.5,0.5">
                                     <ContentControl.RenderTransform>
-                                        <TranslateTransform x:Name="RightTransform"/>
+                                        <TranslateTransform x:Name="RightOrButtomTransform"/>
                                     </ContentControl.RenderTransform>
                                 </ContentControl>
                             </Border>

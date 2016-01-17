@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Foundation;
+using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -45,11 +46,11 @@ namespace UWPToolkit.Controls
     public class SwipeableItem : ListViewItem
     {
         private TranslateTransform ContentDragTransform;
-        private TranslateTransform LeftTransform;
-        private TranslateTransform RightTransform;
+        private TranslateTransform LeftOrTopTransform;
+        private TranslateTransform RightOrButtomTransform;
 
-        private Border LeftContainer;
-        private Border RightContainer;
+        private Border LeftOrTopContainer;
+        private Border RightOrButtomContainer;
 
         private Grid DragBackground;
         private RectangleGeometry DragClip;
@@ -66,16 +67,25 @@ namespace UWPToolkit.Controls
             base.OnApplyTemplate();
 
             ContentDragTransform = (TranslateTransform)GetTemplateChild("ContentDragTransform");
-            LeftTransform = (TranslateTransform)GetTemplateChild("LeftTransform");
-            RightTransform = (TranslateTransform)GetTemplateChild("RightTransform");
+            LeftOrTopTransform = (TranslateTransform)GetTemplateChild("LeftOrTopTransform");
+            RightOrButtomTransform = (TranslateTransform)GetTemplateChild("RightOrButtomTransform");
 
-            LeftContainer = (Border)GetTemplateChild("LeftContainer");
-            RightContainer = (Border)GetTemplateChild("RightContainer");
+            LeftOrTopContainer = (Border)GetTemplateChild("LeftOrTopContainer");
+            RightOrButtomContainer = (Border)GetTemplateChild("RightOrButtomContainer");
 
             DragBackground = (Grid)GetTemplateChild("DragBackground");
             DragClip = (RectangleGeometry)GetTemplateChild("DragClip");
             DragClipTransform1 = (TranslateTransform)GetTemplateChild("DragClipTransform");
             DragContainer = (Border)GetTemplateChild("DragContainer");
+
+            if(HorizontalMode)
+            {
+                DragContainer.ManipulationMode = ManipulationModes.System | ManipulationModes.TranslateX;
+            }
+            else
+            {
+                DragContainer.ManipulationMode = ManipulationModes.System | ManipulationModes.TranslateY;
+            }
         }
 
         /// <summary>
@@ -87,11 +97,22 @@ namespace UWPToolkit.Controls
             {
                 DragBackground.Background = null;
                 DragClip.Rect = new Rect(0, 0, 0, 0);
-                DragClipTransform1.X = 0;
 
-                ContentDragTransform.X = 0;
-                LeftTransform.X = -(LeftContainer.ActualWidth + 20);
-                RightTransform.X = (RightContainer.ActualWidth + 20);
+                if(HorizontalMode)
+                {
+                    DragClipTransform1.X = 0;
+                    ContentDragTransform.X = 0;
+                    LeftOrTopTransform.X = -(LeftOrTopContainer.ActualWidth + 20);
+                    RightOrButtomTransform.X = (RightOrButtomContainer.ActualWidth + 20);
+                }
+                else
+                {
+                    DragClipTransform1.Y = 0;
+                    ContentDragTransform.Y = 0;
+                    LeftOrTopTransform.Y = -(LeftOrTopContainer.ActualHeight + 20);
+                    RightOrButtomTransform.Y = (RightOrButtomContainer.ActualHeight + 20);
+
+                }
             }
         }
 
@@ -109,36 +130,43 @@ namespace UWPToolkit.Controls
             var delta = e.Delta.Translation;
             var cumulative = e.Cumulative.Translation;
 
-            var target = ((ActualWidth / 5) * 1);
+            var target = ((HorizontalMode?ActualWidth:ActualHeight / 5) * 1);
 
             if (_direction == SwipeListDirection.None)
             {
-                _direction = delta.X > 0
+                _direction = HorizontalMode?(delta.X > 0
                     ? SwipeListDirection.Left
-                    : SwipeListDirection.Right;
+                    : SwipeListDirection.Right): (delta.Y > 0
+                    ? SwipeListDirection.Top
+                    : SwipeListDirection.Buttom);
 
-                DragBackground.Background = _direction == SwipeListDirection.Left
-                    ? LeftBackground
-                    : RightBackground;
+                //if(HorizontalMode)
+                //{
+                //    LeftOrTopTransform.X = -(LeftOrTopContainer.ActualWidth + 20);
+                //    RightOrButtomTransform.X = (RightOrButtomContainer.ActualWidth + 20);
+                //}
+                //else
+                //{
+                //    LeftOrTopTransform.Y = -(LeftOrTopContainer.ActualHeight + 20);
+                //    RightOrButtomTransform.Y = (RightOrButtomContainer.ActualHeight + 20);
+                //}
 
-                LeftTransform.X = -(LeftContainer.ActualWidth + 20);
-                RightTransform.X = (RightContainer.ActualWidth + 20);
+                DragClip.Rect = HorizontalMode? new Rect(_direction == SwipeListDirection.Left ? -ActualWidth : ActualWidth, 0, ActualWidth, ActualHeight)
+                    : new Rect(0,_direction == SwipeListDirection.Top ? -ActualHeight : ActualHeight, ActualWidth, ActualHeight);
 
-                DragClip.Rect = new Rect(_direction == SwipeListDirection.Left ? -ActualWidth : ActualWidth, 0, ActualWidth, ActualHeight);
-
-                if (_direction == SwipeListDirection.Left && LeftBehavior != SwipeListBehavior.Disabled)
+                if ((_direction == SwipeListDirection.Left || _direction == SwipeListDirection.Top) && LeftOrTopBehavior != SwipeListBehavior.Disabled)
                 {
-                    DragBackground.Background = LeftBackground;
+                    DragBackground.Background = LeftOrTopBackground;
 
-                    LeftContainer.Visibility = Windows.UI.Xaml.Visibility.Visible;
-                    RightContainer.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+                    LeftOrTopContainer.Visibility = Windows.UI.Xaml.Visibility.Visible;
+                    RightOrButtomContainer.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
                 }
-                else if (_direction == SwipeListDirection.Right && RightBehavior != SwipeListBehavior.Disabled)
+                else if ((_direction == SwipeListDirection.Right || _direction == SwipeListDirection.Buttom) && RightOrButtomBehavior != SwipeListBehavior.Disabled)
                 {
-                    DragBackground.Background = RightBackground;
+                    DragBackground.Background = RightOrButtomBackground;
 
-                    LeftContainer.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
-                    RightContainer.Visibility = Windows.UI.Xaml.Visibility.Visible;
+                    LeftOrTopContainer.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+                    RightOrButtomContainer.Visibility = Windows.UI.Xaml.Visibility.Visible;
                 }
                 else
                 {
@@ -147,92 +175,182 @@ namespace UWPToolkit.Controls
                 }
             }
 
-            if (_direction == SwipeListDirection.Left)
+            if (_direction == SwipeListDirection.Left || _direction == SwipeListDirection.Top)
             {
-                var area1 = LeftBehavior == SwipeListBehavior.Collapse ? 1.5 : 2.5;
-                var area2 = LeftBehavior == SwipeListBehavior.Collapse ? 2 : 3;
+                var area1 = LeftOrTopBehavior == SwipeListBehavior.Collapse ? 1.5 : 2.5;
+                var area2 = LeftOrTopBehavior == SwipeListBehavior.Collapse ? 2 : 3;
 
-                ContentDragTransform.X = Math.Max(0, Math.Min(cumulative.X, ActualWidth));
-                DragClipTransform1.X = Math.Max(0, Math.Min(cumulative.X, ActualWidth));
+                if(HorizontalMode)
+                {
+                    ContentDragTransform.X = Math.Max(0, Math.Min(cumulative.X, ActualWidth));
+                    DragClipTransform1.X = Math.Max(0, Math.Min(cumulative.X, ActualWidth));
 
-                if (ContentDragTransform.X < target * area1)
-                {
-                    LeftTransform.X += (delta.X / 1.5);
-                }
-                else if (ContentDragTransform.X >= target * area1 && ContentDragTransform.X < target * area2)
-                {
-                    LeftTransform.X += (delta.X * 2.5);
+                    if (ContentDragTransform.X < target * area1)
+                    {
+                        LeftOrTopTransform.X += (delta.X / 1.5);
+                    }
+                    else if (ContentDragTransform.X >= target * area1 && ContentDragTransform.X < target * area2)
+                    {
+                        LeftOrTopTransform.X += (delta.X * 2.5);
+                    }
+                    else
+                    {
+                        LeftOrTopTransform.X = Math.Max(0, Math.Min(cumulative.X, ActualWidth)) - LeftOrTopContainer.ActualWidth;
+                    }
+
+                    if (ContentDragTransform.X == 0 && delta.X < 0)
+                    {
+                        _direction = SwipeListDirection.None;
+                    }
                 }
                 else
                 {
-                    LeftTransform.X = Math.Max(0, Math.Min(cumulative.X, ActualWidth)) - LeftContainer.ActualWidth;
+                    ContentDragTransform.Y = Math.Max(0, Math.Min(cumulative.Y, ActualHeight));
+                    DragClipTransform1.Y = Math.Max(0, Math.Min(cumulative.Y, ActualHeight));
+
+                    if (ContentDragTransform.Y < target * area1)
+                    {
+                        LeftOrTopTransform.Y += (delta.Y / 1.5);
+                    }
+                    else if (ContentDragTransform.Y >= target * area1 && ContentDragTransform.Y < target * area2)
+                    {
+                        LeftOrTopTransform.Y += (delta.Y * 2.5);
+                    }
+                    else
+                    {
+                        LeftOrTopTransform.Y = Math.Max(0, Math.Min(cumulative.Y, ActualHeight)) - LeftOrTopContainer.ActualHeight;
+                    }
+
+                    if (ContentDragTransform.Y == 0 && delta.Y < 0)
+                    {
+                        _direction = SwipeListDirection.None;
+                    }
                 }
 
-                if (ContentDragTransform.X == 0 && delta.X < 0)
-                {
-                    _direction = SwipeListDirection.None;
-                }
             }
-            else if (_direction == SwipeListDirection.Right)
+            else if (_direction == SwipeListDirection.Right || _direction == SwipeListDirection.Buttom)
             {
-                var area1 = RightBehavior == SwipeListBehavior.Collapse ? 1.5 : 2.5;
-                var area2 = RightBehavior == SwipeListBehavior.Collapse ? 2 : 3;
+                var area1 = RightOrButtomBehavior == SwipeListBehavior.Collapse ? 1.5 : 2.5;
+                var area2 = RightOrButtomBehavior == SwipeListBehavior.Collapse ? 2 : 3;
 
-                ContentDragTransform.X = Math.Max(-ActualWidth, Math.Min(cumulative.X, 0));
-                DragClipTransform1.X = Math.Max(-ActualWidth, Math.Min(cumulative.X, 0));
+                if (HorizontalMode)
+                {
+                    ContentDragTransform.X = Math.Max(-ActualWidth, Math.Min(cumulative.X, 0));
+                    DragClipTransform1.X = Math.Max(-ActualWidth, Math.Min(cumulative.X, 0));
 
-                if (ContentDragTransform.X > -(target * area1))
-                {
-                    RightTransform.X += (delta.X / 1.5);
-                }
-                else if (ContentDragTransform.X <= -(target * area1) && ContentDragTransform.X > -(target * area2))
-                {
-                    RightTransform.X += (delta.X * 2.5);
+                    if (ContentDragTransform.X > -(target * area1))
+                    {
+                        RightOrButtomTransform.X += (delta.X / 1.5);
+                    }
+                    else if (ContentDragTransform.X <= -(target * area1) && ContentDragTransform.X > -(target * area2))
+                    {
+                        RightOrButtomTransform.X += (delta.X * 2.5);
+                    }
+                    else
+                    {
+                        RightOrButtomTransform.X = Math.Max(-ActualWidth, Math.Min(cumulative.X, 0)) + RightOrButtomContainer.ActualWidth;
+                    }
+
+                    if (ContentDragTransform.X == 0 && delta.X > 0)
+                    {
+                        _direction = SwipeListDirection.None;
+                    }
                 }
                 else
                 {
-                    RightTransform.X = Math.Max(-ActualWidth, Math.Min(cumulative.X, 0)) + RightContainer.ActualWidth;
-                }
+                    ContentDragTransform.Y = Math.Max(-ActualHeight, Math.Min(cumulative.Y, 0));
+                    DragClipTransform1.Y = Math.Max(-ActualHeight, Math.Min(cumulative.Y, 0));
 
-                if (ContentDragTransform.X == 0 && delta.X > 0)
-                {
-                    _direction = SwipeListDirection.None;
+                    if (ContentDragTransform.Y > -(target * area1))
+                    {
+                        RightOrButtomTransform.Y += (delta.Y / 1.5);
+                    }
+                    else if (ContentDragTransform.Y <= -(target * area1) && ContentDragTransform.Y > -(target * area2))
+                    {
+                        RightOrButtomTransform.Y += (delta.Y * 2.5);
+                    }
+                    else
+                    {
+                        RightOrButtomTransform.Y = Math.Max(-ActualHeight, Math.Min(cumulative.Y, 0)) + RightOrButtomContainer.ActualHeight;
+                    }
+
+                    if (ContentDragTransform.Y == 0 && delta.Y > 0)
+                    {
+                        _direction = SwipeListDirection.None;
+                    }
                 }
             }
         }
 
-#if SILVERLIGHT
-        protected override void OnManipulationCompleted(ManipulationCompletedEventArgs e)
-#else
         protected override void OnManipulationCompleted(ManipulationCompletedRoutedEventArgs e)
-#endif
         {
-            var target = (ActualWidth / 5) * 2;
-            if ((_direction == SwipeListDirection.Left && LeftBehavior == SwipeListBehavior.Expand) ||
-                (_direction == SwipeListDirection.Right && RightBehavior == SwipeListBehavior.Expand))
+            double target;
+            if (HorizontalMode)
             {
-                target = (ActualWidth / 5) * 3;
+                target = (ActualWidth / 5) * 2;
+            }
+            else
+            {
+                target = (ActualHeight / 5) * 2;
+            }
+
+
+            if (((_direction == SwipeListDirection.Left|| _direction == SwipeListDirection.Top) && LeftOrTopBehavior == SwipeListBehavior.Expand) ||
+                ((_direction == SwipeListDirection.Right || _direction == SwipeListDirection.Buttom) && RightOrButtomBehavior == SwipeListBehavior.Expand))
+            {
+                if (HorizontalMode)
+                {
+                    target = (ActualWidth / 5) * 3;
+                }
+                else
+                {
+                    target = (ActualHeight / 5) * 3;
+                }
             }
 
             Storyboard currentAnim;
 
-            if (_direction == SwipeListDirection.Left && ContentDragTransform.X >= target)
+            if (HorizontalMode)
             {
-                if (LeftBehavior == SwipeListBehavior.Collapse)
-                    currentAnim = CollapseAnimation(SwipeListDirection.Left, true);
+                if (_direction == SwipeListDirection.Left && ContentDragTransform.X >= target)
+                {
+                    if (LeftOrTopBehavior == SwipeListBehavior.Collapse)
+                        currentAnim = CollapseAnimation(SwipeListDirection.Left, true);
+                    else
+                        currentAnim = ExpandAnimation(SwipeListDirection.Left);
+                }
+                else if (_direction == SwipeListDirection.Right && ContentDragTransform.X <= -target)
+                {
+                    if (RightOrButtomBehavior == SwipeListBehavior.Collapse)
+                        currentAnim = CollapseAnimation(SwipeListDirection.Right, true);
+                    else
+                        currentAnim = ExpandAnimation(SwipeListDirection.Right);
+                }
                 else
-                    currentAnim = ExpandAnimation(SwipeListDirection.Left);
-            }
-            else if (_direction == SwipeListDirection.Right && ContentDragTransform.X <= -target)
-            {
-                if (RightBehavior == SwipeListBehavior.Collapse)
-                    currentAnim = CollapseAnimation(SwipeListDirection.Right, true);
-                else
-                    currentAnim = ExpandAnimation(SwipeListDirection.Right);
+                {
+                    currentAnim = CollapseAnimation(SwipeListDirection.Left, false);
+                }
             }
             else
             {
-                currentAnim = CollapseAnimation(SwipeListDirection.Left, false);
+                if (_direction == SwipeListDirection.Top && ContentDragTransform.Y >= target)
+                {
+                    if (LeftOrTopBehavior == SwipeListBehavior.Collapse)
+                        currentAnim = CollapseAnimation(SwipeListDirection.Top, true);
+                    else
+                        currentAnim = ExpandAnimation(SwipeListDirection.Top);
+                }
+                else if (_direction == SwipeListDirection.Buttom && ContentDragTransform.Y <= -target)
+                {
+                    if (RightOrButtomBehavior == SwipeListBehavior.Collapse)
+                        currentAnim = CollapseAnimation(SwipeListDirection.Buttom, true);
+                    else
+                        currentAnim = ExpandAnimation(SwipeListDirection.Buttom);
+                }
+                else
+                {
+                    currentAnim = CollapseAnimation(SwipeListDirection.Top, false);
+                }
             }
 
             currentAnim.Begin();
@@ -244,24 +362,35 @@ namespace UWPToolkit.Controls
 
         private Storyboard CollapseAnimation(SwipeListDirection direction, bool raise)
         {
-            var animDrag = CreateDouble(0, 300, ContentDragTransform, "TranslateTransform.X", new ExponentialEase { EasingMode = EasingMode.EaseOut });
-            var animClip = CreateDouble(0, 300, DragClipTransform1, "TranslateTransform.X", new ExponentialEase { EasingMode = EasingMode.EaseOut });
-            var animLeft = CreateDouble(-(LeftContainer.ActualWidth + 20), 300, LeftTransform, "TranslateTransform.X", new ExponentialEase { EasingMode = EasingMode.EaseOut });
-            var animRight = CreateDouble((RightContainer.ActualWidth + 20), 300, RightTransform, "TranslateTransform.X", new ExponentialEase { EasingMode = EasingMode.EaseOut });
+            var transform = HorizontalMode ? "TranslateTransform.X" : "TranslateTransform.Y";
+            var animDrag = CreateDouble(0, 300, ContentDragTransform, transform, new ExponentialEase { EasingMode = EasingMode.EaseOut });
+            var animClip = CreateDouble(0, 300, DragClipTransform1, transform, new ExponentialEase { EasingMode = EasingMode.EaseOut });
+            var animLeftOrTop = CreateDouble(-(HorizontalMode?LeftOrTopContainer.ActualWidth: LeftOrTopContainer.ActualHeight + 20), 300, LeftOrTopTransform, transform, new ExponentialEase { EasingMode = EasingMode.EaseOut });
+            var animRightOrButtom = CreateDouble((HorizontalMode ? RightOrButtomContainer.ActualWidth: RightOrButtomContainer.ActualHeight + 20), 300, RightOrButtomTransform, transform, new ExponentialEase { EasingMode = EasingMode.EaseOut });
 
             var currentAnim = new Storyboard();
             currentAnim.Children.Add(animDrag);
             currentAnim.Children.Add(animClip);
-            currentAnim.Children.Add(animLeft);
-            currentAnim.Children.Add(animRight);
+            currentAnim.Children.Add(animLeftOrTop);
+            currentAnim.Children.Add(animRightOrButtom);
 
             currentAnim.Completed += (s, args) =>
             {
                 DragBackground.Background = null;
 
-                ContentDragTransform.X = 0;
-                LeftTransform.X = -(LeftContainer.ActualWidth + 20);
-                RightTransform.X = (RightContainer.ActualWidth + 20);
+                if (HorizontalMode)
+                {
+                    ContentDragTransform.X = 0;
+                    LeftOrTopTransform.X = -(LeftOrTopContainer.ActualWidth + 20);
+                    RightOrButtomTransform.X = (RightOrButtomContainer.ActualWidth + 20);
+                }
+                else
+                {
+                    ContentDragTransform.Y = 0;
+                    LeftOrTopTransform.Y = -(LeftOrTopContainer.ActualHeight + 20);
+                    RightOrButtomTransform.Y = (RightOrButtomContainer.ActualHeight + 20);
+                }
+
 
                 Grid.SetColumn(DragBackground, 1);
                 Grid.SetColumnSpan(DragBackground, 1);
@@ -280,29 +409,31 @@ namespace UWPToolkit.Controls
         private Storyboard ExpandAnimation(SwipeListDirection direction)
         {
             var currentAnim = new Storyboard();
-            if (direction == SwipeListDirection.Left)
+            var transform = HorizontalMode ? "TranslateTransform.X" : "TranslateTransform.Y";
+            var dimension = HorizontalMode ? ActualWidth : ActualHeight;
+            if (direction == SwipeListDirection.Left || direction == SwipeListDirection.Top)
             {
-                var animDrag = CreateDouble(ActualWidth + 100, 300, ContentDragTransform, "TranslateTransform.X", new ExponentialEase { EasingMode = EasingMode.EaseOut });
-                var animClip = CreateDouble(ActualWidth, 300, DragClipTransform1, "TranslateTransform.X", new ExponentialEase { EasingMode = EasingMode.EaseOut });
-                var animLeft = CreateDouble(ActualWidth + 100, 300, LeftTransform, "TranslateTransform.X", new ExponentialEase { EasingMode = EasingMode.EaseIn });
-                var animRight = CreateDouble(ActualWidth + 100, 300, RightTransform, "TranslateTransform.X", new ExponentialEase { EasingMode = EasingMode.EaseIn });
+                var animDrag = CreateDouble(dimension + 100, 300, ContentDragTransform, transform, new ExponentialEase { EasingMode = EasingMode.EaseOut });
+                var animClip = CreateDouble(dimension, 300, DragClipTransform1, transform, new ExponentialEase { EasingMode = EasingMode.EaseOut });
+                var animLeftOrTop = CreateDouble(dimension + 100, 300, LeftOrTopTransform, transform, new ExponentialEase { EasingMode = EasingMode.EaseIn });
+                var animRightOrButtom = CreateDouble(dimension + 100, 300, RightOrButtomTransform, transform, new ExponentialEase { EasingMode = EasingMode.EaseIn });
 
                 currentAnim.Children.Add(animDrag);
                 currentAnim.Children.Add(animClip);
-                currentAnim.Children.Add(animLeft);
-                currentAnim.Children.Add(animRight);
+                currentAnim.Children.Add(animLeftOrTop);
+                currentAnim.Children.Add(animRightOrButtom);
             }
-            else if (direction == SwipeListDirection.Right)
+            else if (direction == SwipeListDirection.Right|| direction == SwipeListDirection.Buttom)
             {
-                var animDrag = CreateDouble(-ActualWidth - 100, 300, ContentDragTransform, "TranslateTransform.X", new ExponentialEase { EasingMode = EasingMode.EaseOut });
-                var animClip = CreateDouble(-ActualWidth, 300, DragClipTransform1, "TranslateTransform.X", new ExponentialEase { EasingMode = EasingMode.EaseOut });
-                var animLeft = CreateDouble(-ActualWidth - 100, 300, LeftTransform, "TranslateTransform.X", new ExponentialEase { EasingMode = EasingMode.EaseIn });
-                var animRight = CreateDouble(-ActualWidth - 100, 300, RightTransform, "TranslateTransform.X", new ExponentialEase { EasingMode = EasingMode.EaseIn });
+                var animDrag = CreateDouble(-dimension - 100, 300, ContentDragTransform, transform, new ExponentialEase { EasingMode = EasingMode.EaseOut });
+                var animClip = CreateDouble(-dimension, 300, DragClipTransform1, transform, new ExponentialEase { EasingMode = EasingMode.EaseOut });
+                var animLeftOrTop = CreateDouble(-dimension - 100, 300, LeftOrTopTransform, transform, new ExponentialEase { EasingMode = EasingMode.EaseIn });
+                var animRightOrButtom = CreateDouble(-dimension - 100, 300, RightOrButtomTransform, transform, new ExponentialEase { EasingMode = EasingMode.EaseIn });
 
                 currentAnim.Children.Add(animDrag);
                 currentAnim.Children.Add(animClip);
-                currentAnim.Children.Add(animLeft);
-                currentAnim.Children.Add(animRight);
+                currentAnim.Children.Add(animLeftOrTop);
+                currentAnim.Children.Add(animRightOrButtom);
             }
 
             currentAnim.Completed += (s, args) =>
@@ -322,11 +453,7 @@ namespace UWPToolkit.Controls
             anim.EasingFunction = easing;
 
             Storyboard.SetTarget(anim, target);
-#if SILVERLIGHT
-            Storyboard.SetTargetProperty(anim, new PropertyPath(path));
-#else
             Storyboard.SetTargetProperty(anim, path);
-#endif
 
             return anim;
         }
@@ -336,50 +463,64 @@ namespace UWPToolkit.Controls
         /// </summary>
         public event ItemSwipeEventHandler ItemSwipe;
 
-        #region LeftContentTemplate
-        public DataTemplate LeftContentTemplate
+        #region Horizontal mode
+        public bool HorizontalMode
         {
-            get { return (DataTemplate)GetValue(LeftContentTemplateProperty); }
-            set { SetValue(LeftContentTemplateProperty, value); }
+            get { return (bool)GetValue(HorizontalModeProperty); }
+            set { SetValue(HorizontalModeProperty, value); }
         }
 
         /// <summary>
         /// Identifies the LeftContentTemplate dependency property.
         /// </summary>
-        public static readonly DependencyProperty LeftContentTemplateProperty =
-            DependencyProperty.Register("LeftContentTemplate", typeof(DataTemplate), typeof(SwipeableItem), new PropertyMetadata(null));
+        public static readonly DependencyProperty HorizontalModeProperty =
+            DependencyProperty.Register(nameof(HorizontalMode), typeof(bool), typeof(SwipeableItem), new PropertyMetadata(true));
+        #endregion
+
+        #region LeftContentTemplate
+        public DataTemplate LeftOrTopContentTemplate
+        {
+            get { return (DataTemplate)GetValue(LeftOrTopContentTemplateProperty); }
+            set { SetValue(LeftOrTopContentTemplateProperty, value); }
+        }
+
+        /// <summary>
+        /// Identifies the LeftContentTemplate dependency property.
+        /// </summary>
+        public static readonly DependencyProperty LeftOrTopContentTemplateProperty =
+            DependencyProperty.Register(nameof(LeftOrTopContentTemplate), typeof(DataTemplate), typeof(SwipeableItem), new PropertyMetadata(null));
         #endregion
 
         #region LeftBackground
-        public Brush LeftBackground
+        public Brush LeftOrTopBackground
         {
-            get { return (Brush)GetValue(LeftBackgroundProperty); }
-            set { SetValue(LeftBackgroundProperty, value); }
+            get { return (Brush)GetValue(LeftOrTopBackgroundProperty); }
+            set { SetValue(LeftOrTopBackgroundProperty, value); }
         }
 
         /// <summary>
         /// Identifies the LeftBackground dependency property.
         /// </summary>
-        public static readonly DependencyProperty LeftBackgroundProperty =
-            DependencyProperty.Register("LeftBackground", typeof(Brush), typeof(SwipeableItem), new PropertyMetadata(null));
+        public static readonly DependencyProperty LeftOrTopBackgroundProperty =
+            DependencyProperty.Register(nameof(LeftOrTopBackground), typeof(Brush), typeof(SwipeableItem), new PropertyMetadata(new SolidColorBrush(Colors.Blue)));
         #endregion
 
         #region LeftBehavior
-        public SwipeListBehavior LeftBehavior
+        public SwipeListBehavior LeftOrTopBehavior
         {
-            get { return (SwipeListBehavior)GetValue(LeftBehaviorProperty); }
-            set { SetValue(LeftBehaviorProperty, value); }
+            get { return (SwipeListBehavior)GetValue(LeftOrTopBehaviorProperty); }
+            set { SetValue(LeftOrTopBehaviorProperty, value); }
         }
 
         /// <summary>
         /// Identifies the LeftBehavior dependency property.
         /// </summary>
-        public static readonly DependencyProperty LeftBehaviorProperty =
-            DependencyProperty.Register("LeftBehavior", typeof(SwipeListBehavior), typeof(SwipeableItem), new PropertyMetadata(SwipeListBehavior.Collapse));
+        public static readonly DependencyProperty LeftOrTopBehaviorProperty =
+            DependencyProperty.Register(nameof(LeftOrTopBehavior), typeof(SwipeListBehavior), typeof(SwipeableItem), new PropertyMetadata(SwipeListBehavior.Collapse));
         #endregion
 
         #region RightContentTemplate
-        public DataTemplate RightContentTemplate
+        public DataTemplate RightOrButtomContentTemplate
         {
             get { return (DataTemplate)GetValue(RightContentTemplateProperty); }
             set { SetValue(RightContentTemplateProperty, value); }
@@ -389,28 +530,28 @@ namespace UWPToolkit.Controls
         /// Identifies the RightContentTemplate dependency property.
         /// </summary>
         public static readonly DependencyProperty RightContentTemplateProperty =
-            DependencyProperty.Register("RightContentTemplate", typeof(DataTemplate), typeof(SwipeableItem), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(RightOrButtomContentTemplate), typeof(DataTemplate), typeof(SwipeableItem), new PropertyMetadata(null));
         #endregion
 
         #region RightBackground
-        public Brush RightBackground
+        public Brush RightOrButtomBackground
         {
-            get { return (Brush)GetValue(RightBackgroundProperty); }
-            set { SetValue(RightBackgroundProperty, value); }
+            get { return (Brush)GetValue(RightOrButtomBackgroundProperty); }
+            set { SetValue(RightOrButtomBackgroundProperty, value); }
         }
 
         /// <summary>
         /// Identifies the RightBackground dependency property.
         /// </summary>
-        public static readonly DependencyProperty RightBackgroundProperty =
-            DependencyProperty.Register("RightBackground", typeof(Brush), typeof(SwipeableItem), new PropertyMetadata(null));
+        public static readonly DependencyProperty RightOrButtomBackgroundProperty =
+            DependencyProperty.Register(nameof(RightOrButtomBackground), typeof(Brush), typeof(SwipeableItem), new PropertyMetadata(new SolidColorBrush(Colors.Red)));
         #endregion
 
         #region RightBehavior
-        public SwipeListBehavior RightBehavior
+        public SwipeListBehavior RightOrButtomBehavior
         {
-            get { return (SwipeListBehavior)GetValue(RightBehaviorProperty); }
-            set { SetValue(RightBehaviorProperty, value); }
+            get { return (SwipeListBehavior)GetValue(RightOrButtomBehaviorProperty); }
+            set { SetValue(RightOrButtomBehaviorProperty, value); }
         }
 
         public TranslateTransform DragClipTransform1
@@ -429,8 +570,8 @@ namespace UWPToolkit.Controls
         /// <summary>
         /// Identifies the RightBehavior dependency property.
         /// </summary>
-        public static readonly DependencyProperty RightBehaviorProperty =
-            DependencyProperty.Register("RightBehavior", typeof(SwipeListBehavior), typeof(SwipeableItem), new PropertyMetadata(SwipeListBehavior.Collapse));
+        public static readonly DependencyProperty RightOrButtomBehaviorProperty =
+            DependencyProperty.Register(nameof(RightOrButtomBehavior), typeof(SwipeListBehavior), typeof(SwipeableItem), new PropertyMetadata(SwipeListBehavior.Collapse));
         #endregion
     }
 }

@@ -74,7 +74,7 @@
                         <SymbolIcon Symbol="OutlineStar" HorizontalAlignment="Center"/>
                     </Border>
                 </PivotItem.Header>
-                <uwpctrls:SwipeableItem Background="AliceBlue" HorizontalAlignment="Stretch" Height="80"/>
+                <ctrls:TimelineHub HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
             </PivotItem>
             <PivotItem>
                 <PivotItem.Header>

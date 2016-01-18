@@ -34,7 +34,19 @@
             </uwpctrls:SwipeableItem>
             <Grid Grid.Row="1" Background="Salmon"/>
         </Grid>
-        <uwpctrls:SwipeableItem Background="#FF0D820E" HorizontalMode="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" LeftOrTopBehavior="Expand" RightOrButtomBehavior="Expand">
+        <uwpctrls:SwipeableItem Name="CurrentTimeline" Visibility="Visible" Background="#FF0D820E" HorizontalMode="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" LeftOrTopBehavior="Expand" RightOrButtomBehavior="Expand">
+            <uwpctrls:SwipeableItem.LeftOrTopContentTemplate>
+                <DataTemplate>
+                    <Image Source="/Assets/Caduceus.png" Width="40" Height="40" Margin="5,0,0,0"/>
+                </DataTemplate>
+            </uwpctrls:SwipeableItem.LeftOrTopContentTemplate>
+            <uwpctrls:SwipeableItem.RightOrButtomContentTemplate>
+                <DataTemplate>
+                    <Image Source="/Assets/Caduceus.png" Width="40" Height="40" Margin="5,0,0,0"/>
+                </DataTemplate>
+            </uwpctrls:SwipeableItem.RightOrButtomContentTemplate>
+        </uwpctrls:SwipeableItem>
+        <uwpctrls:SwipeableItem Name="HistoryTimeline" Visibility="Collapsed" Background="DeepPink" HorizontalMode="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" LeftOrTopBehavior="Expand" RightOrButtomBehavior="Expand">
             <uwpctrls:SwipeableItem.LeftOrTopContentTemplate>
                 <DataTemplate>
                     <Image Source="/Assets/Caduceus.png" Width="40" Height="40" Margin="5,0,0,0"/>

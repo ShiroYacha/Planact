@@ -22,6 +22,22 @@ namespace Planact.App.Controls
         public TimelineHub()
         {
             this.InitializeComponent();
+            CurrentTimeline.ItemSwipe += CurrentTimeline_ItemSwipe;
+            HistoryTimeline.ItemSwipe += HistoryTimeline_ItemSwipe; ;
+        }
+
+        private void HistoryTimeline_ItemSwipe(object sender, UWPToolkit.Controls.ItemSwipeEventArgs e)
+        {
+            CurrentTimeline.Visibility = Visibility.Visible;
+            HistoryTimeline.Visibility = Visibility.Collapsed;
+            HistoryTimeline.ResetSwipe();
+        }
+
+        private void CurrentTimeline_ItemSwipe(object sender, UWPToolkit.Controls.ItemSwipeEventArgs e)
+        {
+            CurrentTimeline.Visibility = Visibility.Collapsed;
+            HistoryTimeline.Visibility = Visibility.Visible;
+            CurrentTimeline.ResetSwipe();
         }
     }
 }

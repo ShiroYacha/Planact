@@ -315,7 +315,7 @@ namespace UWPToolkit.Controls
                 }
                 else
                 {
-                    target = (ActualHeight / 5) * 3;
+                    target = (ActualHeight / 5) *2;
                 }
             }
 

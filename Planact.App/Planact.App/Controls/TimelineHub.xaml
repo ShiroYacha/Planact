@@ -15,7 +15,6 @@
             <ColumnDefinition Width="50"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <uwpctrls:SwipeableItem Background="#FF0D820E" HorizontalMode="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
         <Grid Grid.Column="1" Background="Aqua" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <Grid.RowDefinitions>
                 <RowDefinition Height="100"/>
@@ -24,5 +23,6 @@
             <uwpctrls:SwipeableItem Background="#FF4949E0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
             <Grid Grid.Row="1" Background="Salmon"/>
         </Grid>
+        <uwpctrls:SwipeableItem Background="#FF0D820E" HorizontalMode="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
     </Grid>
 </UserControl>

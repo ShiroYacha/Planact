@@ -49,7 +49,7 @@ namespace Planact.App
             await Task.Delay(0);
 
             // navigate to first page
-            NavigationService.Navigate(typeof(Views.HomePage));
+            NavigationService.Navigate(typeof(Views.TestPage));
         }
     }
 }

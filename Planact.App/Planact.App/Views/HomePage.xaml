@@ -59,7 +59,7 @@
                 <Behaviors:EllipsisBehavior Visibility="Auto" />
             </Interactivity:Interaction.Behaviors>
         </t10ctrls:PageHeader>
-        <Pivot Margin="10" Grid.Row="1" d:LayoutOverrides="TopPosition, BottomPosition" SelectedIndex="1">
+        <Pivot Grid.Row="1" d:LayoutOverrides="TopPosition, BottomPosition" SelectedIndex="2">
             <PivotItem>
                 <PivotItem.Header>
                     <Border Height="40" Width="75">
@@ -74,7 +74,6 @@
                         <SymbolIcon Symbol="OutlineStar" HorizontalAlignment="Center"/>
                     </Border>
                 </PivotItem.Header>
-                <ctrls:TimelineHub HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
             </PivotItem>
             <PivotItem>
                 <PivotItem.Header>

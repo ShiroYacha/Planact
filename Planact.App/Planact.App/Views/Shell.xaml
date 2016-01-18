@@ -26,6 +26,12 @@
                     </Controls:HamburgerMenu.PrimaryButtons>
 
                     <Controls:HamburgerMenu.SecondaryButtons>
+                        <Controls:HamburgerButtonInfo PageType="views:TestPage">
+                            <StackPanel Orientation="Horizontal">
+                                <SymbolIcon Width="48" Height="48" Symbol="Cut" />
+                                <TextBlock Margin="12,0,0,0" VerticalAlignment="Center" Text="Test" />
+                            </StackPanel>
+                        </Controls:HamburgerButtonInfo>
                         <Controls:HamburgerButtonInfo PageType="views:SettingsPage">
                             <StackPanel Orientation="Horizontal">
                                 <SymbolIcon Width="48" Height="48" Symbol="Setting" />

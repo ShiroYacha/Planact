@@ -78,13 +78,25 @@ namespace UWPToolkit.Controls
             DragClipTransform1 = (TranslateTransform)GetTemplateChild("DragClipTransform");
             DragContainer = (Border)GetTemplateChild("DragContainer");
 
-            if(HorizontalMode)
+            if (HorizontalMode)
             {
+                // configure manipulation
                 DragContainer.ManipulationMode = ManipulationModes.System | ManipulationModes.TranslateX;
+
+                // reconfigure contents
+                Grid.SetColumn(LeftOrTopContainer, 0);
+                Grid.SetColumn(RightOrButtomContainer, 2);
             }
             else
             {
+                // configure manipulation
                 DragContainer.ManipulationMode = ManipulationModes.System | ManipulationModes.TranslateY;
+
+                // reconfigure contents
+                Grid.SetRow(LeftOrTopContainer, 0);
+                Grid.SetRow(RightOrButtomContainer, 2);
+                Grid.SetColumn(LeftOrTopContainer, 0);
+                Grid.SetColumn(RightOrButtomContainer, 0);
             }
         }
 
@@ -118,7 +130,6 @@ namespace UWPToolkit.Controls
 
         private SwipeListDirection _direction = SwipeListDirection.None;
 
-
         protected override void OnManipulationDelta(ManipulationDeltaRoutedEventArgs e)
         {
             if (e.PointerDeviceType != Windows.Devices.Input.PointerDeviceType.Touch)
@@ -130,7 +141,7 @@ namespace UWPToolkit.Controls
             var delta = e.Delta.Translation;
             var cumulative = e.Cumulative.Translation;
 
-            var target = ((HorizontalMode?ActualWidth:ActualHeight / 5) * 1);
+            var target = int.MaxValue;/*HorizontalMode ? (ActualWidth / 5) : (ActualHeight / 2) * 1;*/
 
             if (_direction == SwipeListDirection.None)
             {
@@ -151,8 +162,8 @@ namespace UWPToolkit.Controls
                 //    RightOrButtomTransform.Y = (RightOrButtomContainer.ActualHeight + 20);
                 //}
 
-                DragClip.Rect = HorizontalMode? new Rect(_direction == SwipeListDirection.Left ? -ActualWidth : ActualWidth, 0, ActualWidth, ActualHeight)
-                    : new Rect(0,_direction == SwipeListDirection.Top ? -ActualHeight : ActualHeight, ActualWidth, ActualHeight);
+                DragClip.Rect = HorizontalMode ? new Rect(_direction == SwipeListDirection.Left ? -ActualWidth : ActualWidth, 0, ActualWidth, ActualHeight)
+                    : new Rect(0, _direction == SwipeListDirection.Top ? -ActualHeight : ActualHeight, ActualWidth, ActualHeight);
 
                 if ((_direction == SwipeListDirection.Left || _direction == SwipeListDirection.Top) && LeftOrTopBehavior != SwipeListBehavior.Disabled)
                 {
@@ -522,14 +533,14 @@ namespace UWPToolkit.Controls
         #region RightContentTemplate
         public DataTemplate RightOrButtomContentTemplate
         {
-            get { return (DataTemplate)GetValue(RightContentTemplateProperty); }
-            set { SetValue(RightContentTemplateProperty, value); }
+            get { return (DataTemplate)GetValue(RightOrButtomContentTemplateProperty); }
+            set { SetValue(RightOrButtomContentTemplateProperty, value); }
         }
 
         /// <summary>
         /// Identifies the RightContentTemplate dependency property.
         /// </summary>
-        public static readonly DependencyProperty RightContentTemplateProperty =
+        public static readonly DependencyProperty RightOrButtomContentTemplateProperty =
             DependencyProperty.Register(nameof(RightOrButtomContentTemplate), typeof(DataTemplate), typeof(SwipeableItem), new PropertyMetadata(null));
         #endregion
 

@@ -284,8 +284,13 @@
                                 <ColumnDefinition/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
 
-                            <Border x:Name="LeftOrTopContainer">
+                            <Border x:Name="LeftOrTopContainer" Grid.Row="1" Grid.Column="1">
                                 <ContentControl Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding LeftOrTopContentTemplate}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" RenderTransformOrigin="0.5,0.5">
                                     <ContentControl.RenderTransform>
                                         <TranslateTransform x:Name="LeftOrTopTransform"/>
@@ -293,7 +298,7 @@
                                 </ContentControl>
                             </Border>
 
-                            <Border x:Name="RightOrButtomContainer" Grid.Column="2">
+                            <Border x:Name="RightOrButtomContainer" Grid.Row="1" Grid.Column="1">
                                 <ContentControl Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding RightOrButtomContentTemplate}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" RenderTransformOrigin="0.5,0.5">
                                     <ContentControl.RenderTransform>
                                         <TranslateTransform x:Name="RightOrButtomTransform"/>

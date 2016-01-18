@@ -20,9 +20,31 @@
                 <RowDefinition Height="100"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <uwpctrls:SwipeableItem Background="#FF4949E0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+            <uwpctrls:SwipeableItem Background="#FF4949E0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" LeftOrTopBehavior="Expand" RightOrButtomBehavior="Expand">
+                <uwpctrls:SwipeableItem.LeftOrTopContentTemplate>
+                    <DataTemplate>
+                        <Image Source="/Assets/Caduceus.png" Width="50" Height="50"/>
+                    </DataTemplate>
+                </uwpctrls:SwipeableItem.LeftOrTopContentTemplate>
+                <uwpctrls:SwipeableItem.RightOrButtomContentTemplate>
+                    <DataTemplate>
+                        <Image Source="/Assets/Caduceus.png" Width="50" Height="50"/>
+                    </DataTemplate>
+                </uwpctrls:SwipeableItem.RightOrButtomContentTemplate>
+            </uwpctrls:SwipeableItem>
             <Grid Grid.Row="1" Background="Salmon"/>
         </Grid>
-        <uwpctrls:SwipeableItem Background="#FF0D820E" HorizontalMode="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+        <uwpctrls:SwipeableItem Background="#FF0D820E" HorizontalMode="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" LeftOrTopBehavior="Expand" RightOrButtomBehavior="Expand">
+            <uwpctrls:SwipeableItem.LeftOrTopContentTemplate>
+                <DataTemplate>
+                    <Image Source="/Assets/Caduceus.png" Width="40" Height="40" Margin="5,0,0,0"/>
+                </DataTemplate>
+            </uwpctrls:SwipeableItem.LeftOrTopContentTemplate>
+            <uwpctrls:SwipeableItem.RightOrButtomContentTemplate>
+                <DataTemplate>
+                    <Image Source="/Assets/Caduceus.png" Width="40" Height="40" Margin="5,0,0,0"/>
+                </DataTemplate>
+            </uwpctrls:SwipeableItem.RightOrButtomContentTemplate>
+        </uwpctrls:SwipeableItem>
     </Grid>
 </UserControl>

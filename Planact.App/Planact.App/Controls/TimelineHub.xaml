@@ -6,6 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:local="using:Planact.App.Controls"
     xmlns:uwpctrls="using:UWPToolkit.Controls"
+    DataContext="{Binding RelativeSource={RelativeSource Self}}"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
@@ -34,7 +35,10 @@
             </uwpctrls:SwipeableItem>
             <Grid Grid.Row="1" Background="Salmon"/>
         </Grid>
-        <uwpctrls:SwipeableItem Name="CurrentTimeline" Visibility="Visible" Background="#FF0D820E" HorizontalMode="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" LeftOrTopBehavior="Expand" RightOrButtomBehavior="Expand">
+        <uwpctrls:SwipeableItem Name="CurrentTimeline" Visibility="Visible" HorizontalMode="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" LeftOrTopBehavior="Expand" RightOrButtomBehavior="Expand">
+            <uwpctrls:SwipeableItem.Content>
+                <uwpctrls:Timeline Items="{Binding DesignTimeTimelineItems}" Height="500"/>
+            </uwpctrls:SwipeableItem.Content>
             <uwpctrls:SwipeableItem.LeftOrTopContentTemplate>
                 <DataTemplate>
                     <Image Source="/Assets/Caduceus.png" Width="40" Height="40" Margin="5,0,0,0"/>
@@ -46,7 +50,7 @@
                 </DataTemplate>
             </uwpctrls:SwipeableItem.RightOrButtomContentTemplate>
         </uwpctrls:SwipeableItem>
-        <uwpctrls:SwipeableItem Name="HistoryTimeline" Visibility="Collapsed" Background="DeepPink" HorizontalMode="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" LeftOrTopBehavior="Expand" RightOrButtomBehavior="Expand">
+        <uwpctrls:SwipeableItem Name="HistoryTimeline" Visibility="Collapsed" Background="#FF0D820E" HorizontalMode="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" LeftOrTopBehavior="Expand" RightOrButtomBehavior="Expand">
             <uwpctrls:SwipeableItem.LeftOrTopContentTemplate>
                 <DataTemplate>
                     <Image Source="/Assets/Caduceus.png" Width="40" Height="40" Margin="5,0,0,0"/>

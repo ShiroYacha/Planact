@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using UWPToolkit.Controls;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -38,6 +39,19 @@ namespace Planact.App.Controls
             CurrentTimeline.Visibility = Visibility.Collapsed;
             HistoryTimeline.Visibility = Visibility.Visible;
             CurrentTimeline.ResetSwipe();
+        }
+
+        public List<TimelineItem> DesignTimeTimelineItems
+        {
+            get
+            {
+                return new List<TimelineItem>
+                {
+                    new TimelineItem {Visual = new SymbolIcon(Symbol.Accept), Start = DateTime.Now.AddHours(5) },
+                    new TimelineItem {Visual = new SymbolIcon(Symbol.Account), Start = DateTime.Now.AddHours(7) },
+                    new TimelineItem {Visual = new SymbolIcon(Symbol.Admin), Start = DateTime.Now.AddHours(8) },
+                };
+            }
         }
     }
 }

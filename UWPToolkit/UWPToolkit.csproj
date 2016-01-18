@@ -104,6 +104,7 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <Compile Include="Controls\SwipeableItem.Configuration.cs" />
     <None Include="Design\projectGuides.guides" />
     <None Include="project.json" />
   </ItemGroup>
@@ -111,10 +112,14 @@
     <Compile Include="Controls\QuadrantExpandingButton.xaml.cs">
       <DependentUpon>QuadrantExpandingButton.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\HierarchicalButtonConfiguration.cs" />
+    <Compile Include="Controls\QuadrantExpandingButton.Configuration.cs" />
     <Compile Include="Controls\SwipeableItem.cs" />
     <Compile Include="Controls\TiledGridView.xaml.cs">
       <DependentUpon>TiledGridView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Timeline.Configuration.cs" />
+    <Compile Include="Controls\Timeline.xaml.cs">
+      <DependentUpon>Timeline.xaml</DependentUpon>
     </Compile>
     <Compile Include="Extensions\CommonExtensions.cs" />
     <Compile Include="Extensions\UIExtension.cs" />
@@ -127,6 +132,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\TiledGridView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Timeline.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

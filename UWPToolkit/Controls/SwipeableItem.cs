@@ -73,6 +73,8 @@ namespace UWPToolkit.Controls
                 Grid.SetColumn(LeftOrTopContainer, 0);
                 Grid.SetColumn(RightOrButtomContainer, 0);
             }
+
+            MinWidth = 0;
         }
 
         /// <summary>
@@ -125,17 +127,6 @@ namespace UWPToolkit.Controls
                     : SwipeListDirection.Right): (delta.Y > 0
                     ? SwipeListDirection.Top
                     : SwipeListDirection.Buttom);
-
-                //if(HorizontalMode)
-                //{
-                //    LeftOrTopTransform.X = -(LeftOrTopContainer.ActualWidth + 20);
-                //    RightOrButtomTransform.X = (RightOrButtomContainer.ActualWidth + 20);
-                //}
-                //else
-                //{
-                //    LeftOrTopTransform.Y = -(LeftOrTopContainer.ActualHeight + 20);
-                //    RightOrButtomTransform.Y = (RightOrButtomContainer.ActualHeight + 20);
-                //}
 
                 DragClip.Rect = HorizontalMode ? new Rect(_direction == SwipeListDirection.Left ? -ActualWidth : ActualWidth, 0, ActualWidth, ActualHeight)
                     : new Rect(0, _direction == SwipeListDirection.Top ? -ActualHeight : ActualHeight, ActualWidth, ActualHeight);

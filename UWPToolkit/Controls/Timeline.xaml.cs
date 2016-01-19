@@ -84,15 +84,17 @@ namespace UWPToolkit.Controls
 
         public void SetupItems()
         {
+            // initialize
+            TimelineGrid.RowDefinitions.Clear();
+            TimelineGrid.Children.Clear();
+
+            // prepare the items
             var filteredItems = FilterItems();
-
             var residualHeight = Height - ItemHeight * filteredItems.Count;
-
             var totalDuration = End - Start;
-
             DateTime start = Start;
             DateTime end;
-            for (var i = 0; i < filteredItems.Count; ++i)
+            for (var i = 0; i < filteredItems.Count; i++)
             {
                 // compute end of the place holder
                 end = filteredItems[i].Start;
@@ -103,12 +105,15 @@ namespace UWPToolkit.Controls
 
                 // setup grid row definition according to the result
                 TimelineGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(height) });
-                TimelineGrid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+                TimelineGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(ItemHeight) });
 
                 // put the item in place
                 var visual = filteredItems[i].Visual;
                 TimelineGrid.Children.Add(visual);
                 Grid.SetRow(visual, i * 2 + 1);
+
+                // set new start as last end
+                start = end;
             }
 
             // add the last placeholder
@@ -120,7 +125,7 @@ namespace UWPToolkit.Controls
             return Items.Where(i => i.Start>=Start && i.Start <= End).ToList();
         }
 
-        private void TimelineGrid_Loaded(object sender, RoutedEventArgs e)
+        private void TimelineGrid_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             SetupItems();
         }

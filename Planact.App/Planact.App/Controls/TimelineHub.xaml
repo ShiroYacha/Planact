@@ -16,6 +16,35 @@
             <ColumnDefinition Width="50"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
+        <uwpctrls:SwipeableItem Name="CurrentTimeline" Visibility="Visible" HorizontalMode="False" HorizontalAlignment="Stretch"
+                                Background="Transparent" VerticalAlignment="Stretch" LeftOrTopBehavior="Expand" RightOrButtomBehavior="Expand"
+                                HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" SizeChanged="CurrentTimeline_SizeChanged">
+            <uwpctrls:SwipeableItem.Content>
+                <uwpctrls:Timeline x:Name="Timeline" Items="{Binding DesignTimeTimelineItems}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+            </uwpctrls:SwipeableItem.Content>
+            <uwpctrls:SwipeableItem.LeftOrTopContentTemplate>
+                <DataTemplate>
+                    <Image Source="/Assets/Caduceus.png" Width="40" Height="40" Margin="5,0,0,0"/>
+                </DataTemplate>
+            </uwpctrls:SwipeableItem.LeftOrTopContentTemplate>
+            <uwpctrls:SwipeableItem.RightOrButtomContentTemplate>
+                <DataTemplate>
+                    <Image Source="/Assets/Caduceus.png" Width="40" Height="40" Margin="5,0,0,0"/>
+                </DataTemplate>
+            </uwpctrls:SwipeableItem.RightOrButtomContentTemplate>
+        </uwpctrls:SwipeableItem>
+        <uwpctrls:SwipeableItem Name="HistoryTimeline" Visibility="Collapsed" Background="#FFD4DD8C" HorizontalMode="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" LeftOrTopBehavior="Expand" RightOrButtomBehavior="Expand">
+            <uwpctrls:SwipeableItem.LeftOrTopContentTemplate>
+                <DataTemplate>
+                    <Image Source="/Assets/Caduceus.png" Width="40" Height="40" Margin="5,0,0,0"/>
+                </DataTemplate>
+            </uwpctrls:SwipeableItem.LeftOrTopContentTemplate>
+            <uwpctrls:SwipeableItem.RightOrButtomContentTemplate>
+                <DataTemplate>
+                    <Image Source="/Assets/Caduceus.png" Width="40" Height="40" Margin="5,0,0,0"/>
+                </DataTemplate>
+            </uwpctrls:SwipeableItem.RightOrButtomContentTemplate>
+        </uwpctrls:SwipeableItem>
         <Grid Grid.Column="1" Background="Aqua" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <Grid.RowDefinitions>
                 <RowDefinition Height="100"/>
@@ -35,32 +64,5 @@
             </uwpctrls:SwipeableItem>
             <Grid Grid.Row="1" Background="Salmon"/>
         </Grid>
-        <uwpctrls:SwipeableItem Name="CurrentTimeline" Visibility="Visible" HorizontalMode="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" LeftOrTopBehavior="Expand" RightOrButtomBehavior="Expand">
-            <uwpctrls:SwipeableItem.Content>
-                <uwpctrls:Timeline Items="{Binding DesignTimeTimelineItems}" Height="500"/>
-            </uwpctrls:SwipeableItem.Content>
-            <uwpctrls:SwipeableItem.LeftOrTopContentTemplate>
-                <DataTemplate>
-                    <Image Source="/Assets/Caduceus.png" Width="40" Height="40" Margin="5,0,0,0"/>
-                </DataTemplate>
-            </uwpctrls:SwipeableItem.LeftOrTopContentTemplate>
-            <uwpctrls:SwipeableItem.RightOrButtomContentTemplate>
-                <DataTemplate>
-                    <Image Source="/Assets/Caduceus.png" Width="40" Height="40" Margin="5,0,0,0"/>
-                </DataTemplate>
-            </uwpctrls:SwipeableItem.RightOrButtomContentTemplate>
-        </uwpctrls:SwipeableItem>
-        <uwpctrls:SwipeableItem Name="HistoryTimeline" Visibility="Collapsed" Background="#FF0D820E" HorizontalMode="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" LeftOrTopBehavior="Expand" RightOrButtomBehavior="Expand">
-            <uwpctrls:SwipeableItem.LeftOrTopContentTemplate>
-                <DataTemplate>
-                    <Image Source="/Assets/Caduceus.png" Width="40" Height="40" Margin="5,0,0,0"/>
-                </DataTemplate>
-            </uwpctrls:SwipeableItem.LeftOrTopContentTemplate>
-            <uwpctrls:SwipeableItem.RightOrButtomContentTemplate>
-                <DataTemplate>
-                    <Image Source="/Assets/Caduceus.png" Width="40" Height="40" Margin="5,0,0,0"/>
-                </DataTemplate>
-            </uwpctrls:SwipeableItem.RightOrButtomContentTemplate>
-        </uwpctrls:SwipeableItem>
     </Grid>
 </UserControl>

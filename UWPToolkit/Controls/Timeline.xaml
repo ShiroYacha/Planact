@@ -9,7 +9,7 @@
     d:DesignHeight="300"
     d:DesignWidth="30">
 
-    <Grid Name="TimelineGrid" Loaded="TimelineGrid_Loaded"/>
+    <Grid Name="TimelineGrid" SizeChanged="TimelineGrid_SizeChanged" Background="Transparent"/>
 
 
 </UserControl>

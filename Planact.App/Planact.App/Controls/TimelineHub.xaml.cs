@@ -24,7 +24,9 @@ namespace Planact.App.Controls
         {
             this.InitializeComponent();
             CurrentTimeline.ItemSwipe += CurrentTimeline_ItemSwipe;
-            HistoryTimeline.ItemSwipe += HistoryTimeline_ItemSwipe; ;
+            HistoryTimeline.ItemSwipe += HistoryTimeline_ItemSwipe;
+            Timeline.Start = DateTime.Now;
+            Timeline.End = DateTime.Now.AddHours(20);
         }
 
         private void HistoryTimeline_ItemSwipe(object sender, UWPToolkit.Controls.ItemSwipeEventArgs e)
@@ -48,10 +50,16 @@ namespace Planact.App.Controls
                 return new List<TimelineItem>
                 {
                     new TimelineItem {Visual = new SymbolIcon(Symbol.Accept), Start = DateTime.Now.AddHours(5) },
-                    new TimelineItem {Visual = new SymbolIcon(Symbol.Account), Start = DateTime.Now.AddHours(7) },
-                    new TimelineItem {Visual = new SymbolIcon(Symbol.Admin), Start = DateTime.Now.AddHours(8) },
+                    new TimelineItem {Visual = new SymbolIcon(Symbol.AddFriend), Start = DateTime.Now.AddHours(5.3) },
+                    new TimelineItem {Visual = new SymbolIcon(Symbol.Account), Start = DateTime.Now.AddHours(9) },
+                    new TimelineItem {Visual = new SymbolIcon(Symbol.Admin), Start = DateTime.Now.AddHours(15) },
                 };
             }
+        }
+
+        private void CurrentTimeline_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            Timeline.Height = ActualHeight;
         }
     }
 }

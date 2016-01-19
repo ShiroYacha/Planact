@@ -52,7 +52,7 @@ namespace Planact.App.Controls
         {
             get
             {
-                return CreateRandomTimelineItems(9);
+                return CreateRandomTimelineItems(5);
             }
         }
 
@@ -66,10 +66,10 @@ namespace Planact.App.Controls
             {
                 // create container
                 var container = new Grid();
-                container.Height = 50;
+                container.Height = 40;
                 container.Width = 50;
-                container.RowDefinitions.Add(new RowDefinition { Height = new GridLength(30) });
-                container.RowDefinitions.Add(new RowDefinition { Height = new GridLength(20) });
+                container.RowDefinitions.Add(new RowDefinition { Height = new GridLength(25) });
+                container.RowDefinitions.Add(new RowDefinition { Height = new GridLength(15) });
 
                 // create random time
                 var start = DateTime.Now.AddHours((0.8 * random.NextDouble() + 0.2) * 24);
@@ -102,11 +102,6 @@ namespace Planact.App.Controls
             items.Sort((a, b) => a.Start.CompareTo(b.Start));
 
             return items;
-        }
-
-        private void CurrentTimeline_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            Timeline.Height = ActualHeight;
         }
     }
 }

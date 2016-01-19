@@ -78,7 +78,7 @@ namespace UWPToolkit.Controls
             // prepare the items
             var filteredItems = FilterItems();
             var itemHeight = filteredItems.FirstOrDefault().Visual.Height;
-            var residualHeight = Height - itemHeight * filteredItems.Count;
+            var residualHeight = ActualHeight - itemHeight * filteredItems.Count;
             var totalDuration = End - Start;
             DateTime start = Start;
             DateTime end;

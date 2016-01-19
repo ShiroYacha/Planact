@@ -18,7 +18,7 @@
         </Grid.ColumnDefinitions>
         <uwpctrls:SwipeableItem Name="CurrentTimeline" Visibility="Visible" HorizontalMode="False" HorizontalAlignment="Stretch"
                                 VerticalAlignment="Stretch" LeftOrTopBehavior="Expand" RightOrButtomBehavior="Expand"
-                                HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" SizeChanged="CurrentTimeline_SizeChanged">
+                                HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
             <uwpctrls:SwipeableItem.Content>
                 <Grid>
                     <Grid.RowDefinitions>

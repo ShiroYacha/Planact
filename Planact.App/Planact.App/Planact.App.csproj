@@ -152,6 +152,7 @@
     <Content Include="Assets\Brush-01.png" />
     <Content Include="Assets\Caduceus.png" />
     <Content Include="Assets\Camera-05.png" />
+    <Content Include="Assets\clockwerk_bar.png" />
     <Content Include="Assets\Cloud-Overcast.png" />
     <Content Include="Assets\Cloud-Rain.png" />
     <Content Include="Assets\Cloud-Snow.png" />

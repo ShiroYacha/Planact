@@ -35,7 +35,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Common\MathExtension.cs" />
-    <Compile Include="Models\DesignTime\DesignTimeObjectiveFactory.cs" />
+    <Compile Include="Models\DesignTime\DesignTimeFactory.cs" />
     <Compile Include="Models\ObjectiveContribution.cs" />
     <Compile Include="Models\Objective.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

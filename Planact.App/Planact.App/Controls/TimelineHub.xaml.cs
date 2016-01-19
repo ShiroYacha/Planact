@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Planact.App.Converters;
+using Planact.Models.DesignTime;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -6,12 +8,15 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using UWPToolkit.Controls;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI;
+using Windows.UI.Text;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
 // The User Control item template is documented at http://go.microsoft.com/fwlink/?LinkId=234236
@@ -26,7 +31,7 @@ namespace Planact.App.Controls
             CurrentTimeline.ItemSwipe += CurrentTimeline_ItemSwipe;
             HistoryTimeline.ItemSwipe += HistoryTimeline_ItemSwipe;
             Timeline.Start = DateTime.Now;
-            Timeline.End = DateTime.Now.AddHours(20);
+            Timeline.End = DateTime.Now.AddHours(24);
         }
 
         private void HistoryTimeline_ItemSwipe(object sender, UWPToolkit.Controls.ItemSwipeEventArgs e)
@@ -47,14 +52,56 @@ namespace Planact.App.Controls
         {
             get
             {
-                return new List<TimelineItem>
-                {
-                    new TimelineItem {Visual = new SymbolIcon(Symbol.Accept), Start = DateTime.Now.AddHours(5) },
-                    new TimelineItem {Visual = new SymbolIcon(Symbol.AddFriend), Start = DateTime.Now.AddHours(5.3) },
-                    new TimelineItem {Visual = new SymbolIcon(Symbol.Account), Start = DateTime.Now.AddHours(9) },
-                    new TimelineItem {Visual = new SymbolIcon(Symbol.Admin), Start = DateTime.Now.AddHours(15) },
-                };
+                return CreateRandomTimelineItems(9);
             }
+        }
+
+        private List<TimelineItem> CreateRandomTimelineItems(int count)
+        {
+            var random = new Random(count);
+            var items = new List<TimelineItem>();
+            var converter = new HexStringToColorConverter();
+
+            for (int i=0; i<count; ++i)
+            {
+                // create container
+                var container = new Grid();
+                container.Height = 50;
+                container.Width = 50;
+                container.RowDefinitions.Add(new RowDefinition { Height = new GridLength(30) });
+                container.RowDefinitions.Add(new RowDefinition { Height = new GridLength(20) });
+
+                // create random time
+                var start = DateTime.Now.AddHours((0.8 * random.NextDouble() + 0.2) * 24);
+
+                // create image
+                var imageContainer = new Grid();
+                imageContainer.Background = new SolidColorBrush((Color)converter.Convert(DesignTimeFactory.CreateRandomColor(random),typeof(Color),null,null));
+                var imageName = DesignTimeFactory.GetRandomImageName(random);
+                var iconImage = new Image();
+                iconImage.Source = new BitmapImage(new Uri($"ms-appx://Planact.App/Assets/{imageName}"));
+                imageContainer.Children.Add(iconImage);
+                container.Children.Add(imageContainer);
+                Grid.SetRow(imageContainer, 0);
+
+                // create time label
+                var timeLabel = new TextBlock();
+                timeLabel.FontFamily = new FontFamily("Segoe UI Light");
+                timeLabel.FontWeight = FontWeights.Light;
+                timeLabel.FontSize = 12;
+                timeLabel.Text = start.ToString("hh:mm");
+                timeLabel.TextAlignment = TextAlignment.Center;
+                container.Children.Add(timeLabel);
+                Grid.SetRow(timeLabel, 1);
+
+                // add to items
+                items.Add(new TimelineItem { Visual = container, Start = start });
+            }
+
+            // sort w.r.t. time
+            items.Sort((a, b) => a.Start.CompareTo(b.Start));
+
+            return items;
         }
 
         private void CurrentTimeline_SizeChanged(object sender, SizeChangedEventArgs e)

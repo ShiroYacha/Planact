@@ -67,19 +67,6 @@ namespace UWPToolkit.Controls
                     }
                     ));
 
-        public int ItemHeight
-        {
-            get { return (int)GetValue(ItemHeightProperty); }
-            set { SetValue(ItemHeightProperty, value); }
-        }
-
-        public static readonly DependencyProperty ItemHeightProperty =
-            DependencyProperty.Register(nameof(ItemHeight), typeof(int), typeof(Timeline), new PropertyMetadata(50,
-                    (d, e) =>
-                    {
-                        //(d as Timeline).SetupItems();
-                    }
-                    ));
         #endregion
 
         public void SetupItems()
@@ -90,7 +77,8 @@ namespace UWPToolkit.Controls
 
             // prepare the items
             var filteredItems = FilterItems();
-            var residualHeight = Height - ItemHeight * filteredItems.Count;
+            var itemHeight = filteredItems.FirstOrDefault().Visual.Height;
+            var residualHeight = Height - itemHeight * filteredItems.Count;
             var totalDuration = End - Start;
             DateTime start = Start;
             DateTime end;
@@ -105,7 +93,7 @@ namespace UWPToolkit.Controls
 
                 // setup grid row definition according to the result
                 TimelineGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(height) });
-                TimelineGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(ItemHeight) });
+                TimelineGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(itemHeight) });
 
                 // put the item in place
                 var visual = filteredItems[i].Visual;

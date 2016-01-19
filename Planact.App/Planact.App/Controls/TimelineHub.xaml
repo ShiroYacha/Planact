@@ -17,10 +17,22 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <uwpctrls:SwipeableItem Name="CurrentTimeline" Visibility="Visible" HorizontalMode="False" HorizontalAlignment="Stretch"
-                                Background="Transparent" VerticalAlignment="Stretch" LeftOrTopBehavior="Expand" RightOrButtomBehavior="Expand"
+                                VerticalAlignment="Stretch" LeftOrTopBehavior="Expand" RightOrButtomBehavior="Expand"
                                 HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" SizeChanged="CurrentTimeline_SizeChanged">
             <uwpctrls:SwipeableItem.Content>
-                <uwpctrls:Timeline x:Name="Timeline" Items="{Binding DesignTimeTimelineItems}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="100"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid Background="BlanchedAlmond"/>
+                    <uwpctrls:Timeline x:Name="Timeline" Grid.Row="1" Items="{Binding DesignTimeTimelineItems}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                        <uwpctrls:Timeline.Background>
+                            <ImageBrush ImageSource="/Assets/clockwerk_bar.jpg" Stretch="Uniform"/>
+                        </uwpctrls:Timeline.Background>
+                    </uwpctrls:Timeline>
+                </Grid>
+
             </uwpctrls:SwipeableItem.Content>
             <uwpctrls:SwipeableItem.LeftOrTopContentTemplate>
                 <DataTemplate>

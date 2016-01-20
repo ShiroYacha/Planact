@@ -12,61 +12,58 @@
     d:DesignWidth="400">
 
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="50"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <uwpctrls:SwipeableItem Name="CurrentTimeline" Visibility="Visible" HorizontalMode="False" HorizontalAlignment="Stretch"
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="1" Background="Aqua" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <uwpctrls:SwipeableItem Name="CurrentTimeline" Visibility="Visible" HorizontalMode="False" HorizontalAlignment="Stretch"
                                 VerticalAlignment="Stretch" LeftOrTopBehavior="Expand" RightOrButtomBehavior="Expand"
                                 HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
-            <uwpctrls:SwipeableItem.Content>
-                <Grid Background="#0E0E0E">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="100"/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-                    <Grid Background="BlanchedAlmond"/>
-                    <uwpctrls:Timeline x:Name="Timeline" Grid.Row="1" Items="{Binding DesignTimeTimelineItems}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                    </uwpctrls:Timeline>
-                </Grid>
+                <uwpctrls:SwipeableItem.Content>
+                    <Grid Background="#0E0E0E">
+                        <uwpctrls:Timeline x:Name="Timeline" Grid.Row="1" Items="{Binding DesignTimeTimelineItems}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                        </uwpctrls:Timeline>
+                    </Grid>
 
-            </uwpctrls:SwipeableItem.Content>
-            <uwpctrls:SwipeableItem.LeftOrTopContentTemplate>
-                <DataTemplate>
-                    <Image Source="/Assets/History.png" Width="40" Height="40" Margin="5,0,0,0"/>
-                </DataTemplate>
-            </uwpctrls:SwipeableItem.LeftOrTopContentTemplate>
-            <uwpctrls:SwipeableItem.RightOrButtomContentTemplate>
-                <DataTemplate>
-                    <Image Source="/Assets/Schedule.png" Width="40" Height="40" Margin="5,0,0,0"/>
-                </DataTemplate>
-            </uwpctrls:SwipeableItem.RightOrButtomContentTemplate>
-        </uwpctrls:SwipeableItem>
-        <uwpctrls:SwipeableItem Name="HistoryTimeline" LeftOrTopBehavior="Disabled" Visibility="Collapsed" Background="#FFD4DD8C" HorizontalMode="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  RightOrButtomBehavior="Expand">
-            <uwpctrls:SwipeableItem.RightOrButtomContentTemplate>
-                <DataTemplate>
-                    <Image Source="/Assets/Tasks.png" Width="40" Height="40" Margin="5,0,0,0"/>
-                </DataTemplate>
-            </uwpctrls:SwipeableItem.RightOrButtomContentTemplate>
-        </uwpctrls:SwipeableItem>
-        <Grid Grid.Column="1" Background="Aqua" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="100"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <uwpctrls:SwipeableItem Background="#FF4949E0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" LeftOrTopBehavior="Expand" RightOrButtomBehavior="Expand">
+                </uwpctrls:SwipeableItem.Content>
                 <uwpctrls:SwipeableItem.LeftOrTopContentTemplate>
                     <DataTemplate>
-                        <Image Source="/Assets/Caduceus.png" Width="50" Height="50"/>
+                        <Image Source="/Assets/History.png" Width="40" Height="40" Margin="5,0,0,0"/>
                     </DataTemplate>
                 </uwpctrls:SwipeableItem.LeftOrTopContentTemplate>
                 <uwpctrls:SwipeableItem.RightOrButtomContentTemplate>
                     <DataTemplate>
-                        <Image Source="/Assets/Caduceus.png" Width="50" Height="50"/>
+                        <Image Source="/Assets/Schedule.png" Width="40" Height="40" Margin="5,0,0,0"/>
                     </DataTemplate>
                 </uwpctrls:SwipeableItem.RightOrButtomContentTemplate>
             </uwpctrls:SwipeableItem>
-            <Grid Grid.Row="1" Background="Salmon"/>
+            <uwpctrls:SwipeableItem Name="HistoryTimeline" LeftOrTopBehavior="Disabled" Visibility="Collapsed" Background="#FFD4DD8C" HorizontalMode="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  RightOrButtomBehavior="Expand">
+                <uwpctrls:SwipeableItem.RightOrButtomContentTemplate>
+                    <DataTemplate>
+                        <Image Source="/Assets/Tasks.png" Width="40" Height="40" Margin="5,0,0,0"/>
+                    </DataTemplate>
+                </uwpctrls:SwipeableItem.RightOrButtomContentTemplate>
+            </uwpctrls:SwipeableItem>
+            <Grid Grid.Column="1" Background="Salmon"/>
         </Grid>
+
+        <uwpctrls:SwipeableItem Background="#FF4949E0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" LeftOrTopBehavior="Expand" RightOrButtomBehavior="Expand">
+            <uwpctrls:SwipeableItem.LeftOrTopContentTemplate>
+                <DataTemplate>
+                    <Image Source="/Assets/Caduceus.png" Width="50" Height="50"/>
+                </DataTemplate>
+            </uwpctrls:SwipeableItem.LeftOrTopContentTemplate>
+            <uwpctrls:SwipeableItem.RightOrButtomContentTemplate>
+                <DataTemplate>
+                    <Image Source="/Assets/Caduceus.png" Width="50" Height="50"/>
+                </DataTemplate>
+            </uwpctrls:SwipeableItem.RightOrButtomContentTemplate>
+        </uwpctrls:SwipeableItem>
     </Grid>
 </UserControl>

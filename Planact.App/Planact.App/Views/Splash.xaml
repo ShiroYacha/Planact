@@ -19,14 +19,14 @@
             </Viewbox>
         </Canvas>
 
-        <ProgressRing x:Name="progressRing" Width="50"
+        <!--<ProgressRing x:Name="progressRing" Width="50"
                       Height="50" HorizontalAlignment="Center"
                       VerticalAlignment="Center" Foreground="{StaticResource ExtendedSplashForeground}"
                       IsActive="True" RenderTransformOrigin="0.5,0.5">
             <ProgressRing.RenderTransform>
                 <CompositeTransform x:Name="ProgressTransform" TranslateY="120" />
             </ProgressRing.RenderTransform>
-        </ProgressRing>
+        </ProgressRing>-->
 
     </Grid>
 

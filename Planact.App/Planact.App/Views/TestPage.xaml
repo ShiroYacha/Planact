@@ -46,14 +46,15 @@
             <RowDefinition />
         </Grid.RowDefinitions>
 
+        <!-- content-->
+        <ctrls:TimelineHub Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+        
         <!--  page header  -->
-
         <t10ctrls:PageHeader x:Uid="HomePageHeader" Content="Test" BackButtonVisibility="Collapsed" Frame="{x:Bind Frame}">
             <Interactivity:Interaction.Behaviors>
                 <Behaviors:EllipsisBehavior Visibility="Auto" />
             </Interactivity:Interaction.Behaviors>
         </t10ctrls:PageHeader>
-        <ctrls:TimelineHub Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
     </Grid>
 </Page>
 

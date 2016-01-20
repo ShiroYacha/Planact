@@ -72,27 +72,36 @@ namespace Planact.App.Controls
                 container.RowDefinitions.Add(new RowDefinition { Height = new GridLength(15) });
 
                 // create random time
-                var start = DateTime.Now.AddHours((0.8 * random.NextDouble() + 0.2) * 24);
+                var start = DateTime.Now.AddHours((0.9 * random.NextDouble() + 0.1) * 24);
 
                 // create image
                 var imageContainer = new Grid();
-                imageContainer.Background = new SolidColorBrush((Color)converter.Convert(DesignTimeFactory.CreateRandomColor(random),typeof(Color),null,null));
+                var imageBackground = new Border();
+                imageBackground.Background = new SolidColorBrush((Color)converter.Convert(DesignTimeFactory.CreateRandomColor(random),typeof(Color),null,null));
+                imageBackground.Opacity = 0.8;
                 var imageName = DesignTimeFactory.GetRandomImageName(random);
                 var iconImage = new Image();
                 iconImage.Source = new BitmapImage(new Uri($"ms-appx://Planact.App/Assets/{imageName}"));
+                imageContainer.Children.Add(imageBackground);
                 imageContainer.Children.Add(iconImage);
                 container.Children.Add(imageContainer);
                 Grid.SetRow(imageContainer, 0);
 
                 // create time label
+                var labelContainer = new Grid();
+                var labelBackground = new Border();
+                labelBackground.Background = imageBackground.Background;
+                labelBackground.Opacity = 0.4;
                 var timeLabel = new TextBlock();
                 timeLabel.FontFamily = new FontFamily("Segoe UI Light");
                 timeLabel.FontWeight = FontWeights.Light;
                 timeLabel.FontSize = 12;
-                timeLabel.Text = start.ToString("hh:mm");
+                timeLabel.Text = start.ToString("HH:mm");
                 timeLabel.TextAlignment = TextAlignment.Center;
-                container.Children.Add(timeLabel);
-                Grid.SetRow(timeLabel, 1);
+                labelContainer.Children.Add(labelBackground);
+                labelContainer.Children.Add(timeLabel);
+                container.Children.Add(labelContainer);
+                Grid.SetRow(labelContainer, 1);
 
                 // add to items
                 items.Add(new TimelineItem { Visual = container, Start = start });

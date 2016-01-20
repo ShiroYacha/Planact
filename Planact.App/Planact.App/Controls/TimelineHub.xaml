@@ -20,40 +20,32 @@
                                 VerticalAlignment="Stretch" LeftOrTopBehavior="Expand" RightOrButtomBehavior="Expand"
                                 HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
             <uwpctrls:SwipeableItem.Content>
-                <Grid>
+                <Grid Background="#0E0E0E">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="100"/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Grid Background="BlanchedAlmond"/>
                     <uwpctrls:Timeline x:Name="Timeline" Grid.Row="1" Items="{Binding DesignTimeTimelineItems}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                        <uwpctrls:Timeline.Background>
-                            <ImageBrush ImageSource="/Assets/clockwerk_bar.jpg" Stretch="Uniform"/>
-                        </uwpctrls:Timeline.Background>
                     </uwpctrls:Timeline>
                 </Grid>
 
             </uwpctrls:SwipeableItem.Content>
             <uwpctrls:SwipeableItem.LeftOrTopContentTemplate>
                 <DataTemplate>
-                    <Image Source="/Assets/Caduceus.png" Width="40" Height="40" Margin="5,0,0,0"/>
+                    <Image Source="/Assets/History.png" Width="40" Height="40" Margin="5,0,0,0"/>
                 </DataTemplate>
             </uwpctrls:SwipeableItem.LeftOrTopContentTemplate>
             <uwpctrls:SwipeableItem.RightOrButtomContentTemplate>
                 <DataTemplate>
-                    <Image Source="/Assets/Caduceus.png" Width="40" Height="40" Margin="5,0,0,0"/>
+                    <Image Source="/Assets/Schedule.png" Width="40" Height="40" Margin="5,0,0,0"/>
                 </DataTemplate>
             </uwpctrls:SwipeableItem.RightOrButtomContentTemplate>
         </uwpctrls:SwipeableItem>
         <uwpctrls:SwipeableItem Name="HistoryTimeline" Visibility="Collapsed" Background="#FFD4DD8C" HorizontalMode="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" LeftOrTopBehavior="Expand" RightOrButtomBehavior="Expand">
-            <uwpctrls:SwipeableItem.LeftOrTopContentTemplate>
-                <DataTemplate>
-                    <Image Source="/Assets/Caduceus.png" Width="40" Height="40" Margin="5,0,0,0"/>
-                </DataTemplate>
-            </uwpctrls:SwipeableItem.LeftOrTopContentTemplate>
             <uwpctrls:SwipeableItem.RightOrButtomContentTemplate>
                 <DataTemplate>
-                    <Image Source="/Assets/Caduceus.png" Width="40" Height="40" Margin="5,0,0,0"/>
+                    <Image Source="/Assets/Task.png" Width="40" Height="40" Margin="5,0,0,0"/>
                 </DataTemplate>
             </uwpctrls:SwipeableItem.RightOrButtomContentTemplate>
         </uwpctrls:SwipeableItem>

@@ -42,10 +42,10 @@
                 </DataTemplate>
             </uwpctrls:SwipeableItem.RightOrButtomContentTemplate>
         </uwpctrls:SwipeableItem>
-        <uwpctrls:SwipeableItem Name="HistoryTimeline" Visibility="Collapsed" Background="#FFD4DD8C" HorizontalMode="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" LeftOrTopBehavior="Expand" RightOrButtomBehavior="Expand">
+        <uwpctrls:SwipeableItem Name="HistoryTimeline" LeftOrTopBehavior="Disabled" Visibility="Collapsed" Background="#FFD4DD8C" HorizontalMode="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  RightOrButtomBehavior="Expand">
             <uwpctrls:SwipeableItem.RightOrButtomContentTemplate>
                 <DataTemplate>
-                    <Image Source="/Assets/Task.png" Width="40" Height="40" Margin="5,0,0,0"/>
+                    <Image Source="/Assets/Tasks.png" Width="40" Height="40" Margin="5,0,0,0"/>
                 </DataTemplate>
             </uwpctrls:SwipeableItem.RightOrButtomContentTemplate>
         </uwpctrls:SwipeableItem>

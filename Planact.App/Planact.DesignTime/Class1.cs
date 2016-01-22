@@ -8,5 +8,6 @@ namespace Planact.DesignTime
 {
     public class Class1
     {
+        
     }
 }

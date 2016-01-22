@@ -1,5 +1,4 @@
 ﻿using Planact.App.Converters;
-using Planact.Models.DesignTime;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -77,9 +76,9 @@ namespace Planact.App.Controls
                 // create image
                 var imageContainer = new Grid();
                 var imageBackground = new Border();
-                imageBackground.Background = new SolidColorBrush((Color)converter.Convert(DesignTimeFactory.CreateRandomColor(random),typeof(Color),null,null));
+                imageBackground.Background = new SolidColorBrush((Color)converter.Convert(DesignTime.Factory.CreateRandomColor(random),typeof(Color),null,null));
                 imageBackground.Opacity = 0.8;
-                var imageName = DesignTimeFactory.GetRandomImageName(random);
+                var imageName = DesignTime.Factory.GetRandomImageName(random);
                 var iconImage = new Image();
                 iconImage.Source = new BitmapImage(new Uri($"ms-appx://Planact.App/Assets/{imageName}"));
                 imageContainer.Children.Add(imageBackground);

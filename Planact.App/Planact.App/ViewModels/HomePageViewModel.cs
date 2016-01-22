@@ -1,7 +1,6 @@
 using GalaSoft.MvvmLight.Command;
 using Planact.App.Views;
 using Planact.Models;
-using Planact.Models.DesignTime;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -33,7 +32,7 @@ namespace Planact.App.ViewModels
         {
             get
             {
-                return new ObservableCollection<Objective>(DesignTimeFactory.CreateRandomObjectives(6));
+                return new ObservableCollection<Objective>(DesignTime.Factory.CreateRandomObjectives(6));
             }
         }
 

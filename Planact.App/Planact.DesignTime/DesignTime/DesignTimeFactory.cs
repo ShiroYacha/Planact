@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Planact.Common;
+using Planact.Models;
 
-namespace Planact.Models.DesignTime
+namespace Planact.DesignTime
 {
-    public static class DesignTimeFactory
+    public static class Factory
     {
         private static List<string> iconList = new List<string>
         {

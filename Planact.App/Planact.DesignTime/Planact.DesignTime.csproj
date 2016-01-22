@@ -108,6 +108,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="DesignTime\DesignTimeFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Planact.DesignTime.rd.xml" />
   </ItemGroup>
@@ -115,6 +116,12 @@
     <Reference Include="MPDS.Core">
       <HintPath>..\..\..\MPDS\MPDS\Development\Core\MPDS.Core\bin\Debug\MPDS.Core.dll</HintPath>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Planact\Planact.csproj">
+      <Project>{f11b561f-5f88-46fc-8160-ba5b89e9166e}</Project>
+      <Name>Planact</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

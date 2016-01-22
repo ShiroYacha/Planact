@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Blend for Visual Studio 14
+# Visual Studio 14
 VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Planact.App", "Planact.App\Planact.App.csproj", "{62F7E18E-DF9D-4B23-8036-831919DFD999}"
@@ -10,6 +10,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Planact", "Planact\Planact.csproj", "{F11B561F-5F88-46FC-8160-BA5B89E9166E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UWPToolkit", "..\UWPToolkit\UWPToolkit.csproj", "{EE3518D7-1254-48D5-B3BF-42FD1171B130}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Planact.DesignTime", "Planact.DesignTime\Planact.DesignTime.csproj", "{6A8E7551-CF42-4E58-998A-C1920D2A9173}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -93,6 +95,22 @@ Global
 		{EE3518D7-1254-48D5-B3BF-42FD1171B130}.Release|x64.Build.0 = Release|x64
 		{EE3518D7-1254-48D5-B3BF-42FD1171B130}.Release|x86.ActiveCfg = Release|x86
 		{EE3518D7-1254-48D5-B3BF-42FD1171B130}.Release|x86.Build.0 = Release|x86
+		{6A8E7551-CF42-4E58-998A-C1920D2A9173}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A8E7551-CF42-4E58-998A-C1920D2A9173}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A8E7551-CF42-4E58-998A-C1920D2A9173}.Debug|ARM.ActiveCfg = Debug|ARM
+		{6A8E7551-CF42-4E58-998A-C1920D2A9173}.Debug|ARM.Build.0 = Debug|ARM
+		{6A8E7551-CF42-4E58-998A-C1920D2A9173}.Debug|x64.ActiveCfg = Debug|x64
+		{6A8E7551-CF42-4E58-998A-C1920D2A9173}.Debug|x64.Build.0 = Debug|x64
+		{6A8E7551-CF42-4E58-998A-C1920D2A9173}.Debug|x86.ActiveCfg = Debug|x86
+		{6A8E7551-CF42-4E58-998A-C1920D2A9173}.Debug|x86.Build.0 = Debug|x86
+		{6A8E7551-CF42-4E58-998A-C1920D2A9173}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A8E7551-CF42-4E58-998A-C1920D2A9173}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A8E7551-CF42-4E58-998A-C1920D2A9173}.Release|ARM.ActiveCfg = Release|ARM
+		{6A8E7551-CF42-4E58-998A-C1920D2A9173}.Release|ARM.Build.0 = Release|ARM
+		{6A8E7551-CF42-4E58-998A-C1920D2A9173}.Release|x64.ActiveCfg = Release|x64
+		{6A8E7551-CF42-4E58-998A-C1920D2A9173}.Release|x64.Build.0 = Release|x64
+		{6A8E7551-CF42-4E58-998A-C1920D2A9173}.Release|x86.ActiveCfg = Release|x86
+		{6A8E7551-CF42-4E58-998A-C1920D2A9173}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

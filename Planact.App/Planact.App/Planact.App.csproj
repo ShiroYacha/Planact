@@ -244,6 +244,10 @@
       <Project>{ee3518d7-1254-48d5-b3bf-42fd1171b130}</Project>
       <Name>UWPToolkit</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Planact.DesignTime\Planact.DesignTime.csproj">
+      <Project>{6a8e7551-cf42-4e58-998a-c1920d2a9173}</Project>
+      <Name>Planact.DesignTime</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Planact\Planact.csproj">
       <Project>{f11b561f-5f88-46fc-8160-ba5b89e9166e}</Project>
       <Name>Planact</Name>

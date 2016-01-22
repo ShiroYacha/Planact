@@ -1,5 +1,5 @@
 ﻿using Planact.App.Converters;
-using Planact.Models;
+using Planact.DesignTime;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

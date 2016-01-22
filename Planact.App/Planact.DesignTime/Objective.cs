@@ -4,8 +4,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Planact.Models
+namespace Planact.DesignTime
 {
+    public class ObjectiveContribution
+    {
+        public DateTime Timestamp
+        {
+            get;
+            set;
+        }
+
+        public int Count
+        {
+            get;
+            set;
+        }
+    }
+
     public class Objective
     {
         public string Name

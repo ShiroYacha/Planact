@@ -1,6 +1,6 @@
 using GalaSoft.MvvmLight.Command;
 using Planact.App.Views;
-using Planact.Models;
+using Planact.DesignTime;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

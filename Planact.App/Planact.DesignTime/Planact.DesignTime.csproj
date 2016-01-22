@@ -107,8 +107,10 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
-    <Compile Include="DesignTime\DesignTimeFactory.cs" />
+    <Compile Include="Objective.cs" />
+    <Compile Include="MpdsAdapter.cs" />
+    <Compile Include="Factory.cs" />
+    <Compile Include="Task.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Planact.DesignTime.rd.xml" />
   </ItemGroup>

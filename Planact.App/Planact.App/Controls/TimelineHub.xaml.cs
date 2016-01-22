@@ -1,4 +1,5 @@
 ﻿using Planact.App.Converters;
+using Planact.DesignTime;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -110,6 +111,12 @@ namespace Planact.App.Controls
             items.Sort((a, b) => a.Start.CompareTo(b.Start));
 
             return items;
+        }
+
+        private async void Grid_Loaded(object sender, RoutedEventArgs e)
+        {
+            MpdsAdapter adapter = new MpdsAdapter();
+            var tasks = await adapter.ImportData();
         }
     }
 }

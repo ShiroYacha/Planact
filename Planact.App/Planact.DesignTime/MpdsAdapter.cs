@@ -11,9 +11,11 @@ namespace Planact.DesignTime
 {
     public class MpdsAdapter
     {
-        private static PomodoroInventory inventory;
+        private PomodoroInventory inventory;
 
-        public static async Task<IEnumerable<Task>> ImportData(bool force = false, int withinMonthes = 3)
+        private OnedriveManager onedriveManager = new OnedriveManager();
+
+        public async Task<IEnumerable<Task>> ImportData(bool force = false, int withinMonthes = 3)
         {
             // load data
             if(force || inventory == null)
@@ -28,26 +30,26 @@ namespace Planact.DesignTime
             return AdaptData(filteredData);
         }
 
-        private static IEnumerable<Task> AdaptData(IEnumerable<PomodoroTask> filteredData)
+        private IEnumerable<Task> AdaptData(IEnumerable<PomodoroTask> filteredData)
         {
             throw new NotImplementedException();
         }
 
-        private static async Task<PomodoroInventory> LoadInventory()
+        private async Task<PomodoroInventory> LoadInventory()
         {
-            var xmlString = await LoadDataFromSharedFolder();
+            // load data
+            var xmlString = await LoadDataFromOnedrive();
+
+            // deserialize data
             return DeserializeDataFromXmlString(xmlString);
         }
 
-        private static async Task<string> LoadDataFromSharedFolder()
+        private async Task<string> LoadDataFromOnedrive()
         {
-            // read from publisher shared folder
-            StorageFolder localFolder = ApplicationData.Current.LocalFolder; // change to shared folder
-            IStorageFile file = await localFolder.GetFileAsync("PomodoroInventory.dat");
-            return await FileIO.ReadTextAsync(file);
+            return await onedriveManager.DownloadContent("PomodoroInventory.dat");
         }
 
-        private static PomodoroInventory DeserializeDataFromXmlString(string xmlString)
+        private PomodoroInventory DeserializeDataFromXmlString(string xmlString)
         {
             return DataContractSerializerHelper.Deserialize<PomodoroInventory>(xmlString);
         }

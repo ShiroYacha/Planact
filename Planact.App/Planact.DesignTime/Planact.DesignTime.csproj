@@ -110,6 +110,7 @@
     <Compile Include="Objective.cs" />
     <Compile Include="MpdsAdapter.cs" />
     <Compile Include="Factory.cs" />
+    <Compile Include="OnedriveManager.cs" />
     <Compile Include="Task.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Planact.DesignTime.rd.xml" />

@@ -67,6 +67,7 @@ namespace UWPToolkit.Controls
                     }
                     ));
 
+
         #endregion
 
         public void SetupItems()
@@ -76,27 +77,31 @@ namespace UWPToolkit.Controls
             TimelineGrid.Children.Clear();
 
             // prepare the items
-            var filteredItems = FilterItems();
-            var itemHeight = filteredItems.FirstOrDefault().Visual.Height;
-            var residualHeight = ActualHeight - itemHeight * filteredItems.Count;
+            var validItems = FilterItems();
+            var totalHeight = ActualHeight;
             var totalDuration = End - Start;
             DateTime start = Start;
             DateTime end;
-            for (var i = 0; i < filteredItems.Count; i++)
+            for (var i = 0; i < validItems.Count; i++)
             {
                 // compute end of the place holder
-                end = filteredItems[i].Start;
+                end = validItems[i].Start;
 
                 // computer the height of the placeholder
-                var duration = end - start;
-                var height = duration.TotalSeconds / totalDuration.TotalSeconds * residualHeight;
+                var placeholderDuration = end - start;
+                var placeholderHeight = placeholderDuration.TotalSeconds / totalDuration.TotalSeconds * totalHeight;
+
+                // computer the height of the item
+                var itemDuration = validItems[i].End - validItems[i].Start;
+                var itemHeight = itemDuration.TotalSeconds / totalDuration.TotalSeconds * totalHeight;
+
 
                 // setup grid row definition according to the result
-                TimelineGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(height) });
+                TimelineGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(placeholderHeight) });
                 TimelineGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(itemHeight) });
 
                 // put the item in place
-                var visual = filteredItems[i].Visual;
+                var visual = validItems[i].Visual;
                 TimelineGrid.Children.Add(visual);
                 Grid.SetRow(visual, i * 2 + 1);
 

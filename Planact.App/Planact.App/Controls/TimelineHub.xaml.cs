@@ -1,4 +1,5 @@
 ﻿using Planact.App.Converters;
+using Planact.Common;
 using Planact.DesignTime;
 using System;
 using System.Collections.Generic;
@@ -66,13 +67,14 @@ namespace Planact.App.Controls
             {
                 // create container
                 var container = new Grid();
-                container.Height = 40;
+                container.VerticalAlignment = VerticalAlignment.Stretch;
                 container.Width = 50;
-                container.RowDefinitions.Add(new RowDefinition { Height = new GridLength(25) });
+                container.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
                 container.RowDefinitions.Add(new RowDefinition { Height = new GridLength(15) });
 
-                // create random time
+                // create random start / end time
                 var start = DateTime.Now.AddHours((0.9 * random.NextDouble() + 0.1) * 24);
+                var end = start.AddMinutes((0.5 * random.NextGaussian(2, 1) + 0.5) * 240);
 
                 // create image
                 var imageContainer = new Grid();
@@ -81,6 +83,7 @@ namespace Planact.App.Controls
                 imageBackground.Opacity = 0.8;
                 var imageName = DesignTime.Factory.GetRandomImageName(random);
                 var iconImage = new Image();
+                iconImage.Height = 30;
                 iconImage.Source = new BitmapImage(new Uri($"ms-appx://Planact.App/Assets/{imageName}"));
                 imageContainer.Children.Add(imageBackground);
                 imageContainer.Children.Add(iconImage);
@@ -104,7 +107,7 @@ namespace Planact.App.Controls
                 Grid.SetRow(labelContainer, 1);
 
                 // add to items
-                items.Add(new TimelineItem { Visual = container, Start = start });
+                items.Add(new TimelineItem { Visual = container, Start = start, End = end });
             }
 
             // sort w.r.t. time

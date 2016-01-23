@@ -11,6 +11,4 @@
 
     <Grid Name="TimelineGrid" SizeChanged="TimelineGrid_SizeChanged"/>
 
-
-
 </UserControl>

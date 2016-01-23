@@ -21,6 +21,12 @@ namespace UWPToolkit.Controls
             set;
         }
 
+        public DateTime End
+        {
+            get;
+            set;
+        }
+
         public FrameworkElement Visual
         {
             get;

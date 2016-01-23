@@ -36,23 +36,15 @@ namespace Planact.App.Controls
 
         private void HistoryTimeline_ItemSwipe(object sender, UWPToolkit.Controls.ItemSwipeEventArgs e)
         {
-            CurrentTimeline.Visibility = Visibility.Visible;
-            HistoryTimeline.Visibility = Visibility.Collapsed;
-            CurrentTimelineContent.Visibility = Visibility.Visible;
-            HistoryTimelineContent.Visibility = Visibility.Collapsed;
-            CurrentTimelineHeader.Visibility = Visibility.Visible;
-            HistoryTimelineHeader.Visibility = Visibility.Collapsed;
+            CurrentGrid.Visibility = Visibility.Visible;
+            HistoryGrid.Visibility = Visibility.Collapsed;
             HistoryTimeline.ResetSwipe();
         }
 
         private void CurrentTimeline_ItemSwipe(object sender, UWPToolkit.Controls.ItemSwipeEventArgs e)
         {
-            CurrentTimeline.Visibility = Visibility.Collapsed;
-            HistoryTimeline.Visibility = Visibility.Visible;
-            CurrentTimelineContent.Visibility = Visibility.Collapsed;
-            HistoryTimelineContent.Visibility = Visibility.Visible;
-            CurrentTimelineHeader.Visibility = Visibility.Collapsed;
-            HistoryTimelineHeader.Visibility = Visibility.Visible;
+            HistoryGrid.Visibility = Visibility.Visible;
+            CurrentGrid.Visibility = Visibility.Collapsed;
             CurrentTimeline.ResetSwipe();
         }
 

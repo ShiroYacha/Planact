@@ -15,7 +15,7 @@ namespace Planact.DesignTime
 
         private OnedriveManager onedriveManager = new OnedriveManager();
 
-        public async Task<IEnumerable<Task>> ImportData(bool force = false, int withinMonthes = 3)
+        public async Task<IEnumerable<Task>> ImportData(bool force = false)
         {
             // load data
             if(force || inventory == null)
@@ -24,16 +24,13 @@ namespace Planact.DesignTime
             }
 
             // filter data
-            var filteredData = inventory.Pomodoros.Where(p => p.CompletedTimestamp > DateTime.Today.AddMonths(-withinMonthes));
+            var filteredData = FilterData(inventory.Pomodoros);
 
             // adapt data
             return AdaptData(filteredData);
         }
 
-        private IEnumerable<Task> AdaptData(IEnumerable<PomodoroTask> filteredData)
-        {
-            throw new NotImplementedException();
-        }
+        #region Import data
 
         private async Task<PomodoroInventory> LoadInventory()
         {
@@ -53,5 +50,53 @@ namespace Planact.DesignTime
         {
             return DataContractSerializerHelper.Deserialize<PomodoroInventory>(xmlString);
         }
+
+        #endregion
+
+        #region Adapt data
+
+        private IEnumerable<PomodoroTask> FilterData(IEnumerable<PomodoroTask> unfilteredData)
+        {
+            const int withinMonthes = 3;
+
+            return unfilteredData.Where(p => 
+                p.CompletedTimestamp > DateTime.Today.AddMonths(-withinMonthes) &&
+                p.Deadline.HasValue
+            );
+        }
+
+        private IEnumerable<Task> AdaptData(IEnumerable<PomodoroTask> filteredData)
+        {
+            return filteredData.Select(p=>AdaptData(p));
+        }
+
+        private Task AdaptData(PomodoroTask pomodoroTask)
+        {
+            return new Task
+            {
+                Name = pomodoroTask.Title,
+                Description = pomodoroTask.Description,
+                Group = pomodoroTask.Group,
+                Start = pomodoroTask.StartDate,
+                End = pomodoroTask.Deadline.Value,
+                Executions = AdaptExecution(pomodoroTask) 
+            };
+        }
+
+        private IEnumerable<Execution> AdaptExecution(PomodoroTask pomodoroTask)
+        {
+            var executions = new List<Execution>();
+
+            // adapt finished pomodoros
+            executions.AddRange(pomodoroTask.FinishedPomodoros.Select((f) => new Execution { Start = f - TimeSpan.FromMinutes(25), Duration = TimeSpan.FromMinutes(25) }));
+
+            // adapt zen executions
+            executions.AddRange(pomodoroTask.ExecutedMinutes.Select((e) => new Execution { Start = e.Item1-TimeSpan.FromMinutes(e.Item2), Duration = TimeSpan.FromMinutes(e.Item2) }));
+
+            return executions;
+        }
+
+        #endregion
+
     }
 }

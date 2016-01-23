@@ -37,7 +37,7 @@ namespace Planact.DesignTime
             set;
         }
 
-        public DateTime Start
+        public DateTime? Start
         {
             get;
             set;

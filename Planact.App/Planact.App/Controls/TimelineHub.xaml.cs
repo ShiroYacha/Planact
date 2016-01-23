@@ -38,6 +38,10 @@ namespace Planact.App.Controls
         {
             CurrentTimeline.Visibility = Visibility.Visible;
             HistoryTimeline.Visibility = Visibility.Collapsed;
+            CurrentTimelineContent.Visibility = Visibility.Visible;
+            HistoryTimelineContent.Visibility = Visibility.Collapsed;
+            CurrentTimelineHeader.Visibility = Visibility.Visible;
+            HistoryTimelineHeader.Visibility = Visibility.Collapsed;
             HistoryTimeline.ResetSwipe();
         }
 
@@ -45,6 +49,10 @@ namespace Planact.App.Controls
         {
             CurrentTimeline.Visibility = Visibility.Collapsed;
             HistoryTimeline.Visibility = Visibility.Visible;
+            CurrentTimelineContent.Visibility = Visibility.Collapsed;
+            HistoryTimelineContent.Visibility = Visibility.Visible;
+            CurrentTimelineHeader.Visibility = Visibility.Collapsed;
+            HistoryTimelineHeader.Visibility = Visibility.Visible;
             CurrentTimeline.ResetSwipe();
         }
 

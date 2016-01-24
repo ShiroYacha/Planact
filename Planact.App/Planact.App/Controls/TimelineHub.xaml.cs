@@ -34,7 +34,7 @@ namespace Planact.App.Controls
             CurrentTimeline.ItemSwipe += CurrentTimeline_ItemSwipe;
             HistoryTimeline.ItemSwipe += HistoryTimeline_ItemSwipe;
             Timeline.Start = DateTime.Now;
-            Timeline.End = DateTime.Now.AddHours(24);
+            Timeline.End = DateTime.Today.AddDays(1);
         }
 
         private void HistoryTimeline_ItemSwipe(object sender, UWPToolkit.Controls.ItemSwipeEventArgs e)
@@ -82,11 +82,15 @@ namespace Planact.App.Controls
             var items = new List<TimelineItem>();
             var converter = new HexStringToColorConverter();
 
+            TimeSpan residualDuration = Timeline.End - Timeline.Start;
+
+            DateTime start = DateTime.Now;
+
             for (int i=0; i<count; ++i)
             {
                 // generate random start/end
-                var start = DateTime.Now.AddHours((0.9 * random.NextDouble() + 0.1) * 20);
-                var end = start.AddMinutes((0.5 * random.NextGaussian(2, 1) + 0.5) * 120);
+                start = start.AddMinutes((0.5 * random.NextDouble() + 0.5) * residualDuration.TotalMinutes/(count));
+                var end = start.AddMinutes((0.5 * random.NextDouble() + 0.5)* residualDuration.TotalMinutes/(2*count));
 
                 // create item
                 TimelineItem item = CreateTimelineItem(DesignTime.Factory.GetRandomImageName(random),

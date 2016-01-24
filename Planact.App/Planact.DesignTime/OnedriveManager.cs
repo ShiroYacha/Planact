@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Storage;
 
 namespace Planact.DesignTime
 {
@@ -30,7 +31,34 @@ namespace Planact.DesignTime
 
         }
 
-        public async Task<string> DownloadContent(string path)
+        public async Task<string> GetContent(string path)
+        {
+            var content = "";
+
+            // try get file from local storage
+            StorageFolder storageFolder = ApplicationData.Current.LocalFolder;
+            StorageFile file = await storageFolder.TryGetItemAsync(path) as StorageFile;
+
+            if (file == null)
+            {
+                // get from onedrive
+                content = await DownloadContent(path);
+
+                // write to local storage
+                file = await storageFolder.CreateFileAsync(path, CreationCollisionOption.ReplaceExisting);
+                await FileIO.WriteTextAsync(file, content);
+            }
+            else
+            {
+                // read from local storage
+                content = await FileIO.ReadTextAsync(file);
+            }
+
+            // return result
+            return content;
+        }
+
+        private async Task<string> DownloadContent(string path)
         {
             // initialize
             if (client == null)
@@ -53,6 +81,5 @@ namespace Planact.DesignTime
             }
             return downloadContent;
         }
-
     }
 }

@@ -13,8 +13,6 @@ namespace Planact.DesignTime
     {
         private PomodoroInventory inventory;
 
-        private OnedriveManager onedriveManager = new OnedriveManager();
-
         public async Task<IEnumerable<Task>> ImportData(bool force = false)
         {
             // load data
@@ -35,15 +33,17 @@ namespace Planact.DesignTime
         private async Task<PomodoroInventory> LoadInventory()
         {
             // load data
-            var xmlString = await LoadDataFromOnedrive();
+            var xmlString = await LoadDataFromPictureLibrary();
 
             // deserialize data
             return DeserializeDataFromXmlString(xmlString);
         }
 
-        private async Task<string> LoadDataFromOnedrive()
+        private async Task<string> LoadDataFromPictureLibrary()
         {
-            return await onedriveManager.DownloadContent("PomodoroInventory.dat");
+            var folder = KnownFolders.PicturesLibrary;
+            var file = await folder.GetFileAsync("mdps.dat");
+            return await FileIO.ReadTextAsync(file);
         }
 
         private PomodoroInventory DeserializeDataFromXmlString(string xmlString)
@@ -72,7 +72,8 @@ namespace Planact.DesignTime
 
         private Task AdaptData(PomodoroTask pomodoroTask)
         {
-            return new Task
+            // adapt task
+            var task = new Task
             {
                 Name = pomodoroTask.Title,
                 Description = pomodoroTask.Description,
@@ -81,6 +82,14 @@ namespace Planact.DesignTime
                 End = pomodoroTask.Deadline.Value,
                 Executions = AdaptExecution(pomodoroTask) 
             };
+
+            // assign task reference
+            foreach(var execution in task.Executions)
+            {
+                execution.Task = task;
+            }
+
+            return task;
         }
 
         private IEnumerable<Execution> AdaptExecution(PomodoroTask pomodoroTask)

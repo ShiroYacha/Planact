@@ -8,6 +8,12 @@ namespace Planact.DesignTime
 {
     public class Execution
     {
+        public Task Task
+        {
+            get;
+            set;
+        }
+
         public DateTime Start
         {
             get;

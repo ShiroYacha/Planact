@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Planact.Common;
+using Windows.Storage.Streams;
+using Windows.Security.Cryptography.Core;
+using Windows.Security.Cryptography;
 
 namespace Planact.DesignTime
 {
@@ -85,9 +88,34 @@ namespace Planact.DesignTime
             return new Objective { Name = name, Contributions = contributions, IconName = iconName, ColorString = colorString, RowSpan = defaultRowSpan, ColumnSpan = defaultColumnSpan };
         }
 
+        public static string GetImageNameFromName(string name)
+        {
+            // get count from string
+            var hexString = ConvertStringToHexString(name).Substring(0,3);
+            var count = 0;
+            foreach(var hexChar in hexString)
+            {
+                count += Convert.ToInt32(hexChar);
+            }
+
+            // get index
+            count = count % iconList.Count;
+
+            // return icon name
+            return iconList[count];
+        }
+
         public static string CreateRandomColor(Random random)
         {
             return string.Format("#{0:X6}", random.Next(0x1000000));
+        }
+
+        private static string ConvertStringToHexString(string target)
+        {
+            IBuffer buffer = CryptographicBuffer.ConvertStringToBinary(target, BinaryStringEncoding.Utf8);
+            HashAlgorithmProvider hashAlgorithm = HashAlgorithmProvider.OpenAlgorithm(HashAlgorithmNames.Sha1);
+            IBuffer hashBuffer = hashAlgorithm.HashData(buffer);
+            return CryptographicBuffer.EncodeToHexString(hashBuffer);
         }
     }
 }

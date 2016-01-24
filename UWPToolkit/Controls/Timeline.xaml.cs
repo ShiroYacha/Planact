@@ -70,7 +70,7 @@ namespace UWPToolkit.Controls
 
         #endregion
 
-        public void SetupItems()
+        public void SetupItems(double height = 0)
         {
             // initialize
             TimelineGrid.RowDefinitions.Clear();
@@ -78,7 +78,7 @@ namespace UWPToolkit.Controls
 
             // prepare the items
             var validItems = FilterItems();
-            var totalHeight = ActualHeight;
+            var totalHeight = height==0?ActualHeight: height;
             var totalDuration = End - Start;
             DateTime start = Start;
             DateTime end;
@@ -90,6 +90,10 @@ namespace UWPToolkit.Controls
                 // computer the height of the placeholder
                 var placeholderDuration = end - start;
                 var placeholderHeight = placeholderDuration.TotalSeconds / totalDuration.TotalSeconds * totalHeight;
+
+                // pass if reverted
+                if (placeholderHeight < 0)
+                    continue;
 
                 // computer the height of the item
                 var itemDuration = validItems[i].End - validItems[i].Start;
@@ -120,7 +124,18 @@ namespace UWPToolkit.Controls
 
         private void TimelineGrid_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            SetupItems();
+            if (Items.Any() && ActualHeight > 0)
+            {
+                SetupItems();
+            }
+        }
+
+        private void TimelineGrid_Loaded(object sender, RoutedEventArgs e)
+        {
+            if(Items.Any() && ActualHeight>0)
+            {
+                SetupItems();
+            }
         }
     }
 }

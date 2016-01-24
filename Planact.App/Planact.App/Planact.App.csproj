@@ -113,6 +113,7 @@
       <DependentUpon>TimelineHub.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\HexStringToColorConverter.cs" />
+    <Compile Include="Converters\StringToColorConverter.cs" />
     <Compile Include="Mvvm\NavigableViewModelBase.cs" />
     <Compile Include="Mvvm\ViewModelBase.cs" />
     <Compile Include="Mvvm\ViewModelLocator.cs" />

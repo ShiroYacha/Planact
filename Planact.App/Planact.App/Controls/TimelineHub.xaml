@@ -28,7 +28,7 @@
                                 HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
                     <uwpctrls:SwipeableItem.Content>
                         <Grid Background="#0E0E0E">
-                            <uwpctrls:Timeline x:Name="Timeline" Grid.Row="1" Items="{Binding DesignTimeTimelineItems}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                            <uwpctrls:Timeline x:Name="Timeline" Items="{Binding CurrentTimelineItems}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                             </uwpctrls:Timeline>
                         </Grid>
                     </uwpctrls:SwipeableItem.Content>
@@ -59,7 +59,8 @@
                 </uwpctrls:SwipeableItem.RightOrButtomContentTemplate>
             </uwpctrls:SwipeableItem>
         </Grid>
-        <Grid Name="HistoryGrid">
+        
+        <Grid Name="HistoryGrid" Visibility="Collapsed">
             <Grid.RowDefinitions>
                 <RowDefinition Height="100"/>
                 <RowDefinition Height="*"/>
@@ -70,7 +71,18 @@
                     <ColumnDefinition Width="50"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <uwpctrls:SwipeableItem Name="HistoryTimeline" LeftOrTopBehavior="Disabled" Background="#FFD4DD8C" HorizontalMode="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  RightOrButtomBehavior="Expand">
+                <uwpctrls:SwipeableItem Name="HistoryTimeline" LeftOrTopBehavior="Disabled" HorizontalMode="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  RightOrButtomBehavior="Expand"
+                                         HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
+                    <uwpctrls:SwipeableItem.Content>
+                        <Grid Background="#0E0E0E">
+                            <uwpctrls:Timeline x:Name="HistoryTodayTimeline" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                        </Grid>
+                    </uwpctrls:SwipeableItem.Content>
+                    <uwpctrls:SwipeableItem.LeftOrTopContentTemplate>
+                        <DataTemplate>
+                            <Image Source="/Assets/History.png" Width="40" Height="40" Margin="5,0,0,0"/>
+                        </DataTemplate>
+                    </uwpctrls:SwipeableItem.LeftOrTopContentTemplate>
                     <uwpctrls:SwipeableItem.RightOrButtomContentTemplate>
                         <DataTemplate>
                             <Image Source="/Assets/Tasks.png" Width="40" Height="40" Margin="5,0,0,0"/>

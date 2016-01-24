@@ -52,7 +52,7 @@ namespace Planact.App.Controls
             CurrentTimeline.ResetSwipe();
 
             // invalidate 
-            HistoryTodayTimeline.Start = DateTime.Today;
+            HistoryTodayTimeline.Start = DateTime.Today.AddHours(7);
             HistoryTodayTimeline.End = DateTime.Today.AddDays(1);
             HistoryTodayTimeline.Items = CreateTimelineItemsFor(DateTime.Today.Date, DateTime.Today.AddDays(1));
             HistoryTodayTimeline.SetupItems(height);
@@ -62,7 +62,7 @@ namespace Planact.App.Controls
         {
             get
             {
-                return CreateRandomTimelineItems(5);
+                return CreateRandomTimelineItems(3);
             }
         }
 
@@ -73,7 +73,7 @@ namespace Planact.App.Controls
             // get executions for today
             var executions = mpdsItems.SelectMany(i => i.Executions).Where(e => e.End <= to && e.Start >= from);
             return executions.Select(e=>
-                CreateTimelineItem(Factory.GetImageNameFromName(e.Task.Name), e.Start, e.End, (Color)converter.Convert(e.Task.Group, typeof(Color), null, null))).ToList();
+                CreateTimelineItem(Factory.GetImageNameFromName(e.Task.Name), e.Start, e.End, (Color)converter.Convert(e.Task.Group, typeof(Color), null, null), true)).ToList();
         }
 
         private List<TimelineItem> CreateRandomTimelineItems(int count)
@@ -88,13 +88,15 @@ namespace Planact.App.Controls
 
             for (int i=0; i<count; ++i)
             {
-                // generate random start/end
-                start = start.AddMinutes((0.5 * random.NextDouble() + 0.5) * residualDuration.TotalMinutes/(count));
-                var end = start.AddMinutes((0.5 * random.NextDouble() + 0.5)* residualDuration.TotalMinutes/(2*count));
+                // generate end
+                var end = start.AddMinutes(random.Next(15,30));
 
                 // create item
                 TimelineItem item = CreateTimelineItem(DesignTime.Factory.GetRandomImageName(random),
                     start, end, (Color)converter.Convert(DesignTime.Factory.CreateRandomColor(random), typeof(Color), null, null));
+
+                // update start
+                start = start.AddMinutes(random.Next(30, 60));
 
                 // add to items
                 items.Add(item);
@@ -106,14 +108,15 @@ namespace Planact.App.Controls
             return items;
         }
 
-        private static TimelineItem CreateTimelineItem(string imageName, DateTime start, DateTime end, Color color)
+        private static TimelineItem CreateTimelineItem(string imageName, DateTime start, DateTime end, Color color, bool compactMode = false)
         {
             // create container
             var container = new Grid();
             container.VerticalAlignment = VerticalAlignment.Stretch;
             container.Width = 50;
             container.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
-            container.RowDefinitions.Add(new RowDefinition { Height = new GridLength(15) });
+            if(!compactMode)
+                container.RowDefinitions.Add(new RowDefinition { Height = new GridLength(15) });
 
             // create image
             var imageContainer = new Grid();
@@ -122,27 +125,31 @@ namespace Planact.App.Controls
             imageBackground.Opacity = 0.8;
             var iconImage = new Image();
             iconImage.MaxHeight = 30;
-            iconImage.Source = new BitmapImage(new Uri($"ms-appx://Planact.App/Assets/{imageName}"));
+            if(!compactMode)
+                iconImage.Source = new BitmapImage(new Uri($"ms-appx://Planact.App/Assets/{imageName}"));
             imageContainer.Children.Add(imageBackground);
             imageContainer.Children.Add(iconImage);
             container.Children.Add(imageContainer);
             Grid.SetRow(imageContainer, 0);
 
             // create time label
-            var labelContainer = new Grid();
-            var labelBackground = new Border();
-            labelBackground.Background = imageBackground.Background;
-            labelBackground.Opacity = 0.4;
-            var timeLabel = new TextBlock();
-            timeLabel.FontFamily = new FontFamily("Segoe UI Light");
-            timeLabel.FontWeight = FontWeights.Light;
-            timeLabel.FontSize = 12;
-            timeLabel.Text = start.ToString("HH:mm");
-            timeLabel.TextAlignment = TextAlignment.Center;
-            labelContainer.Children.Add(labelBackground);
-            labelContainer.Children.Add(timeLabel);
-            container.Children.Add(labelContainer);
-            Grid.SetRow(labelContainer, 1);
+            if (!compactMode)
+            {
+                var labelContainer = new Grid();
+                var labelBackground = new Border();
+                labelBackground.Background = imageBackground.Background;
+                labelBackground.Opacity = 0.4;
+                var timeLabel = new TextBlock();
+                timeLabel.FontFamily = new FontFamily("Segoe UI Light");
+                timeLabel.FontWeight = FontWeights.Light;
+                timeLabel.FontSize = 12;
+                timeLabel.Text = start.ToString("HH:mm");
+                timeLabel.TextAlignment = TextAlignment.Center;
+                labelContainer.Children.Add(labelBackground);
+                labelContainer.Children.Add(timeLabel);
+                container.Children.Add(labelContainer);
+                Grid.SetRow(labelContainer, 1);
+            }
 
             // create item
             var item = new TimelineItem { Visual = container, Start = start, End = end };

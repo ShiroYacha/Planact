@@ -9,6 +9,6 @@
     d:DesignHeight="300"
     d:DesignWidth="30">
 
-    <Grid Name="TimelineGrid" SizeChanged="TimelineGrid_SizeChanged" Loaded="TimelineGrid_Loaded"/>
+    <Canvas Name="TimelineCanvas" SizeChanged="TimelineCanvas_SizeChanged" Loaded="TimelineCanvas_Loaded"/>
 
 </UserControl>

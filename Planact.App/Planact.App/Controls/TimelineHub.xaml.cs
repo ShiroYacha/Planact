@@ -85,8 +85,8 @@ namespace Planact.App.Controls
             for (int i=0; i<count; ++i)
             {
                 // generate random start/end
-                var start = DateTime.Now.AddHours((0.9 * random.NextDouble() + 0.1) * 24);
-                var end = start.AddMinutes((0.5 * random.NextGaussian(2, 1) + 0.5) * 240);
+                var start = DateTime.Now.AddHours((0.9 * random.NextDouble() + 0.1) * 20);
+                var end = start.AddMinutes((0.5 * random.NextGaussian(2, 1) + 0.5) * 120);
 
                 // create item
                 TimelineItem item = CreateTimelineItem(DesignTime.Factory.GetRandomImageName(random),

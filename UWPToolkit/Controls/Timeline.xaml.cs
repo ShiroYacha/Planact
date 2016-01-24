@@ -73,48 +73,34 @@ namespace UWPToolkit.Controls
         public void SetupItems(double height = 0)
         {
             // initialize
-            TimelineGrid.RowDefinitions.Clear();
-            TimelineGrid.Children.Clear();
+            TimelineCanvas.Children.Clear();
 
             // prepare the items
             var validItems = FilterItems();
             var totalHeight = height==0?ActualHeight: height;
             var totalDuration = End - Start;
             DateTime start = Start;
-            DateTime end;
             for (var i = 0; i < validItems.Count; i++)
             {
-                // compute end of the place holder
-                end = validItems[i].Start;
+                // compute position of the item
+                var itemBeforeDuration = validItems[i].Start - start;
+                var itemBeforeHeight = itemBeforeDuration.TotalSeconds / totalDuration.TotalSeconds * totalHeight;
 
-                // computer the height of the placeholder
-                var placeholderDuration = end - start;
-                var placeholderHeight = placeholderDuration.TotalSeconds / totalDuration.TotalSeconds * totalHeight;
-
-                // pass if reverted
-                if (placeholderHeight < 0)
-                    continue;
-
-                // computer the height of the item
+                // compute the height of the item
                 var itemDuration = validItems[i].End - validItems[i].Start;
                 var itemHeight = itemDuration.TotalSeconds / totalDuration.TotalSeconds * totalHeight;
 
-
-                // setup grid row definition according to the result
-                TimelineGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(placeholderHeight) });
-                TimelineGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(itemHeight) });
-
-                // put the item in place
+                // compute visual 
                 var visual = validItems[i].Visual;
-                TimelineGrid.Children.Add(visual);
-                Grid.SetRow(visual, i * 2 + 1);
+                visual.Height = itemHeight;
 
-                // set new start as last end
-                start = end;
+                // set position
+                Canvas.SetLeft(visual, 0);
+                Canvas.SetTop(visual, itemBeforeHeight);
+
+                // add to children
+                TimelineCanvas.Children.Add(visual);
             }
-
-            // add the last placeholder
-            TimelineGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(100, GridUnitType.Star) });
         }
 
         private List<TimelineItem> FilterItems()
@@ -122,7 +108,7 @@ namespace UWPToolkit.Controls
             return Items.Where(i => i.Start>=Start && i.Start <= End).ToList();
         }
 
-        private void TimelineGrid_SizeChanged(object sender, SizeChangedEventArgs e)
+        private void TimelineCanvas_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             if (Items.Any() && ActualHeight > 0)
             {
@@ -130,7 +116,7 @@ namespace UWPToolkit.Controls
             }
         }
 
-        private void TimelineGrid_Loaded(object sender, RoutedEventArgs e)
+        private void TimelineCanvas_Loaded(object sender, RoutedEventArgs e)
         {
             if(Items.Any() && ActualHeight>0)
             {

@@ -66,7 +66,7 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <Grid Grid.Row="1" Background="Aqua" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Grid Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="50"/>
                     <ColumnDefinition Width="*"/>
@@ -89,7 +89,7 @@
                         </DataTemplate>
                     </uwpctrls:SwipeableItem.RightOrButtomContentTemplate>
                 </uwpctrls:SwipeableItem>
-                <Grid Name="HistoryTimelineContent" Grid.Column="1" Background="RosyBrown"/>
+                <uwpctrls:TimeGrid Name="HistoryTimelineContent" Grid.Column="1"/>
             </Grid>
             <uwpctrls:SwipeableItem Name="HistoryTimelineHeader" Background="Fuchsia" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" LeftOrTopBehavior="Expand" RightOrButtomBehavior="Expand">
                 <uwpctrls:SwipeableItem.LeftOrTopContentTemplate>

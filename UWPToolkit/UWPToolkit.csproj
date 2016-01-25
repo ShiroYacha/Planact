@@ -117,6 +117,9 @@
     <Compile Include="Controls\TiledGridView.xaml.cs">
       <DependentUpon>TiledGridView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\TimeGrid.xaml.cs">
+      <DependentUpon>TimeGrid.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Timeline.Configuration.cs" />
     <Compile Include="Controls\Timeline.xaml.cs">
       <DependentUpon>Timeline.xaml</DependentUpon>
@@ -132,6 +135,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\TiledGridView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\TimeGrid.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

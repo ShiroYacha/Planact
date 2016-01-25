@@ -55,7 +55,11 @@ namespace Planact.App.Controls
             HistoryTodayTimeline.Start = DateTime.Today.AddHours(7);
             HistoryTodayTimeline.End = DateTime.Today.AddDays(1);
             HistoryTodayTimeline.Items = CreateTimelineItemsFor(DateTime.Today.Date, DateTime.Today.AddDays(1));
+            HistoryTimelineContent.Items = CreateTimelineItemsFor(DateTime.Today.AddDays(-7), DateTime.Today);
+            HistoryTimelineContent.Width = ActualWidth - CurrentTimeline.ActualWidth;
+            HistoryTimelineContent.Height = CurrentTimeline.ActualHeight;
             HistoryTodayTimeline.SetupItems(height);
+            HistoryTimelineContent.SetupItems();
         }
 
         public List<TimelineItem> CurrentTimelineItems

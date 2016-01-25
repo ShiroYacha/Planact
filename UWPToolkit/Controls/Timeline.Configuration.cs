@@ -9,7 +9,7 @@ namespace UWPToolkit.Controls
 {
     public class TimelineItem
     {
-        public string Name
+        public string Tag
         {
             get;
             set;

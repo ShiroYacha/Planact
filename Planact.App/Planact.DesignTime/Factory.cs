@@ -91,15 +91,24 @@ namespace Planact.DesignTime
         public static string GetImageNameFromName(string name)
         {
             // get count from string
-            var hexString = ConvertStringToHexString(name).Substring(0,3);
+            var hexString = ConvertStringToHexString(name).Substring(0, 3);
             var count = 0;
-            foreach(var hexChar in hexString)
+            foreach (var hexChar in hexString)
             {
                 count += Convert.ToInt32(hexChar);
             }
 
             // get index
             count = count % iconList.Count;
+
+            // return icon name
+            return iconList[count];
+        }
+
+        public static string GetNonRepeatedImageNameFromName(string name, List<string> allNames)
+        {
+            // get count from string
+            var count = allNames.IndexOf(name);
 
             // return icon name
             return iconList[count];

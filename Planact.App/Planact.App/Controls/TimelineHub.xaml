@@ -11,7 +11,7 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
 
-    <Grid>
+    <Grid SizeChanged="Grid_SizeChanged">
         <Grid Name="CurrentGrid" Loaded="Grid_Loaded">
             <Grid.RowDefinitions>
                 <RowDefinition Height="100"/>
@@ -76,6 +76,7 @@
                     <uwpctrls:SwipeableItem.Content>
                         <Grid Background="#0E0E0E">
                             <uwpctrls:Timeline x:Name="HistoryTodayTimeline" Visibility="Visible"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                            <Grid x:Name="HistoryTodayBar" Visibility="Collapsed"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
                         </Grid>
                     </uwpctrls:SwipeableItem.Content>
                     <uwpctrls:SwipeableItem.LeftOrTopContentTemplate>

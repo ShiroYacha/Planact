@@ -52,9 +52,36 @@ namespace Planact.App.Controls
                     // set as content
                     HistoryTimelineContent.Children.Clear();
                     HistoryTimelineContent.Children.Add(historyGrid);
+                    historyGrid.HorizontalAlignment = HorizontalAlignment.Stretch;
+                    historyGrid.VerticalAlignment = VerticalAlignment.Stretch;
+
+                    // set history bar content
+                    for(var i=0;i<7;++i)
+                    {
+                        var code = DateTime.Today.AddDays(-i).DayOfWeek.ToString().Substring(0, 3);
+                        HistoryTodayBar.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
+                        TextBlock text = new TextBlock();
+                        text.Text = code;
+                        text.FontSize = 20;
+                        text.FontWeight = FontWeights.ExtraLight;
+                        text.VerticalAlignment = VerticalAlignment.Center;
+                        text.HorizontalAlignment = HorizontalAlignment.Center;
+                        Border background = new Border
+                        {
+                            Background = new SolidColorBrush(Color.FromArgb(255, 10, 10, 10)),
+                            BorderBrush = new SolidColorBrush(Color.FromArgb(255, 30, 30, 30)),
+                            BorderThickness = new Thickness(1)
+                        };
+                        HistoryTodayBar.Children.Add(background);
+                        HistoryTodayBar.Children.Add(text);
+                        Grid.SetRow(background, i);
+                        Grid.SetRow(text, i);
+                    }
                 }
 
                 HistoryTodayTimeline.Visibility = Visibility.Collapsed;
+                HistoryTodayBar.Visibility = Visibility.Visible;
+
 
                 historyGrid.Items = CreateTimelineItemsFor(DateTime.Today.AddDays(-6), DateTime.Today.AddDays(1));
                 historyGrid.Width = ActualWidth - CurrentTimeline.ActualWidth;
@@ -63,15 +90,11 @@ namespace Planact.App.Controls
             }
             else
             {
-                HistoryTimelineContent.Children.Clear();
-
                 HistoryTodayTimeline.Visibility = Visibility.Visible;
             }
 
             HistoryTimelineHeader.ResetSwipe();
         }
-
-
 
         private void HistoryTimeline_ItemSwipe(object sender, UWPToolkit.Controls.ItemSwipeEventArgs e)
         {
@@ -115,8 +138,9 @@ namespace Planact.App.Controls
 
             // get executions for today
             var executions = mpdsItems.SelectMany(i => i.Executions).Where(e => e.End <= to && e.Start >= from);
+            var groups = executions.Select(i => i.Task.Group).Distinct().ToList();
             return executions.Select(e=>
-                CreateTimelineItem(Factory.GetImageNameFromName(e.Task.Name), e.Start, e.End, (Color)converter.Convert(e.Task.Group, typeof(Color), null, null), true)).ToList();
+                CreateTimelineItem(Factory.GetNonRepeatedImageNameFromName(e.Task.Group, groups), e.Start, e.End, (Color)converter.Convert(e.Task.Group, typeof(Color), null, null), true)).ToList();
         }
 
         private List<TimelineItem> CreateRandomTimelineItems(int count)
@@ -195,7 +219,7 @@ namespace Planact.App.Controls
             }
 
             // create item
-            var item = new TimelineItem { Visual = container, Start = start, End = end };
+            var item = new TimelineItem { Visual = container, Start = start, End = end, Tag = imageName };
             return item;
         }
 
@@ -211,6 +235,16 @@ namespace Planact.App.Controls
 
                 // set flag
                 loaded = true;
+            }
+        }
+
+        private void Grid_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if(historyGrid!=null)
+            {
+                historyGrid.Width = HistoryTimelineContent.ActualWidth;
+                historyGrid.Height = HistoryTimelineContent.ActualHeight;
+                historyGrid.SetupItems();
             }
         }
     }

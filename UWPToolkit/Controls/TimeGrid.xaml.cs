@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -65,7 +66,17 @@ namespace UWPToolkit.Controls
             TimeGridContainer.RowDefinitions.Clear();
             foreach (var item in TimeGridContainer.Children)
             {
+                // remove canvas children
                 (item as Canvas)?.Children.Clear();
+
+                // remove indirectly
+                var subItems = (item as Grid)?.Children;
+                if (subItems != null) {
+                    foreach (var subitem in subItems)
+                    {
+                        (subitem as Canvas)?.Children.Clear();
+                    }
+                }
             }
             TimeGridContainer.Children.Clear();
 
@@ -151,6 +162,71 @@ namespace UWPToolkit.Controls
                     }
                 }
             }
+            else if(Mode == TimeGridMode.Month)
+            {
+                var firstStart = DateTime.Today.Date.AddDays(-(int)DateTime.Today.DayOfWeek);
+
+                for (int week = 0; week < 4; ++week)
+                {
+                    TimeGridContainer.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
+
+                    // setup container visual 
+                    Border background = new Border
+                    {
+                        Background = new SolidColorBrush(Color.FromArgb(255, 15, 15, 15)),
+                        BorderBrush = new SolidColorBrush(Color.FromArgb(255, 30, 30, 30)),
+                        BorderThickness = new Thickness(1),
+                    };
+                    TimeGridContainer.Children.Add(background);
+                    Grid.SetRow(background, week);
+
+                    // setup visual 
+                    var grid = new Grid();
+                    var startOfWeek = firstStart.AddDays(-7 * week);
+                    for (int day = 0; day < 7; ++day)
+                    {
+                        grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star)});
+
+                        var start = startOfWeek.AddDays(day);
+                        var end = start.AddDays(1);
+
+                        var canvas = FillItemsVerticallyInContainer(Items, start, end, new Size(Width/7, Height/4));
+                        Grid.SetColumn(canvas, day);
+                        grid.Children.Add(canvas);
+                    }
+                    Grid.SetRow(grid, week);
+                    TimeGridContainer.Children.Add(grid);
+                }
+            }
+            else if(Mode==TimeGridMode.Year)
+            {
+
+            }
+        }
+
+        private Canvas FillItemsVerticallyInContainer(List<TimelineItem> items, DateTime start, DateTime end, Size size)
+        {
+            var canvas = new Canvas();
+            canvas.Width = size.Width;
+            canvas.Height = size.Height;
+            var totalDuration = end - start;
+            var margin = canvas.Width / 5;
+
+            foreach (var item in items.Where(i => i.Start > start && i.End < end).OrderBy(i => i.Start))
+            {
+                var top = (item.Start - start).TotalSeconds / totalDuration.TotalSeconds * canvas.Height;
+                var height = (item.End - item.Start).TotalSeconds / totalDuration.TotalSeconds * canvas.Height;
+                var width = canvas.Width - 2 * margin;
+                var left = margin;
+                item.Visual.Height = height;
+                item.Visual.Width = width;
+
+                Canvas.SetLeft(item.Visual,left);
+                Canvas.SetTop(item.Visual,top);
+                canvas.Children.Add(item.Visual);
+            }
+
+            return canvas;
         }
     }
 }

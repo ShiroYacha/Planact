@@ -117,7 +117,6 @@ namespace Planact.App.Controls
                 else if(state==2)
                 {
                     DateTimeFormatInfo dfi = DateTimeFormatInfo.CurrentInfo;
-                    DateTime date1 = new DateTime(2011, 1, 1);
                     Calendar cal = dfi.Calendar;
                     var currentWeekNum = cal.GetWeekOfYear(DateTime.Today, dfi.CalendarWeekRule, dfi.FirstDayOfWeek);
                     for (var i = 0; i < 4; ++i)

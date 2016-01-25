@@ -60,7 +60,7 @@ namespace Planact.DesignTime
             const int withinMonthes = 3;
 
             return unfilteredData.Where(p => 
-                p.CompletedTimestamp > DateTime.Today.AddMonths(-withinMonthes) &&
+                p.CreatedTimestamp> DateTime.Today.AddMonths(-withinMonthes) &&
                 p.Deadline.HasValue
             );
         }

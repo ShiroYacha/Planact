@@ -75,7 +75,7 @@
                                          HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
                     <uwpctrls:SwipeableItem.Content>
                         <Grid Background="#0E0E0E">
-                            <uwpctrls:Timeline x:Name="HistoryTodayTimeline" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                            <uwpctrls:Timeline x:Name="HistoryTodayTimeline" Visibility="Visible"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
                         </Grid>
                     </uwpctrls:SwipeableItem.Content>
                     <uwpctrls:SwipeableItem.LeftOrTopContentTemplate>
@@ -89,7 +89,7 @@
                         </DataTemplate>
                     </uwpctrls:SwipeableItem.RightOrButtomContentTemplate>
                 </uwpctrls:SwipeableItem>
-                <uwpctrls:TimeGrid Name="HistoryTimelineContent" Grid.Column="1"/>
+                <Grid Name="HistoryTimelineContent" Grid.Column="1"/>
             </Grid>
             <uwpctrls:SwipeableItem Name="HistoryTimelineHeader" Background="Fuchsia" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" LeftOrTopBehavior="Expand" RightOrButtomBehavior="Expand">
                 <uwpctrls:SwipeableItem.LeftOrTopContentTemplate>

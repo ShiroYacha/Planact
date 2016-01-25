@@ -33,33 +33,72 @@ namespace Planact.App.Controls
             this.InitializeComponent();
             CurrentTimeline.ItemSwipe += CurrentTimeline_ItemSwipe;
             HistoryTimeline.ItemSwipe += HistoryTimeline_ItemSwipe;
+            HistoryTimelineHeader.ItemSwipe += HistoryTimelineHeader_ItemSwipe;
             Timeline.Start = DateTime.Now;
             Timeline.End = DateTime.Today.AddDays(1);
         }
 
+        private TimeGrid historyGrid;
+
+        private void HistoryTimelineHeader_ItemSwipe(object sender, ItemSwipeEventArgs e)
+        {
+            if(e.Direction==SwipeListDirection.Right)
+            {
+                if(historyGrid==null)
+                {
+                    // create time grid
+                    historyGrid = new TimeGrid();
+
+                    // set as content
+                    HistoryTimelineContent.Children.Clear();
+                    HistoryTimelineContent.Children.Add(historyGrid);
+                }
+
+                HistoryTodayTimeline.Visibility = Visibility.Collapsed;
+
+                historyGrid.Items = CreateTimelineItemsFor(DateTime.Today.AddDays(-6), DateTime.Today.AddDays(1));
+                historyGrid.Width = ActualWidth - CurrentTimeline.ActualWidth;
+                historyGrid.Height = CurrentTimeline.ActualHeight;
+                historyGrid.SetupItems();
+            }
+            else
+            {
+                HistoryTimelineContent.Children.Clear();
+
+                HistoryTodayTimeline.Visibility = Visibility.Visible;
+            }
+
+            HistoryTimelineHeader.ResetSwipe();
+        }
+
+
+
         private void HistoryTimeline_ItemSwipe(object sender, UWPToolkit.Controls.ItemSwipeEventArgs e)
         {
-            CurrentGrid.Visibility = Visibility.Visible;
-            HistoryGrid.Visibility = Visibility.Collapsed;
+            if(e.Direction == SwipeListDirection.Buttom)
+            {
+                // toggle visibility
+                CurrentGrid.Visibility = Visibility.Visible;
+                HistoryGrid.Visibility = Visibility.Collapsed;
+            }
             HistoryTimeline.ResetSwipe();
         }
 
         private void CurrentTimeline_ItemSwipe(object sender, UWPToolkit.Controls.ItemSwipeEventArgs e)
         {
-            double height = CurrentTimeline.ActualHeight;
-            HistoryGrid.Visibility = Visibility.Visible;
-            CurrentGrid.Visibility = Visibility.Collapsed;
-            CurrentTimeline.ResetSwipe();
+            if(e.Direction == SwipeListDirection.Top)
+            {
+                // toggle visibility
+                HistoryGrid.Visibility = Visibility.Visible;
+                CurrentGrid.Visibility = Visibility.Collapsed;
 
-            // invalidate 
-            HistoryTodayTimeline.Start = DateTime.Today.AddHours(7);
-            HistoryTodayTimeline.End = DateTime.Today.AddDays(1);
-            HistoryTodayTimeline.Items = CreateTimelineItemsFor(DateTime.Today.Date, DateTime.Today.AddDays(1));
-            HistoryTimelineContent.Items = CreateTimelineItemsFor(DateTime.Today.AddDays(-7), DateTime.Today);
-            HistoryTimelineContent.Width = ActualWidth - CurrentTimeline.ActualWidth;
-            HistoryTimelineContent.Height = CurrentTimeline.ActualHeight;
-            HistoryTodayTimeline.SetupItems(height);
-            HistoryTimelineContent.SetupItems();
+                // invalidate 
+                HistoryTodayTimeline.Start = DateTime.Today.AddHours(7);
+                HistoryTodayTimeline.End = DateTime.Today.AddDays(1);
+                HistoryTodayTimeline.Items = CreateTimelineItemsFor(DateTime.Today.Date, DateTime.Today.AddDays(1));
+                HistoryTodayTimeline.SetupItems(CurrentTimeline.ActualHeight);
+            }
+            CurrentTimeline.ResetSwipe();
         }
 
         public List<TimelineItem> CurrentTimelineItems

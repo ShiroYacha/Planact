@@ -70,7 +70,7 @@ namespace UWPToolkit.Controls
                 {
                     // setups
                     var start = DateTime.Today.AddHours(7).AddDays(-day);
-                    var end = DateTime.Today.AddHours(7).AddDays(-day+1);
+                    var end = DateTime.Today.AddHours(2).AddDays(-day+1);
                     var totalDuration = end - start;
 
                     // setup and add to container
@@ -81,7 +81,7 @@ namespace UWPToolkit.Controls
                     TimeGridContainer.Children.Add(canvas);
 
                     // render items
-                    foreach(var item in Items.Where(i=>i.Start> start && i.Start< end))
+                    foreach (var item in Items.Where(i=>i.Start> start && i.Start< end))
                     {
                         // setup visual 
                         var visual = item.Visual;

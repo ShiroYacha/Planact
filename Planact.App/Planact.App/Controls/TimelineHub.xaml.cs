@@ -3,6 +3,7 @@ using Planact.Common;
 using Planact.DesignTime;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -40,11 +41,25 @@ namespace Planact.App.Controls
 
         private TimeGrid historyGrid;
 
+        private int state = 0;
+
         private void HistoryTimelineHeader_ItemSwipe(object sender, ItemSwipeEventArgs e)
         {
             if(e.Direction==SwipeListDirection.Right)
             {
-                if(historyGrid==null)
+                // update state
+                state++;
+                if(state==3)
+                {
+                    HistoryTimelineHeader.RightOrButtomBehavior = SwipeListBehavior.Disabled;
+                }
+                else
+                {
+                    HistoryTimelineHeader.RightOrButtomBehavior = SwipeListBehavior.Expand;
+                }
+
+
+                if (historyGrid==null)
                 {
                     // create time grid
                     historyGrid = new TimeGrid();
@@ -54,46 +69,134 @@ namespace Planact.App.Controls
                     HistoryTimelineContent.Children.Add(historyGrid);
                     historyGrid.HorizontalAlignment = HorizontalAlignment.Stretch;
                     historyGrid.VerticalAlignment = VerticalAlignment.Stretch;
-
-                    // set history bar content
-                    for(var i=0;i<7;++i)
-                    {
-                        var code = DateTime.Today.AddDays(-i).DayOfWeek.ToString().Substring(0, 3);
-                        HistoryTodayBar.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
-                        TextBlock text = new TextBlock();
-                        text.Text = code;
-                        text.FontSize = 20;
-                        text.FontWeight = FontWeights.ExtraLight;
-                        text.VerticalAlignment = VerticalAlignment.Center;
-                        text.HorizontalAlignment = HorizontalAlignment.Center;
-                        Border background = new Border
-                        {
-                            Background = new SolidColorBrush(Color.FromArgb(255, 10, 10, 10)),
-                            BorderBrush = new SolidColorBrush(Color.FromArgb(255, 30, 30, 30)),
-                            BorderThickness = new Thickness(1)
-                        };
-                        HistoryTodayBar.Children.Add(background);
-                        HistoryTodayBar.Children.Add(text);
-                        Grid.SetRow(background, i);
-                        Grid.SetRow(text, i);
-                    }
                 }
 
-                HistoryTodayTimeline.Visibility = Visibility.Collapsed;
-                HistoryTodayBar.Visibility = Visibility.Visible;
-
-
-                historyGrid.Items = CreateTimelineItemsFor(DateTime.Today.AddDays(-6), DateTime.Today.AddDays(1));
-                historyGrid.Width = ActualWidth - CurrentTimeline.ActualWidth;
-                historyGrid.Height = CurrentTimeline.ActualHeight;
-                historyGrid.SetupItems();
+                // setup content
+                SetupHistoryGrid(state);
+                SetupHistoryBarContent(state);
             }
             else
             {
-                HistoryTodayTimeline.Visibility = Visibility.Visible;
+                // update state
+                state--;
+                if (state == 0)
+                {
+                    HistoryTimelineHeader.LeftOrTopBehavior = SwipeListBehavior.Disabled;
+                }
+                else
+                {
+                    HistoryTimelineHeader.LeftOrTopBehavior = SwipeListBehavior.Expand;
+                }
+
+                // setup content
+                SetupHistoryGrid(state);
+                SetupHistoryBarContent(state);
             }
 
             HistoryTimelineHeader.ResetSwipe();
+        }
+
+        private void SetupHistoryBarContent(int state)
+        {
+            if(state==0)
+            {
+                HistoryTodayTimeline.Visibility = Visibility.Visible;
+                HistoryTodayBar.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                var codes = new List<string>();
+
+                if(state==1)
+                {
+                    for(var i=0; i<7; ++i)
+                    {
+                        codes.Add(DateTime.Today.AddDays(-i).DayOfWeek.ToString().Substring(0, 3));
+                    }
+                }
+                else if(state==2)
+                {
+                    DateTimeFormatInfo dfi = DateTimeFormatInfo.CurrentInfo;
+                    DateTime date1 = new DateTime(2011, 1, 1);
+                    Calendar cal = dfi.Calendar;
+                    var currentWeekNum = cal.GetWeekOfYear(DateTime.Today, dfi.CalendarWeekRule, dfi.FirstDayOfWeek);
+                    for (var i = 0; i < 4; ++i)
+                    {
+                        codes.Add($"W{currentWeekNum-i}");
+                    }
+                }
+                else if(state ==3)
+                {
+                    for (var i = 0; i < 12; ++i)
+                    {
+                        var currentMonth = DateTime.Today.Month - i <= 0?12+ DateTime.Today.Month - i: DateTime.Today.Month - i;
+                        codes.Add(CultureInfo.CurrentCulture.DateTimeFormat.GetAbbreviatedMonthName(currentMonth));
+                    }
+                }
+
+                HistoryTodayBar.RowDefinitions.Clear();
+                HistoryTodayBar.Children.Clear();
+
+                // set history bar content
+                for (var i = 0; i < codes.Count; ++i)
+                {
+                    HistoryTodayBar.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
+                    TextBlock text = new TextBlock();
+                    text.Text = codes[i];
+                    text.FontSize = 20;
+                    text.FontWeight = FontWeights.ExtraLight;
+                    text.VerticalAlignment = VerticalAlignment.Center;
+                    text.HorizontalAlignment = HorizontalAlignment.Center;
+                    Border background = new Border
+                    {
+                        Background = new SolidColorBrush(Color.FromArgb(255, 10, 10, 10)),
+                        BorderBrush = new SolidColorBrush(Color.FromArgb(255, 30, 30, 30)),
+                        BorderThickness = new Thickness(1)
+                    };
+                    HistoryTodayBar.Children.Add(background);
+                    HistoryTodayBar.Children.Add(text);
+                    Grid.SetRow(background, i);
+                    Grid.SetRow(text, i);
+                }
+
+
+                HistoryTodayTimeline.Visibility = Visibility.Collapsed;
+                HistoryTodayBar.Visibility = Visibility.Visible;
+            }
+        }
+
+
+
+        private void SetupHistoryGrid(int state)
+        {
+            if(state==0)
+            {
+                historyGrid.Visibility = Visibility.Collapsed;
+            }
+            else 
+            {
+                historyGrid.Width = ActualWidth - CurrentTimeline.ActualWidth;
+                historyGrid.Height = CurrentTimeline.ActualHeight;
+
+                if (state == 1)
+                {
+                    historyGrid.Mode = TimeGridMode.Week;
+                    historyGrid.Items = CreateTimelineItemsFor(DateTime.Today.AddDays(-6), DateTime.Today.AddDays(1));
+                }
+                else if(state==2)
+                {
+                    historyGrid.Mode = TimeGridMode.Month;
+                    historyGrid.Items = CreateTimelineItemsFor(DateTime.Today.AddDays(-30), DateTime.Today.AddDays(1));
+                }
+                else if(state ==3)
+                {
+                    historyGrid.Mode = TimeGridMode.Year;
+                    historyGrid.Items = CreateTimelineItemsFor(DateTime.Today.AddDays(-365), DateTime.Today.AddDays(1));
+                }
+
+                historyGrid.SetupItems();
+            }
+
         }
 
         private void HistoryTimeline_ItemSwipe(object sender, UWPToolkit.Controls.ItemSwipeEventArgs e)

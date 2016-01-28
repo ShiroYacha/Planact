@@ -85,7 +85,7 @@ namespace Planact.App.Controls
                 }
                 else
                 {
-                    HistoryTimelineHeader.LeftOrTopBehavior = SwipeListBehavior.Expand;
+                    HistoryTimelineHeader.RightOrButtomBehavior = SwipeListBehavior.Expand;
                 }
 
                 // setup content
@@ -116,12 +116,10 @@ namespace Planact.App.Controls
                 }
                 else if(state==2)
                 {
-                    DateTimeFormatInfo dfi = DateTimeFormatInfo.CurrentInfo;
-                    Calendar cal = dfi.Calendar;
-                    var currentWeekNum = cal.GetWeekOfYear(DateTime.Today, dfi.CalendarWeekRule, dfi.FirstDayOfWeek);
+
                     for (var i = 0; i < 4; ++i)
                     {
-                        codes.Add($"W{currentWeekNum-i}");
+                        codes.Add($"W{DateTime.Today.GetWeekNumberOfYear() - i}");
                     }
                 }
                 else if(state ==3)

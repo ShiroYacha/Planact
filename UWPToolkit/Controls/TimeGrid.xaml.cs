@@ -77,6 +77,7 @@ namespace UWPToolkit.Controls
                         (subitem as Canvas)?.Children.Clear();
                     }
                 }
+                subItems?.Clear();
             }
             TimeGridContainer.Children.Clear();
 
@@ -92,7 +93,7 @@ namespace UWPToolkit.Controls
                 {
                     // setups
                     var start = DateTime.Today.AddHours(7).AddDays(-day);
-                    var end = DateTime.Today.AddHours(2).AddDays(-day+1);
+                    var end = DateTime.Today.AddHours(2).AddDays(-day + 1);
                     var totalDuration = end - start;
 
                     // setup border
@@ -117,17 +118,17 @@ namespace UWPToolkit.Controls
                     var height = (canvas.Height - marginHeight * 5) / 2;
 
                     // filter items
-                    var filteredItems = Items.Where(i => i.Start > start && i.Start < end).OrderBy(i=>i.Start).ToList();
+                    var filteredItems = Items.Where(i => i.Start > start && i.Start < end).OrderBy(i => i.Start).ToList();
 
                     // compute icons
                     var iconDict = new Dictionary<int, Image>();
                     var lastIcon = "";
-                    for (var i=0; i< filteredItems.Count; ++i)
+                    for (var i = 0; i < filteredItems.Count; ++i)
                     {
                         var currentIcon = filteredItems[i].Tag;
-                        if(lastIcon!=currentIcon)
+                        if (lastIcon != currentIcon)
                         {
-                            iconDict.Add(i, new Image() { Source = new BitmapImage(new Uri($"ms-appx://Planact.App/Assets/{currentIcon}"))});
+                            iconDict.Add(i, new Image() { Source = new BitmapImage(new Uri($"ms-appx://Planact.App/Assets/{currentIcon}")) });
                             lastIcon = currentIcon;
                         }
                     }
@@ -143,9 +144,9 @@ namespace UWPToolkit.Controls
                         if (iconDict.ContainsKey(i))
                         {
                             var icon = iconDict[i];
-                            icon.Height = height/1.5;
-                            Canvas.SetLeft(icon, left - icon.ActualWidth/3);
-                            Canvas.SetTop(icon, marginHeight*2+height/2-icon.Height/2);
+                            icon.Height = height / 1.5;
+                            Canvas.SetLeft(icon, left - icon.ActualWidth / 3);
+                            Canvas.SetTop(icon, marginHeight * 2 + height / 2 - icon.Height / 2);
                             canvas.Children.Add(icon);
                         }
 
@@ -153,7 +154,7 @@ namespace UWPToolkit.Controls
                         // setup visual 
                         var visual = item.Visual;
                         visual.Height = height;
-                        visual.Width = (item.End - item.Start).TotalSeconds/ totalDuration.TotalSeconds * canvas.Width;
+                        visual.Width = (item.End - item.Start).TotalSeconds / totalDuration.TotalSeconds * canvas.Width;
 
                         // add to canvas
                         Canvas.SetLeft(item.Visual, left);
@@ -162,11 +163,11 @@ namespace UWPToolkit.Controls
                     }
                 }
             }
-            else if(Mode == TimeGridMode.Month)
+            else if (Mode == TimeGridMode.Month)
             {
-                var firstStart = DateTime.Today.Date.AddDays(-(int)DateTime.Today.DayOfWeek);
+                var firstStart = DateTime.Today.Date.AddDays(-(int)DateTime.Today.DayOfYear);
 
-                for (int week = 0; week < 4; ++week)
+                for (int w = 0; w < 4; ++w)
                 {
                     TimeGridContainer.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
 
@@ -178,29 +179,65 @@ namespace UWPToolkit.Controls
                         BorderThickness = new Thickness(1),
                     };
                     TimeGridContainer.Children.Add(background);
-                    Grid.SetRow(background, week);
+                    Grid.SetRow(background, w);
 
                     // setup visual 
                     var grid = new Grid();
-                    var startOfWeek = firstStart.AddDays(-7 * week);
-                    for (int day = 0; day < 7; ++day)
+                    var startOfWeek = firstStart.AddDays(-7 * w);
+                    for (int d = 0; d < 7; ++d)
                     {
-                        grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star)});
+                        grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
 
-                        var start = startOfWeek.AddDays(day);
+                        var start = startOfWeek.AddDays(d);
                         var end = start.AddDays(1);
 
-                        var canvas = FillItemsVerticallyInContainer(Items, start, end, new Size(Width/7, Height/4));
-                        Grid.SetColumn(canvas, day);
+                        var canvas = FillItemsVerticallyInContainer(Items, start, end, new Size(Width / 7, Height / 4));
+                        Grid.SetColumn(canvas, d);
                         grid.Children.Add(canvas);
                     }
-                    Grid.SetRow(grid, week);
+                    Grid.SetRow(grid, w);
                     TimeGridContainer.Children.Add(grid);
                 }
             }
-            else if(Mode==TimeGridMode.Year)
+            else if (Mode == TimeGridMode.Year)
             {
 
+                for (int m = 0; m < 12; ++m)
+                {
+                    TimeGridContainer.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
+
+                    var month = DateTime.Today.Month - m;
+                    var year = month < 0 ? DateTime.Today.Year - 1 : DateTime.Today.Year;
+                    month = month <= 0 ? month + 12 : month;
+                    var start = new DateTime(year, month, 1);
+                    var end = month < 12 ? new DateTime(year, month + 1, 1).AddDays(-1): new DateTime(year,12, 31);
+                    var days = (end - start).TotalDays + 1;
+
+                    // setup container visual 
+                    Border background = new Border
+                    {
+                        Background = new SolidColorBrush(Color.FromArgb(255, 15, 15, 15)),
+                        BorderBrush = new SolidColorBrush(Color.FromArgb(255, 30, 30, 30)),
+                        BorderThickness = new Thickness(1),
+                    };
+                    TimeGridContainer.Children.Add(background);
+                    Grid.SetRow(background, m);
+
+                    // setup visual 
+                    var grid = new Grid();
+                    for (int d = 0; d< 31; ++d)
+                    {
+                        grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+                    }
+                    for (int d = 0; d < days; ++d)
+                    {
+                        var canvas = FillItemsVerticallyInContainer(Items, start.AddDays(d), start.AddDays(d+1), new Size(Width / 31, Height / 12));
+                        Grid.SetColumn(canvas, d);
+                        grid.Children.Add(canvas);
+                    }
+                    Grid.SetRow(grid, m);
+                    TimeGridContainer.Children.Add(grid);
+                }
             }
         }
 
@@ -221,8 +258,8 @@ namespace UWPToolkit.Controls
                 item.Visual.Height = height;
                 item.Visual.Width = width;
 
-                Canvas.SetLeft(item.Visual,left);
-                Canvas.SetTop(item.Visual,top);
+                Canvas.SetLeft(item.Visual, left);
+                Canvas.SetTop(item.Visual, top);
                 canvas.Children.Add(item.Visual);
             }
 
